@@ -1,0 +1,34 @@
+{
+  "private": true,
+  "name": " ",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped 'src/typescripts/**/*.ts' 'typings/custom/**/*.ts'",
+    "validate": "npm ls",
+    "watch": "webpack --watch"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^6.6.0",
+    "awesome-typescript-loader": "^3.0.0-beta.17",
+    "bootstrap": "^4.0.0-alpha.5",
+    "css-loader": "^0.26.1",
+    "custom-tslint-formatters": "^2.0.0",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "navigo": "^4.0.0",
+    "node-sass": "^4.1.1",
+    "postcss-loader": "^1.2.1",
+    "pre-commit": "^1.2.2",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "tslint": "^4.2.0",
+    "tslint-eslint-rules": "^3.2.3",
+    "typescript": "^2.1.4",
+    "typings": "^2.1.0",
+    "webpack": "^2.1.0-beta.28"
+  }
+}

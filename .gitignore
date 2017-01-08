@@ -1,0 +1,6 @@
+*.log
+/vendor
+/node_modules
+.env
+.vagrant
+resources/assets/vendor

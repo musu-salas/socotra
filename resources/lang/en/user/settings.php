@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'page_title' => 'Account Settings',
+    'account_settings' => 'Account Settings',
+    'manage_preferences' => 'Manage your preferences',
+    'profile_photo' => 'Profile Photo',
+    'trust_verification' => 'Trust and Verification',
+    'account_verified' => 'Your account is verified',
+    'account_securely_connected' => 'Your account is securely connected with Facebook. Thanks for making ' . config('custom.code') . ' safe and trusty place.',
+    'facebook_connected' => 'Facebook connected',
+    'facebook_connect' => 'Connect Facebook',
+    'verify_account' => 'Please verify your account by connecting to Facebook. We respect privacy and trust, and never spam or post on your behalf.',
+    'trusty_community' => 'We wish to make our community trusty and safe for everyone. By connecting with Facebook we verify your account.',
+    'getting_verified_account' => 'Getting a verified account is a great way to help build trust in our community.',
+    'main_info' => 'Main information',
+    'city_you_live' => 'In which city do you live?',
+    'geographical_location' => 'General geographical location that matches your interest for classes.',
+    'city_examples' => 'e.g. New York, NY / London, UK / Bali, Indonesia',
+    'newsletter' => 'Newsletter',
+    'keep_updated_progress' => 'Keep me updated with community progress',
+    'update_password' => 'Update account password',
+    'save_create_class' => 'Save &amp; Create your class',
+    'crop_photo' => 'Crop Your Photo',
+    'problem_uploading_photo' => 'There was a problem uploading profile photo.',
+];

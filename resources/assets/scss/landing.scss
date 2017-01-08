@@ -1,0 +1,256 @@
+@import 
+  // Bootstrap default variables.
+  '../node_modules/bootstrap/scss/variables',
+
+  // Overwriding default Bootstrap variables.
+  'custom-bootstrap/variables',
+
+  // Official Bootstrap dependencies.
+  '../node_modules/bootstrap/scss/mixins';
+
+$gren: #a2dad9;
+$green-dark: #6ba4a3;
+$font-size-paragraph: $font-size-base + 0.1rem;
+
+body {
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+
+h1, h4 {
+  font-size: $font-size-h4;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: $font-size-paragraph;
+  line-height: 1.3;
+}
+
+h3 {
+  position: relative;
+  padding-left: 2rem;
+  font-size: $font-size-h5;
+  font-weight: 500;
+  color: $green-dark;
+  line-height: 1.25;
+
+  &:before {
+    position: absolute;
+    top: -0.1rem;
+    left: 0.3rem;
+    content: '';
+    display: block;
+    width: 11px;
+    height: 20px;
+    border: solid $gray;
+    border-width: 0 3px 3px 0;
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
+.btn {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.landing- {
+  &-primary-background {
+    background-color: rgba($gren, 0.4);
+  }
+
+  &-btn-action {
+    font-weight: 500;
+  }
+  
+  &-main {
+    padding-top: 3rem;
+
+    &-container {
+      max-height: 45rem;
+      border-bottom: solid 1px $gray-lighter;
+      background-image: -webkit-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 14px);
+      background-image: -moz-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 14px);
+      background-image: -o-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 14px);
+      background-image: linear-gradient(to top,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 14px);
+      overflow: hidden;
+    }
+
+    &-column {
+      padding: 0;
+    }
+  }
+
+  &-features {
+    &-heading {
+      font-size: $font-size-h5;
+
+      &:before {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        width: 60%;
+        height: 1px;
+        background-image: linear-gradient(to right, $gray-light 10%, rgba($body-bg, 0) 0%);
+        background-position: top;
+        background-size: 10px 1px;
+        background-repeat: repeat-x;
+      }
+
+      span {
+        background: $body-bg;
+      }
+    }
+  }
+
+  &-feature {
+    cite {
+      color: $gray-light;
+      font-size: $font-size-xs;
+
+      &:before {
+        content: "* ";
+        font-size: $font-size-base;
+      }
+    }
+    
+    p {
+      font-size: $font-size-paragraph;
+
+      sup {
+        top: -0.2em;
+        font-size: $font-size-base;
+      }
+    }
+  }
+
+  &-footer {
+    font-size: $font-size-sm;
+    background-color: $gray-lighter;
+    border-top: solid 1px rgba($gray, 0.1);
+
+    p {
+      margin: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 0.5rem;
+
+      a {
+        color: $gray-dark;
+        font-weight: 500;
+        text-decoration: initial;
+      }
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Medium screen size devices
+@include media-breakpoint-up(md) {
+  h1 {
+    margin-bottom: 0.25rem;
+    font-size: $font-size-h3;
+  }
+
+  h2 {
+    font-size: $font-size-base + 0.15rem;
+  }
+
+  h3 {}
+
+  .btn {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .landing- {
+    $mainHeight: 37rem;
+
+    &-main {
+      padding-top: 0;
+
+      &-container {
+        height: $mainHeight;
+
+        .container {
+          width: auto;
+          margin-right: 2rem !important;
+          margin-left: 2rem !important;
+        }
+      }
+
+      &-column {
+        min-height: 100%;
+      }
+    }
+
+    &-value-proposition {
+      top: $mainHeight / 2 - 2.5rem;
+      transform: translateY(-50%);
+    }
+
+    &-product-image {
+      width: 46rem;
+    }
+
+    &-feature {
+      $height: 12rem;
+
+      min-height: $height;
+
+      cite {
+        top: 105%;
+        right: 0;
+      }
+
+      img {
+        height: $height;
+      }
+
+      &-text {
+        top: $height / 2;
+        transform: translate(0, -50%);
+      }
+    }
+  }
+}
+
+// Large screen size devices
+@include media-breakpoint-up(lg) {
+  .landing- {
+    $mainHeight: 45rem;
+
+    &-main {
+      &-container {
+        height: $mainHeight;
+
+        .container {
+          width: map-get($container-max-widths, 'lg');
+          margin-right: auto !important;
+          margin-left: auto !important;
+        }
+      }
+    }
+
+    &-value-proposition {
+      top: $mainHeight / 2 - 2.5rem;
+    }
+
+    &-product-image {
+      width: 58rem;
+    }
+
+    &-features, &-features h3 {
+      width: 80%;
+    }
+  }
+}
