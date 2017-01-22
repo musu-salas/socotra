@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="{{ url('favicon.ico') }}"/>
 </head>
 <body>
-<div class="container-fluid pt-xs-1 landing--main-container landing--primary-background">
+<div class="container-fluid pos-xs-rel pt-xs-1 landing--main-container landing--primary-background">
     <header class="raw clearfix">
         <div class="col-xs-6">
             <a href="{{ url('/') }}" title="" class="btn btn-link text-capitalize">{{ config('custom.code') }}</a>
@@ -35,25 +35,24 @@
             <a href="{{ url('/login') }}" title="" class="btn btn-outline-secondary text-muted">Login</a>
         </div>
     </header>
-    <div class="container">
-        <main class="row clearfix landing--main">
-            <div class="col-md-5 col-lg-4 landing--main-column">
-                <div class="text-xs-center text-md-left pos-md-rel landing--value-proposition">
-                    <h1>Your class page online</h1>
-                    <h2 class="font-weight-normal mb-xs-2">Information that matters in front of your customers. Clear and simple.</h2>
-                    <div class="d-block">
-                        <a href="{{ url('/register?ref=landing-top') }}" title="" class="btn btn-primary landing--btn-action">Create your class page</a>
-                    </div>
+    <main class="row mx-lg-auto landing--main">
+        <div class="col-md-4 pos-md-sta">
+            <div id="value-proposition" class="text-xs-center landing--value-proposition">
+                <h1>Your class page online</h1>
+                <h2 class="font-weight-normal mb-xs-2">Information that matters in front of your customers. Clear and simple.</h2>
+                <div class="d-block">
+                    <a href="{{ url('/register?ref=landing-top') }}" title="" class="btn btn-primary landing--btn-action">Create your class page</a>
                 </div>
             </div>
-            <div class="col-md-7 col-lg-8 text-xs-center landing--main-column">
-                <img src="https://s24.postimg.org/4j8s8hnud/mobile_apps_lineup.png" alt="" class="hidden-md-up mt-xs-2 w-100 landing--product-image" />
-                <img src="https://s27.postimg.org/9tcp4faj7/img_desktop_full.png" alt="" class="hidden-sm-down ml-lg-1 landing--product-image" />
-            </div>
-        </main>
-    </div>
+        </div>
+        <div class="col-md-8 px-xs-0">
+            <img src="{{ asset('images/landing--photography-class-desktop-page_210120172159.png') }}" alt="" class="hidden-sm-down landing--product-image" />
+            <img src="{{ asset('images/landing--photography-class-mobile-page_220120172153.png') }}" alt="" class="hidden-md-up mt-xs-2 w-100 landing--product-image" />
+        </div>
+    </main>
+    <div class="pos-xs-abs landing--main-shadow"></div>
 </div>
-<div class="container pt-xs-3 pt-md-3">
+<div id="features" class="container pt-xs-3 pt-md-3">
     <div class="mx-md-auto landing--features">
         <div class="pos-xs-rel mb-xs-1 text-xs-center landing--features-heading">
             <span class="pos-xs-rel px-xs-1">Benefits</span>

@@ -1,4 +1,4 @@
-@import 
+@import
   // Bootstrap default variables.
   '../node_modules/bootstrap/scss/variables',
 
@@ -11,6 +11,7 @@
 $gren: #a2dad9;
 $green-dark: #6ba4a3;
 $font-size-paragraph: $font-size-base + 0.1rem;
+$mainHeight: 49rem;
 
 body {
   -webkit-font-smoothing: antialiased;
@@ -64,28 +65,31 @@ h3 {
   &-btn-action {
     font-weight: 500;
   }
-  
+
   &-main {
     padding-top: 3rem;
 
-    &-container {
-      max-height: 45rem;
-      border-bottom: solid 1px $gray-lighter;
-      background-image: -webkit-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 14px);
-      background-image: -moz-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 14px);
-      background-image: -o-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 14px);
-      background-image: linear-gradient(to top,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 14px);
-      overflow: hidden;
+    &-shadow {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 10%;
+      background-image: -webkit-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 15px);
+      background-image: -moz-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 15px);
+      background-image: -o-linear-gradient(bottom,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 15px);
+      background-image: linear-gradient(to top,rgba(0,0,0,.13) 0,rgba(0,0,0,0) 15px);
     }
 
-    &-column {
-      padding: 0;
+    &-container {
+      height: $mainHeight;
+      border-bottom: solid 1px $gray-lighter;
+      overflow: hidden;
     }
   }
 
   &-features {
     &-heading {
-      font-size: $font-size-h5;
+      font-size: $font-size-h4;
 
       &:before {
         content: " ";
@@ -116,7 +120,7 @@ h3 {
         font-size: $font-size-base;
       }
     }
-    
+
     p {
       font-size: $font-size-paragraph;
 
@@ -157,7 +161,7 @@ h3 {
 // Medium screen size devices
 @include media-breakpoint-up(md) {
   h1 {
-    margin-bottom: 0.25rem;
+    margin-bottom: 1rem;
     font-size: $font-size-h3;
   }
 
@@ -165,41 +169,35 @@ h3 {
     font-size: $font-size-base + 0.15rem;
   }
 
-  h3 {}
-
   .btn {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
 
   .landing- {
-    $mainHeight: 37rem;
+    $mainHeight: 34rem;
 
     &-main {
       padding-top: 0;
 
       &-container {
         height: $mainHeight;
-
-        .container {
-          width: auto;
-          margin-right: 2rem !important;
-          margin-left: 2rem !important;
-        }
-      }
-
-      &-column {
-        min-height: 100%;
       }
     }
 
     &-value-proposition {
+      position: relative;
       top: $mainHeight / 2 - 2.5rem;
       transform: translateY(-50%);
+
+      &.sticky {
+        position: fixed;
+        transform: none;
+      }
     }
 
     &-product-image {
-      width: 46rem;
+      width: 102%;
     }
 
     &-feature {
@@ -227,17 +225,13 @@ h3 {
 // Large screen size devices
 @include media-breakpoint-up(lg) {
   .landing- {
-    $mainHeight: 45rem;
+    $mainHeight: 46rem;
 
     &-main {
+      max-width: 1336px;
+
       &-container {
         height: $mainHeight;
-
-        .container {
-          width: map-get($container-max-widths, 'lg');
-          margin-right: auto !important;
-          margin-left: auto !important;
-        }
       }
     }
 
@@ -246,11 +240,32 @@ h3 {
     }
 
     &-product-image {
-      width: 58rem;
+      width: 105%;
     }
 
     &-features, &-features h3 {
       width: 80%;
+    }
+  }
+}
+
+// Extra large screen size devices
+@include media-breakpoint-up(xl) {
+  .landing- {
+    $mainHeight: 52rem;
+
+    &-main {
+      &-container {
+        height: $mainHeight;
+      }
+    }
+
+    &-value-proposition {
+      top: $mainHeight / 2 - 2.5rem;
+    }
+
+    &-product-image {
+      width: 102%;
     }
   }
 }

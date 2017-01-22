@@ -1,8 +1,6 @@
-'use strict';
+import * as MapInts from '../interfaces/Maps';
 
-import { ImmutableStringsMap, StringNumbersMap } from '../interfaces/Maps';
-
-export const queryStringToMap = (queryString: string = window.location.search): ImmutableStringsMap => {
+export function queryStringToMap(queryString: string = window.location.search): MapInts.ImmutableStringsMap {
   let query = queryString.substring(1);
 
   if (!query) {
@@ -12,11 +10,11 @@ export const queryStringToMap = (queryString: string = window.location.search): 
   return JSON.parse(`{"${decodeURI(query).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"')}"}`);
 };
 
-export const mapToQueryString = (map: ImmutableStringsMap, separator: string = '&'): string => {
+export function mapToQueryString(map: MapInts.ImmutableStringsMap, separator: string = '&'): string {
   return Object.keys(map).map((key) => `${key}=${map[key]}`).join(separator);
 };
 
-export const windowFromUrl = (url: string, title: string, features: StringNumbersMap = {}): Window => {
+export function windowFromUrl(url: string, title: string, features: MapInts.StringNumbersMap = {}): Window {
   const featuresWithDefault = _.assign({
     copyhistory: 'no',
     directories: 'no',

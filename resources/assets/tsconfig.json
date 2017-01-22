@@ -6,7 +6,7 @@
     "watch": true,
     "noImplicitAny": true,
     "rootDir": "typescripts",
-    "outDir": "../public/scripts",
+    "outDir": "bin",
     "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": false,

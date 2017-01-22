@@ -70,6 +70,73 @@
 /* 0 */
 /***/ function(module, exports) {
 
+"use strict";
+'use strict';
+var STICKY_FIXED_OFFSET = 40;
+var stickyEl = $('#value-proposition');
+var featuresEl = $('#features');
+var hasSticky = false;
+var styckyOffsets = {
+    min: 0,
+    max: 0
+};
+function setSticky() {
+    hasSticky = !stickyEl.parent().next().children('img').first().is(':hidden');
+}
+function setStickyOffsets() {
+    styckyOffsets.min = stickyEl.offset().top - STICKY_FIXED_OFFSET;
+    styckyOffsets.max = featuresEl.offset().top - stickyEl.height() - STICKY_FIXED_OFFSET * 2;
+}
+function setStickyState(state) {
+    stickyEl
+        .removeAttr('style');
+    switch (state) {
+        case 1:
+            stickyEl
+                .removeClass('sticky');
+            break;
+        case 2:
+            stickyEl
+                .addClass('sticky')
+                .css({
+                width: stickyEl.parent().width(),
+                top: STICKY_FIXED_OFFSET
+            });
+            break;
+        case 3:
+            stickyEl
+                .addClass('sticky')
+                .css({
+                top: 'auto',
+                bottom: STICKY_FIXED_OFFSET,
+                position: 'absolute',
+                width: stickyEl.parent().width()
+            });
+            break;
+    }
+}
+$(window)
+    .on('resize', function () {
+    setStickyOffsets();
+    setSticky();
+})
+    .on('scroll', function (e) {
+    if (!hasSticky) {
+        return;
+    }
+    var pageScrollTop = $(e.target).scrollTop();
+    if (pageScrollTop > styckyOffsets.max) {
+        setStickyState(3);
+    }
+    else if (pageScrollTop > styckyOffsets.min) {
+        setStickyState(2);
+    }
+    else {
+        setStickyState(1);
+    }
+});
+setStickyOffsets();
+setSticky();
 
 
 /***/ }
