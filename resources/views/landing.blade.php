@@ -46,8 +46,8 @@
             </div>
         </div>
         <div class="col-md-8 px-xs-0">
-            <img src="{{ asset('images/landing--photography-class-desktop-page_210120172159.png') }}" alt="" class="hidden-sm-down landing--product-image" />
-            <img src="{{ asset('images/landing--photography-class-mobile-page_220120172153.png') }}" alt="" class="hidden-md-up mt-xs-2 w-100 landing--product-image" />
+            <img src="{{ asset('images/landing/photography-class-desktop-page_210120172159.png') }}" alt="" class="hidden-sm-down landing--product-image" />
+            <img src="{{ asset('images/landing/photography-class-mobile-page_220120172153.png') }}" alt="" class="hidden-md-up mt-xs-2 w-100 landing--product-image" />
         </div>
     </main>
     <div class="pos-xs-abs landing--main-shadow"></div>
@@ -60,12 +60,12 @@
         <div class="row mb-xs-1 pt-xs-2 mb-md-3 pb-xs-1 landing--feature">
             <div class="col-md-7">
                 <div class="pos-xs-rel landing--feature-text">
-                    <h3>People explore your class, effortless</h3>
-                    <p>Share your class description, contact info, location, schedule and prices. Let customers learn what your class is all about.</p>
+                    <h3>People explore your class, effortlessly</h3>
+                    <p>Share your class description, contact info, location, schedule and prices. Let customers know what your class is all about.</p>
                 </div>
             </div>
             <div class="hidden-sm-down text-sm-center col-md-5 col-lg-4 offset-lg-1">
-                <img src="https://s24.postimg.org/r2u7ydxx1/Untitled_4.jpg" alt="">
+                <img src="{{ asset('images/landing/people-explore-your-class-effortlessly_060220170843.jpg') }}" alt="People explore your class, effortlessly">
             </div>
         </div>
         <div class="row mb-xs-1 pt-xs-2 mb-md-3 pb-xs-1 landing--feature">
@@ -73,7 +73,7 @@
                 <div class="pos-xs-rel landing--feature-text">
                     <h3>Mobile or computer, your class page is accessible from anywhere</h3>
                     <p>People spend more time on desktop and mobile combined<sup>*</sup>. Your class page is always reachable. Customers can get in touch with you from any device, any time.</p>
-                    <cite class="d-block pos-md-abs text-xs-right">eMarketer, April 2015, US</cite>
+                    <cite class="d-block pos-md-abs text-xs-right">eMarketer, April 2016, US</cite>
                 </div>
             </div>
             <div class="text-xs-center col-md-5 pull-md-7">
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="text-xs-center col-md-5 col-lg-6">
-                <img src="https://s24.postimg.org/4feys8id1/Untitled_3.jpg" alt="">
+                <img src="{{ asset('images/landing/personalise-your-class_060220170847.jpg') }}" alt="Personalise your class">
             </div>
         </div>
         <div class="row mb-xs-1 pt-xs-2 mb-md-3 pb-xs-1 landing--feature">
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <div class="text-xs-center col-md-5 pull-md-7">
-                <img src="https://s24.postimg.org/syh09jmr9/Untitled_1.jpg" alt="">
+                <img src="{{ asset('images/landing/add-multiple-locations_060220170845.jpg') }}" alt="Add multiple locations">
             </div>
         </div>
     </div>
