@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="hidden-sm-down text-sm-center col-md-5 col-lg-4 offset-lg-1">
-                <img src="{{ asset('images/landing/people-explore-your-class-effortlessly_060220170843.jpg') }}" alt="People explore your class, effortlessly">
+                <img src="{{ asset('images/landing/people-explore-your-class-effortlessly_070220170933.jpg') }}" alt="People explore your class, effortlessly">
             </div>
         </div>
         <div class="row mb-xs-1 pt-xs-2 mb-md-3 pb-xs-1 landing--feature">
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="text-xs-center col-md-5 pull-md-7">
-                <img src="https://s24.postimg.org/r5e3l81kl/Untitled_2.jpg" alt="">
+                <img src="{{ asset('images/landing/mobile-or-computer_070220170929.jpg') }}" alt="Mobile or computer, your class page is accessible from anywhere">
             </div>
         </div>
         <div class="row mb-xs-1 pt-xs-2 mb-md-3 pb-xs-1 landing--feature">
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <div class="text-xs-center col-md-5 pull-md-7">
-                <img src="{{ asset('images/landing/add-multiple-locations_060220170845.jpg') }}" alt="Add multiple locations">
+                <img src="{{ asset('images/landing/add-multiple-locations_070220170938.jpg') }}" alt="Add multiple locations">
             </div>
         </div>
     </div>
