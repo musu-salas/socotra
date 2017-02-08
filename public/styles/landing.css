@@ -77,6 +77,11 @@ h3 {
     content: "* ";
     font-size: 1rem; }
 
+.landing--feature img {
+  width: 100%;
+  max-width: 25rem;
+}
+
 .landing--feature p {
   font-size: 1.1rem; }
   .landing--feature p sup {
@@ -130,6 +135,8 @@ h3 {
       top: 105%;
       right: 0; }
     .landing--feature img {
+      width: auto;
+      max-width: auto;
       height: 12rem; }
     .landing--feature-text {
       top: 6rem;
@@ -155,5 +162,3 @@ h3 {
     top: 23.5rem; }
   .landing--product-image {
     width: 102%; } }
-
-/*# sourceMappingURL=landing.css.map*/
