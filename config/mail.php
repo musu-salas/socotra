@@ -56,7 +56,7 @@ return [
 
 	'from' => [
 	    'address' => env('MAIL_FROM_ADDRESS', 'mail@socotra.local'),
-        'name' => env('MAIL_FROM_NAME', 'socotra')
+        'name' => env('MAIL_FROM_NAME', title_case(config('custom.code')))
     ],
 
     /*
