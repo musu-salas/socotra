@@ -16,8 +16,8 @@ return [
         |-----------------------------------------------------------------------
         | Supported: A full url with a slash in the end.
         */
-       
-        's3_bucket_link' => 'https://'. env('S3_BUCKET') .'.s3.amazonaws.com/',
+
+        's3_bucket_link' => 'https://s3.' . env('S3_REGION') . '.amazonaws.com/' . env('S3_BUCKET') . '/',
 
         'user' => [
             'avatar' => [
