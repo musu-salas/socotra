@@ -11,43 +11,26 @@ use Validator;
 
 class LocationController extends Controller {
 
-    protected $group;
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Group $group) {
-        // This middleware is no longer needed here because it is added directly
-        // on the Route definitions inside routes.php
-		// $this->middleware('auth');
-
-        $this->group = $group;
-	}
-
-    public function index($groupId) {
+    /**
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Group $group) {
         $user = Auth::user();
-        $group = $this->group;
-
-        if (!$group) {
-            return redirect()->to('/home/classes');
-        }
-
         $locations = $group->locations;
 
         if (!count($locations)) {
-            return redirect()->to('/home/classes/' . $group->id . '/location/new');
+            return redirect()->to("/home/classes/{$group->id}/location/new");
         }
 
         if (count($locations) === 1) {
 
             // Redirects to the only location edition page, since it is not completed.
             if (!$locations[0]->is_full) {
-                return redirect()->to('/home/classes/' . $group->id . '/location/' . $locations[0]->id);
+                return redirect()->to("/home/classes/{$group->id}/location/{$locations[0]->id}");
 
             } elseif (!$locations[0]->latlng) {
-                return redirect()->to('/home/classes/' . $group->id . '/location/' . $locations[0]->id . '/map');
+                return redirect()->to("/home/classes/{$group->id}/location/{$locations[0]->id}/map");
             }
         }
 
@@ -59,9 +42,13 @@ class LocationController extends Controller {
         ]);
     }
 
-    public function show($groupId, $locationId) {
+    /**
+     * @param  \App\Group  $group
+     * @param string  $locationId
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Group $group, $locationId) {
         $user = Auth::user();
-        $group = $this->group;
         $location = null;
 
         if ($locationId !== 'new') {
@@ -81,7 +68,12 @@ class LocationController extends Controller {
         ]);
     }
 
-    public function store($groupId, $locationId) {
+    /**
+     * @param  \App\Group  $group
+     * @param  string  $locationId
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Group $group, $locationId) {
         foreach (Request::all() as $key => $value) {
             $xssCleanReq[$key] = trim(strip_tags($value));
         }
@@ -101,8 +93,6 @@ class LocationController extends Controller {
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation->errors());
         }
-
-        $group = $this->group;
 
         $location_attr = [
             'country_id' => $xssCleanReq['country_id'],
@@ -134,16 +124,20 @@ class LocationController extends Controller {
             $location->update($location_attr);
         }
 
-        return redirect('home/classes/' . $group->id . '/location/' . $location->id . '/map');
+        return redirect("home/classes/{$group->id}/location/{$location->id}/map");
     }
 
-    public function map($groupId, $locationId) {
+    /**
+     * @param  \App\Group  $group
+     * @param string  $locationId
+     * @return \Illuminate\Http\Response
+     */
+    public function map(Group $group, $locationId) {
         $user = Auth::user();
-        $group = $this->group;
         $location = $group->locations()->find($locationId);
 
         if (!$location) {
-            return redirect()->to('/home/classes/' . $group->id . '/location');
+            return redirect()->to("/home/classes/{$group->id}/location");
         }
 
         if (Request::isMethod('get')) {
@@ -158,6 +152,6 @@ class LocationController extends Controller {
         $location->latlng = trim(strip_tags(Request::input('latlng')));
         $location->save();
 
-        return redirect()->to('home/classes/' . $group->id . '/location');
+        return redirect()->to("home/classes/{$group->id}/location");
     }
 }

@@ -9,24 +9,14 @@ use Validator;
 
 class PricingController extends Controller {
 
-    protected $group;
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Group $group) {
-        // This middleware is no longer needed here because it is added directly
-        // on the Route definitions inside routes.php
-		// $this->middleware('auth');
-
-        $this->group = $group;
-	}
-
-    public function index() {
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Group $group) {
         $user = Auth::user();
-        $group = $this->group;
         $locations = $group->locations;
 
         if (!count($locations) || !$locations->first()->is_full) {
@@ -45,9 +35,15 @@ class PricingController extends Controller {
         ]);
     }
 
-    public function show($groupId, $priceId) {
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @param  string  $priceId
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Group $group, $priceId) {
         $user = Auth::user();
-        $group = $this->group;
         $locations = $group->locations;
         $price = null;
 
@@ -55,7 +51,7 @@ class PricingController extends Controller {
             $price = $group->pricing->find($priceId);
 
             if (!$price) {
-                return redirect()->to('/home/classes/' . $group->id . '/pricing');
+                return redirect()->to("/home/classes/{$group->id}/pricing");
             }
         }
 
@@ -79,7 +75,14 @@ class PricingController extends Controller {
         ]);
     }
 
-    public function store($groupId, $priceId) {
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @param  string  $priceId
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Group $group, $priceId) {
         foreach (Request::all() as $key => $value) {
             $xssCleanReq[$key] = !is_array($value) ? trim(strip_tags($value)) : $value;
         }
@@ -108,10 +111,10 @@ class PricingController extends Controller {
         }
 
         if (!count($prices)) {
-            return redirect()->back()->withInput()->withErrors(['msg' => 'At least one location has to have price assigned.']);
+            return redirect()->back()->withInput()->withErrors([
+                'msg' => 'At least one location has to have price assigned.'
+            ]);
         }
-
-        $group = $this->group;
 
         if ($priceId === 'new') {
             $price = GroupPricing::create([
@@ -130,6 +133,6 @@ class PricingController extends Controller {
 
         $price->locations()->sync($prices);
 
-        return redirect()->to('home/classes/' . $group->id . '/pricing');
+        return redirect()->to("home/classes/{$group->id}/pricing");
     }
 }

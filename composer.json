@@ -5,26 +5,27 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0",
-        "laravel/framework": "5.2.*",
-        "barryvdh/laravel-debugbar": "~2.0",
-        "guzzlehttp/guzzle": "~5.0",
-        "laravel/socialite": "~2.0.7",
-        "league/flysystem-aws-s3-v3": "~1.0",
-        "intervention/image": "^2.2",
-        "geoip/geoip": "^1.15",
+        "php": ">=7.1",
+        "aws/aws-sdk-php": "^3.24",
+        "barryvdh/laravel-debugbar": "^2.3",
         "doctrine/dbal": "^2.5",
-        "laravelcollective/html": "^5.2",
-        "aws/aws-sdk-php": "~3.0",
+        "geoip/geoip": "^1.17",
+        "guzzlehttp/guzzle": "^6.2",
+        "intervention/image": "^2.3",
+        "laravel/framework": "5.4.*",
+        "laravel/socialite": "^3.0",
+        "laravel/tinker": "~1.0",
+        "laravelcollective/html": "^5.4",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "ext-gd": "*"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~4.0",
-        "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*",
-        "laravel/homestead": "^3.0"
+        "fzaninotto/faker": "^1.6",
+        "laravel/homestead": "^5.0",
+        "mockery/mockery": "^0.9.9",
+        "phpunit/phpunit": "~5.7",
+        "symfony/css-selector": "^3.2",
+        "symfony/dom-crawler": "^3.2"
     },
     "autoload": {
         "classmap": [
@@ -35,9 +36,9 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "scripts": {
         "post-root-package-install": [
@@ -58,6 +59,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }

@@ -8,14 +8,12 @@ use Request;
 
 class GroupController extends Controller {
 
-    public function __construct() {
-        // We do not need middleware at this point.
-        //$this->middleware('auth');
-    }
-
-
-    public function index($groupId) {
-        $location = GroupLocation::where('group_id', $groupId)->first();
+    /**
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Group $group) {
+        $location = GroupLocation::where('group_id', $group->id)->first();
 
         if (!$location) {
             return abort(404);
@@ -25,21 +23,24 @@ class GroupController extends Controller {
     }
 
 
-    public function show($groupId, $locationId) {
-        $group = Group::find($groupId);
-
-        if (!$group) {
-            return abort(404);
-        }
-
+    /**
+     * @param  \App\Group  $group
+     * @param  string  $locationId
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Group $group, $locationId) {
         $locations = $group->locations;
         $location = $locations->find($locationId);
 
         if (!$location) {
-            $first = $locations->first();
+            $firstLocation = $locations->first();
+
+            if (!$firstLocation) {
+                return abort(404);
+            }
 
             // TODO: Perhaps, notify visitor, that requested location doesn't exist
-            return redirect()->to('classes/' . $group->id . '/' . ($first ? $first->id : ''));
+            return redirect()->to("classes/{$group->id}/{$firstLocation->id}");
         }
 
         // TODO: Move all this amateur art below into pro Eloquent model.

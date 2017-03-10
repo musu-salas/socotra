@@ -10,8 +10,8 @@
 @section('content')
 <div class="ui borderless menu" style="box-shadow: 0 0 1px rgba(39, 41, 43, 0.15); margin-bottom: 0;">
     <div class="ui page stackable doubling grid" style="margin: 0;">
-        <a class="item" href="{{ url('/') }}" title="{{ config('custom.code') }}">
-            <strong>{{ config('custom.code') }}</strong>
+        <a class="item" href="{{ url('/') }}" title="{{ config('app.name') }}">
+            <strong>{{ config('app.name') }}</strong>
         </a>
 
         @if($user)
@@ -155,7 +155,7 @@
                                 <div class="ui label">{{ $keyword }}</div>
                             @endforeach
                         </div>
-                        
+
                         <div class="ui divider"></div>
 
                         @if ($group->description)
@@ -216,7 +216,7 @@
                             @endif
 
                             @if($location->latlng)
-                                <div id="map" data-is-full="{{ $location->is_full }}" style="margin: 1rem 0 3rem; height: 14rem; position: relative;">
+                                <div id="map" data-is-full="{{ $location->is_full }}" style="margin: 1rem 0 3rem; min-height: 14rem; position: relative;">
                                     <div id="map-image" style="min-height: 10rem;"></div>
 
                                     @if($location->is_full)
@@ -401,9 +401,7 @@
 
             @if($photos_count)
                 <div class="ui stackable grid center aligned">
-                    <?php $photos = array_where($group->photos, function($index) {
-                        return $index < 4;
-                    }); ?>
+                    <?php $photos = $group->photos->slice(0, 4); ?>
 
                     @foreach($photos as $key => $photo)
                         <div class="four wide column" style="position: relative; cursor: pointer;" data-gallery="{{ $photo->id }}">

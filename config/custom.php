@@ -1,11 +1,9 @@
 <?php
 
 return [
-    'code' => env('APP_CODE', 'socotra'),
-
     'class' => [
         'max_photos' => 12,
-        'max_photosize' => 10 * 1024 * 1024,// in bytes
+        'max_photosize' => 10 * 1024 * 1024, // in bytes
     ],
 
     'aws' => [
@@ -42,17 +40,15 @@ return [
             |-------------------------------------------------------------------
             | AWS S3 - Class Photos Values
             |-------------------------------------------------------------------
-            | This is the maximum image width/height allowed by our system for 
-            | photos uploaded by users. It is used to prevent overuse and to 
+            | This is the maximum image width/height allowed by our system for
+            | photos uploaded by users. It is used to prevent overuse and to
             | keep file sizes in reasonable limits for faster loading.
             */
-            
+
             'photos' => [
 
                 // The keys 'original', 'large' & 'thumnail' must match the
                 // table columns or else you crashed.
-                
-                // TODO: Add JPEG quality modifier
 
                 'original' => [
                     'key' => '_o',
@@ -72,7 +68,7 @@ return [
                     'maxh' => 300
                 ]
             ],
-            
+
         ],
 
     ],

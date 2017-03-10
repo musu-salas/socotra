@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'page_title' => ':title · :creative_field in :City, :Country — ' . config('custom.code'),
+    'page_title' => ':title · :creative_field in :City, :Country — ' . config('app.name'),
     'your_class_is_public' => 'Your class is public',
     'your_class_sharable_link' => 'Here is the link `:link` to share on your social networks',
     'your_class_is_not_public' => 'Your class is not public',

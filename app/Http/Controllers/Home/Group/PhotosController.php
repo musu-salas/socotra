@@ -12,40 +12,36 @@ use Storage;
 
 class PhotosController extends Controller {
 
-    protected $group;
-
-	/** Create a new controller instance. */
-	public function __construct(Group $group) {
-        // This middleware is no longer needed here because it is added directly
-        // on the Route definitions inside routes.php
-		// $this->middleware('auth');
-
-        $this->group = $group;
-	}
-
-
     private function formatBytes($bytes, $precision = 2) {
         $base = log($bytes, 1024);
         $suffixes = ['bytes', 'kilobytes', 'megabytes', 'gigabytes', 'terabytes'];
 
         return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
-
     }
 
-
-    public function index($groupId) {
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Group $group) {
         //dd([ini_get('post_max_size'), ini_get('upload_max_filesize')]);
 
         return view('home.group.photos', [
             'user' => Auth::user(),
-            'group' => $this->group,
-            'menu' => $this->group->menu
+            'group' => $group,
+            'menu' => $group->menu
         ]);
     }
 
-
-    public function store($groupId) {
-        $group = $this->group;
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Group $group) {
         $validation = Validator::make(Request::all(), [
             'photo' => 'required|image|mimes:jpeg'
         ]);

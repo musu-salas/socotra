@@ -15,9 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-		Validator::resolver(function($translator, $data, $rules, $messages) {
-			return new HashValidator($translator, $data, $rules, $messages);
-		});
+      Validator::resolver(function($translator, $data, $rules, $messages) {
+        return new HashValidator($translator, $data, $rules, $messages);
+      });
     }
 
     /**
@@ -27,9 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-		$this->app->bind(
-            'Illuminate\Contracts\Auth\Registrar',
-            'App\Services\Registrar'
-		);
+		  $this->app->bind(
+        'Illuminate\Contracts\Auth\Registrar',
+        'App\Services\Registrar'
+		  );
     }
 }

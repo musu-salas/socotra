@@ -15,8 +15,8 @@
         <div class="ui dropdown item">
             <i class="dropdown icon" style="margin: 0;"></i>
             <div class="menu">
-                <a class="item" href="{{ url('/terms') }}">{{ trans('main_navigation.terms') }}</a>
-                {{--<a class="item" href="{{ url('/privacy') }}">{{ trans('main_navigation.privacy') }}</a>--}}
+                {{--<a class="item" href="{{ url('/terms') }}">{{ trans('main_navigation.terms') }}</a>
+                <a class="item" href="{{ url('/privacy-policy') }}">{{ trans('main_navigation.privacy') }}</a>--}}
                 <a class="item" href="{{ url('/logout') }}">{{ trans('main_navigation.logout') }}</a>
             </div>
         </div>

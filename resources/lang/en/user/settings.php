@@ -7,7 +7,7 @@ return [
     'profile_photo' => 'Profile Photo',
     'trust_verification' => 'Trust and Verification',
     'account_verified' => 'Your account is verified',
-    'account_securely_connected' => 'Your account is securely connected with Facebook. Thanks for making ' . config('custom.code') . ' safe and trusty place.',
+    'account_securely_connected' => 'Your account is securely connected with Facebook. Thanks for making ' . config('app.name') . ' safe and trusty place.',
     'facebook_connected' => 'Facebook connected',
     'facebook_connect' => 'Connect Facebook',
     'verify_account' => 'Please verify your account by connecting to Facebook. We respect privacy and trust, and never spam or post on your behalf.',

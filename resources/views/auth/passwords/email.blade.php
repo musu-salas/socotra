@@ -7,7 +7,7 @@
     <div class="ui centered page stackable doubling grid">
         <div class="ui six wide centered column">
             <br />
-            <h1 class="ui center aligned header">{{ config('custom.code') }}</h1>
+            <h1 class="ui center aligned header">{{ config('app.name') }}</h1>
         </div>
         <div class="ui eight wide column">
             <div class="ui segment">

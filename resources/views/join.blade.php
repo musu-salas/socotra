@@ -7,7 +7,7 @@
 <div class="ui centered page stackable doubling grid">
     <div class="ui ten wide centered column">
         <div class="ui segment piled" style="padding: 1rem 2rem;">
-            <h3 class="ui header center aligned"><br />{{ config('custom.code') }}</h3>
+            <h3 class="ui header center aligned"><br />{{ config('app.name') }}</h3>
             <p>
                 We are not available in your country yet.
                 However, please feel free to sign up with us below to stay up to date with cool things we make here preparing to launch in your country.

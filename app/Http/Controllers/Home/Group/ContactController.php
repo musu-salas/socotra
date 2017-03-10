@@ -8,24 +8,11 @@ use Validator;
 
 class ContactController extends Controller {
 
-    protected $group;
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Group $group) {
-        // This middleware is no longer needed here because it is added directly
-        // on the Route definitions inside routes.php
-		// $this->middleware('auth');
-
-        $this->group = $group;
-	}
-
-    public function index($groupId) {
-        $group = $this->group;
-
+    /**
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Group $group) {
         return view('home.group.contact.index', [
             'user' => Auth::user(),
             'group' => $group,
@@ -33,12 +20,15 @@ class ContactController extends Controller {
         ]);
     }
 
-    public function store($groupId) {
-        $group = $this->group;
-
+    /**
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Group $group) {
         $group->phone = strip_tags(Request::input('phone'));
         $group->save();
 
-        return redirect('home/classes/' . $group->id . '/contact')->with('success-message', 'Contact information was updated!');
+        return redirect("home/classes/{$group->id}/contact")
+            ->with('success-message', 'Contact information was updated!');
     }
 }

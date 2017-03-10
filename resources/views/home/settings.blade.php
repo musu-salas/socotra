@@ -5,8 +5,8 @@
 @section('content')
 <div class="ui fixed borderless menu" style="box-shadow: 0 0 1px rgba(39, 41, 43, 0.15);">
     <div class="ui page stackable doubling grid" style="margin: 0;">
-        <a class="item" href="{{ url('/') }}" title="{{ config('custom.code') }}">
-            <strong>{{ config('custom.code') }}</strong>
+        <a class="item" href="{{ url('/') }}" title="{{ config('app.name') }}">
+            <strong>{{ config('app.name') }}</strong>
         </a>
 
         @include('home.navigation', [
@@ -120,10 +120,10 @@
                             <div class="ui top attached large label">{{ trans('user/settings.main_info') }}</div>
                             <div>
 
-                                <div class="ui error message {{ $errors->has() ? 'visible' : '' }}">
+                                <div class="ui error message {{ $errors->count() ? 'visible' : '' }}">
                                     <div class="content">
                                         <ul class="list">
-                                            @if ($errors->has())
+                                            @if ($errors->count())
                                                 @foreach ($errors->all() as $error)
                                                     <li>{{ $error }}</li>
                                                 @endforeach

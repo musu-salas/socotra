@@ -15,14 +15,14 @@ class ApiUserMiddleware
 	 */
 	public function handle($request, Closure $next, $guard = null)
 	{
-		if (Auth::guard($guard)->check() && (integer) $request->route('userId') === Auth::user()->id) {
+		$user = $request->route('user');
+
+		if (Auth::guard($guard)->check() && $user->id === Auth::id()) {
 			return $next($request);
 		}
 
         return response()->json([
-            'errors' => [
-        	    'You\'re not authorized for modifications.'
-            ]
+            'errors' => [ 'You\'re not authorized for modifications.' ]
         ], 401);
 	}
 }
