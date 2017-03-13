@@ -16,12 +16,16 @@
     <link rel="shortcut icon" href="{{ url('favicon.ico') }}"/>
 </head>
 <body>
-	@yield('content')
+@yield('content')
 
-    {!! HTML::script( '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js' ) !!}
-    <script>window.jQuery || document.write('<script src="{!! asset('vendor/jquery-1.11.2.min.js') !!}"><\/script>')</script>
-    {!! HTML::script( asset('semantic.js') ) !!}
+@include('facebookPixel', [
+    'user' => isset($user) ? $user : null
+])
 
-    @yield('scripts')
+{!! HTML::script( '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js' ) !!}
+<script>window.jQuery || document.write('<script src="{!! asset('vendor/jquery-1.11.2.min.js') !!}"><\/script>')</script>
+{!! HTML::script( asset('semantic.js') ) !!}
+
+@yield('scripts')
 </body>
 </html>
