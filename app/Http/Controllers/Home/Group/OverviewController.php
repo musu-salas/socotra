@@ -8,24 +8,13 @@ use Validator;
 
 class OverviewController extends Controller {
 
-    protected $group;
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Group $group) {
-        // This middleware is no longer needed here because it is added directly
-        // on the Route definitions inside routes.php
-		// $this->middleware('auth');
-
-        $this->group = $group;
-	}
-
-    public function index($groupId) {
-        $group = $this->group;
-
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Group $group) {
         return view('home.group.overview', [
             'user' => Auth::user(),
             'group' => $group,
@@ -33,7 +22,13 @@ class OverviewController extends Controller {
         ]);
     }
 
-    public function store($groupId) {
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Group $group) {
         foreach (Request::all() as $key => $value) {
             $params[$key] = trim(strip_tags($value));
         }
@@ -48,7 +43,6 @@ class OverviewController extends Controller {
 
         $params['title'] = trim(preg_replace('/\s\s+/', ' ', $params['title']));
         $params['uvp'] = trim(preg_replace('/\s\s+/', ' ', $params['uvp']));
-        $group = $this->group;
         $group->update([
             'creative_field1' => $params['creative_field1'],
             'creative_field2' => $params['creative_field2'],
@@ -58,6 +52,7 @@ class OverviewController extends Controller {
             'for_who' => $params['for_who']
         ]);
 
-        return redirect('home/classes/' . $group->id . '/overview')->with('success-message', 'Overview was updated!');
+        return redirect("home/classes/{$group->id}/overview")
+            ->with('success-message', 'Overview was updated!');
     }
 }

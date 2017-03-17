@@ -5,18 +5,11 @@ use App\Group;
 
 class MenuController extends Controller {
 
-    protected $group;
-
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
      */
-    public function __construct(Group $group) {
-        $this->group = $group;
-    }
-
-    public function index(){
-        return response()->json($this->group->menu);
+    public function index(Group $group) {
+        return response()->json($group->menu);
     }
 }

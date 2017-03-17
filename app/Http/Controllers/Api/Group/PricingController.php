@@ -1,36 +1,20 @@
 <?php namespace App\Http\Controllers\Api\Group;
 
 use App\Group;
+use App\GroupPricing;
 use App\Http\Controllers\Controller;
 
 class PricingController extends Controller {
 
-    protected $group;
-
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @param  \App\Group  $group
+     * @param  \App\GroupPricing  $pricing
+     * @return \Illuminate\Http\Response
      */
-    public function __construct(Group $group) {
-        $this->group = $group;
-    }
+    public function destroy(Group $group, GroupPricing $pricing) {
+        $pricing->locations()->sync([]);
+        $pricing->delete();
 
-
-    public function destroy($groupId, $pricingId) {
-        $price = $this->group->pricing->find($pricingId);
-
-        if (!$price) {
-            return response()->json([
-                'errors' => [
-                    'Pricing does not exist.'
-                ]
-            ], 404);
-        }
-
-        $price->locations()->sync([]);
-        $price->delete();
-
-        return response()->json($price);
+        return response()->json($pricing);
     }
 }

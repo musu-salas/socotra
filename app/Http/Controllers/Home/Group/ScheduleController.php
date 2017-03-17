@@ -9,25 +9,15 @@ use Validator;
 
 class ScheduleController extends Controller {
 
-    protected $group;
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Group $group) {
-        // This middleware is no longer needed here because it is added directly
-        // on the Route definitions inside routes.php
-		// $this->middleware('auth');
-
-        $this->group = $group;
-	}
-
-
-    public function index($groupId, $locationId = null) {
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @param  string  $locationId
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Group $group, $locationId = null) {
         $user = Auth::user();
-        $group = $this->group;
         $locations = $group->locations;
 
         if (!$locationId) {
@@ -41,13 +31,13 @@ class ScheduleController extends Controller {
                 ]);
             }
 
-            return redirect()->to('/home/classes/' . $group->id . '/schedule/' . $location->id);
+            return redirect()->to("/home/classes/{$group->id}/schedule/{$location->id}");
         }
 
         $location = $locations->find($locationId);
 
         if (!$location || !$location->is_full) {
-            return redirect()->to('/home/classes/' . $groupId . '/schedule');
+            return redirect()->to("/home/classes/{$group->id}/schedule");
         }
 
         return view('home.group.schedule.list', [
@@ -59,21 +49,27 @@ class ScheduleController extends Controller {
         ]);
     }
 
-
-    public function show($groupId, $locationId, $scheduleId) {
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @param  string  $locationId
+     * @param  string  $scheduleId
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Group $group, $locationId, $scheduleId) {
         $schedule = null;
-        $group = $this->group;
         $location = $group->locations->find($locationId);
 
         if (!$location) {
-            return redirect()->to('/home/classes/' . $group->id . '/schedule');
+            return redirect()->to("/home/classes/{$group->id}/schedule");
         }
 
         if ($scheduleId !== 'new') {
             $schedule = $group->schedule()->where('id', $scheduleId)->where('location_id', $location->id)->first();
 
             if (!$schedule) {
-                return redirect()->to(sprintf('/home/classes/%d/schedule/%d', $group->id, $location->id));
+                return redirect()->to("/home/classes/{$group->id}/schedule/{$location->id}");
             }
         }
 
@@ -93,8 +89,15 @@ class ScheduleController extends Controller {
         ]);
     }
 
-
-    public function store($groupId, $locationId, $scheduleId) {
+    /**
+     * Redirects to my group location since group index view is not yet planned.
+     *
+     * @param  \App\Group  $group
+     * @param  string  $locationId
+     * @param  string  $scheduleId
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Group $group, $locationId, $scheduleId) {
         foreach (Request::all() as $key => $value) {
             $xssCleanReq[$key] = trim(strip_tags($value));
         }
@@ -111,11 +114,12 @@ class ScheduleController extends Controller {
             return redirect()->back()->withErrors($validation->errors());
         }
 
-        $group = $this->group;
         $location = $group->locations->find($locationId);
 
         if (!$location) {
-            return redirect()->back()->withErrors(['msg' => 'There was a problem attaching schedule session to the location.']);
+            return redirect()->back()->withErrors([
+                'msg' => 'There was a problem attaching schedule session to the location.'
+            ]);
         }
 
         $schedule_attr = [
@@ -136,6 +140,6 @@ class ScheduleController extends Controller {
             $group->schedule()->findOrFail($scheduleId)->update($schedule_attr);
         }
 
-        return redirect()->to('home/classes/' . $group->id . '/schedule/' . $location->id);
+        return redirect()->to("home/classes/{$group->id}/schedule/{$location->id}");
     }
 }

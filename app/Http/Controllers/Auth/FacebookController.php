@@ -128,8 +128,8 @@ class FacebookController extends Controller {
             }
 
             if (isset($FB->user['email'])) {
-                $user = User::where('email', '=', $FB->user['email'])
-                    ->orWhere('facebook_id', '=', $FB->user['id'])
+                $user = User::where('facebook_id', '=', $FB->user['id'])
+                    ->orWhere('email', '=', $FB->user['email'])
                     ->first();
             } else {
                 $user = User::where('facebook_id', '=', $FB->user['id'])->first();

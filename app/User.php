@@ -1,15 +1,13 @@
-<?php namespace App;
+<?php
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Storage;
+namespace App;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-	use Authenticatable, CanResetPassword;
+class User extends Authenticatable
+{
+	use Notifiable;
 
 	/**
 	 * The database table used by the model.
@@ -62,7 +60,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         );
     }
 
+    public function getNameAttribute() {
+        return "{$this->first_name} {$this->last_name}";
+    }
 
+    // TODO: Deprecate in favour of `$this->name` defined via `getNameAttribute()` method.
     public function getFullnameAttribute() {
         return $this->first_name . ' ' . $this->last_name;
     }

@@ -1,22 +1,20 @@
 <?php namespace App\Http\Controllers\Api\Group;
 
 use App\Group;
+use App\Mail\OwnerVisitorSentMessege;
+use App\Mail\OwnerVisitorShownAttendanceInterest;
 use App\Http\Controllers\Controller;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use Request;
 use Validator;
 
 class ContactController extends Controller {
 
-    protected $group;
-
-
-    public function __construct(Group $group) {
-        $this->group = $group;
-    }
-
-
-    public function send($groupId) {
+    /**
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function send(Group $group) {
         foreach (Request::all() as $key => $value) {
             $params[$key] = trim(strip_tags($value));
         }
@@ -34,7 +32,7 @@ class ContactController extends Controller {
             ], 500);
         }
 
-        $group = $this->group;
+        $pageUrl = url("/classes/{$group->id}/{$params['location_id']}");
         $owner = $group->owner;
         $sender = json_decode(json_encode([
             'name' => $params['name'],
@@ -42,28 +40,12 @@ class ContactController extends Controller {
             'phone' => $params['phone']
         ]), false);
 
-        $subject = 'Wish to begin attending your class';
-        $template = 'emails.notification';
-        $data = [
-            'receiver' => $owner,
-            'sender' => $sender,
-            'page_url' => url('/classes/' . $group->id . '/' . $params['location_id'])
-        ];
-
         if ($params['message']) {
-            $data['text'] = $params['message'];
-            $template = 'emails.message';
-            $subject = 'Message from your ' . config('custom.code') . ' page visitor';
+            Mail::to($owner)->queue(new OwnerVisitorSentMessege($owner, $sender, $pageUrl, $params['message']));
+
+        } else {
+            Mail::to($owner)->queue(new OwnerVisitorShownAttendanceInterest($owner, $sender, $pageUrl));
         }
-
-        Mail::send($template, $data, function ($m) use ($owner, $sender, $subject) {
-            $m->to($owner->email, $owner->first_name . ' ' . $owner->last_name);
-            $m->subject($subject);
-
-            if ($sender->email) {
-                $m->replyTo($sender->email, $sender->name);
-            }
-        });
 
         return response()->json([]);
     }

@@ -17,17 +17,15 @@ class ApiOwnerMiddleware
     public function handle($request, Closure $next, $guard = null)
     {
 		if (Auth::guard($guard)->check()) {
-			if ($group = Group::find($request->route('group'))) {
-				if ($group->user_id === Auth::user()->id) {
-					return $next($request);
-				}
-			}
+            $group = $request->route('group');
+
+			if ($group->user_id === Auth::id()) {
+                return $next($request);
+            }
 		}
 
         return response()->json([
-            'errors' => [
-        	    'You\'re not authorized to edit this class.'
-            ]
+            'errors' => [ 'You\'re not authorized to edit this class.' ]
         ], 401);
 	}
 

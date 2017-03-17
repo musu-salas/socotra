@@ -1,10 +1,10 @@
 cd socotra && \
-  composer update && \
+  composer install && \
   php artisan optimize && \
   php artisan migrate --seed --force;
 
-echo "zend_extension=xdebug.so" > /etc/php/7.0/mods-available/xdebug.ini;
-echo "xdebug.remote_enable = on" >> /etc/php/7.0/mods-available/xdebug.ini;
-echo "xdebug.remote_connect_back = on" >> /etc/php/7.0/mods-available/xdebug.ini;
-echo "xdebug.idekey = "vagrant"" >> /etc/php/7.0/mods-available/xdebug.ini;
-service php7.0-fpm restart;
+echo "zend_extension=xdebug.so" > /etc/php/7.1/mods-available/xdebug.ini;
+echo "xdebug.remote_enable = on" >> /etc/php/7.1/mods-available/xdebug.ini;
+echo "xdebug.remote_connect_back = on" >> /etc/php/7.1/mods-available/xdebug.ini;
+echo "xdebug.idekey = "vagrant"" >> /etc/php/7.1/mods-available/xdebug.ini;
+service php7.1-fpm restart;

@@ -1,4 +1,6 @@
-<?php namespace App\Http\Validators;
+<?php
+
+namespace App\Http\Validators;
 
 use \Illuminate\Validation\Validator;
 use Hash;

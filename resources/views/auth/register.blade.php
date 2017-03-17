@@ -7,13 +7,13 @@
     <div class="ui centered page stackable doubling grid">
         <div class="ui six wide centered column">
             <br />
-            <h1 class="ui center aligned header">{{ config('custom.code') }}</h1>
+            <h1 class="ui center aligned header">{{ config('app.name') }}</h1>
         </div>
         <div class="ui eight wide column">
             <div class="ui segment">
                 <div class="ui basic segment center aligned">
                     <h2 class="ui header">
-                        Sign up to {{ config('custom.code') }}<i>!</i>
+                        Sign up to {{ config('app.name') }}<i>!</i>
                         <div class="sub header">A trusted community marketplace for people to list, discover and enrol in classes around the city.</div>
                     </h2>
 
@@ -142,7 +142,7 @@
         </div>
         <div class="ui basic segment center aligned">
             <div class="ui header">
-                <p class="sub header">Already a {{ config('custom.code') }} member? <a class="inline-link" href="{{ url('/login') }}" title="Register">Log in here</a>.</p>
+                <p class="sub header">Already a {{ config('app.name') }} member? <a class="inline-link" href="{{ url('/login') }}" title="Register">Log in here</a>.</p>
             </div>
         </div>
     </div>

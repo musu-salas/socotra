@@ -1,28 +1,19 @@
 <?php namespace App\Http\Controllers\Api\Group;
 
 use App\Group;
+use App\GroupLocation;
 use App\Http\Controllers\Controller;
 use Request;
 
 class LocationController extends Controller {
 
-    protected $group;
-
-
-    public function __construct(Group $group) {
-        $this->group = $group;
-    }
-
-
     private function decodeBase64UrlSafe($str) {
         return base64_decode(str_replace(array('-', '_'), array('+', '/'), $str));
     }
 
-
     private function encodeBase64UrlSafe($str) {
         return str_replace(array('+', '/'), array('-', '_'), base64_encode($str));
     }
-
 
     private function signMapUrl($width, $height, $location) {
         $latlng = $location->latlng ? $location->latlng : '57.0291309,23.9746625';
@@ -46,41 +37,28 @@ class LocationController extends Controller {
         return $mapUrl . '&signature=' . $encodedSignature;
     }
 
-
-    public function map($groupId, $locationId) {
-        $location = $this->group->locations->find($locationId);
+    /**
+     * @param  \App\Group  $group
+     * @param  \App\GroupLocation  $location
+     * @return \Illuminate\Http\Response
+     */
+    public function map(Group $group, GroupLocation $location) {
         $width = Request::input('width');
         $height = Request::input('height');
-
-        if (!$location) {
-            return response()->json([
-                'errors' => [
-                    'Location does not exist.'
-                ]
-            ], 404);
-        }
 
         $location->map = $this->signMapUrl(intval($width), intval($height), $location);
         return response()->json($location);
     }
 
-
-    public function destroy($groupId, $locationId) {
-        $group = $this->group;
-        $location = $group->locations->find($locationId);
-
-        if (!$location) {
-            return response()->json([
-                'errors' => [
-                    'Location does not exist.'
-                ]
-            ], 404);
-        }
-
+    /**
+     * @param  \App\Group  $group
+     * @param  \App\GroupLocation  $location
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Group $group, GroupLocation $location) {
         $location->pricings()->sync([]);
 
         foreach($group->pricing as $pricing) {
-
             if (!count($pricing->locations)) {
                 $pricing->delete();
             }

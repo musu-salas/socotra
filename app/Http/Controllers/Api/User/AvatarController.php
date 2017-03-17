@@ -9,24 +9,25 @@ use Storage;
 
 class AvatarController extends Controller {
 
-    protected $user;
+    /**
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user) {
+        $avatar = config('custom.aws.user.avatar.path') . $user->avatar;
 
-    /** Create a new controller instance. */
-    public function __construct(User $user) {
-        $this->user = $user;
-    }
-
-
-    public function destroy($userId) {
-        if ($this->user->avatar && Storage::disk('local')->has(config('custom.aws.user.avatar.path') . $this->user->avatar)) {
-            Storage::disk('local')->delete(config('custom.aws.user.avatar.path') . $this->user->avatar);
+        if ($user->avatar && Storage::disk('local')->has($avatar)) {
+            Storage::disk('local')->delete($avatar);
         }
 
         return response('');
     }
 
-
-    public function crop($userId) {
+    /**
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function crop(User $user) {
         $validation = Validator::make(Request::all(), [
             'string' => 'required|string',
             'type' => 'in:jpeg'
@@ -43,30 +44,33 @@ class AvatarController extends Controller {
         $base64 = preg_replace('#^data:image/[^;]+;base64,#', '', Request::input('string'));
         $img = Image::make($base64);
 
-        $fileName = md5($this->user->id . time()) . sha1($base64) . '.' . AVATAR_EXTENSION;
+        $fileName = md5($user->id . time()) . sha1($base64) . '.' . AVATAR_EXTENSION;
 
         $img->encode(AVATAR_EXTENSION);
         Storage::disk('s3')->put(config('custom.aws.user.avatar.path') . $fileName, (string) $img);
         $img->destroy();
 
-        if ($this->user->avatar) {
-            if (!$this->user->isExternalAvatar) {
-                Storage::disk('s3')->delete(config('custom.aws.user.avatar.path') . $this->user->avatar);
+        if ($user->avatar) {
+            if (!$user->isExternalAvatar) {
+                Storage::disk('s3')->delete(config('custom.aws.user.avatar.path') . $user->avatar);
             }
 
-            if (Storage::disk('local')->has(config('custom.aws.user.avatar.path') . $this->user->avatar)) {
-                Storage::disk('local')->delete(config('custom.aws.user.avatar.path') . $this->user->avatar);
+            if (Storage::disk('local')->has(config('custom.aws.user.avatar.path') . $user->avatar)) {
+                Storage::disk('local')->delete(config('custom.aws.user.avatar.path') . $user->avatar);
             }
         }
 
-        $this->user->avatar = $fileName;
-        $this->user->save();
+        $user->avatar = $fileName;
+        $user->save();
 
-        return response()->json($this->user->avatar_src);
+        return response()->json($user->avatar_src);
     }
 
-
-    public function store($userId) {
+    /**
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function store(User $user) {
         $validation = Validator::make(Request::all(), [
             'avatar' => 'required|image|mimes:jpeg'
         ]);
@@ -95,7 +99,7 @@ class AvatarController extends Controller {
         define('MAX_AVATAR_HEIGHT', config('custom.aws.user.avatar.max_height'));
         define('AVATAR_EXTENSION', config('custom.aws.user.avatar.extension'));
 
-        $fileName = md5($this->user->id . time()) . sha1_file($file) . '.' . AVATAR_EXTENSION;
+        $fileName = md5($user->id . time()) . sha1_file($file) . '.' . AVATAR_EXTENSION;
         $img = Image::make($file);
         $width = $img->width();
         $height = $img->height();
@@ -122,18 +126,18 @@ class AvatarController extends Controller {
         Storage::disk('s3')->put(config('custom.aws.user.avatar.path') . $fileName, (string) $img);
         Storage::disk('local')->put(config('custom.aws.user.avatar.path') . $fileName, (string) $img);
 
-        if ($this->user->avatar) {
-            if (!$this->user->isExternalAvatar) {
-                Storage::disk('s3')->delete(config('custom.aws.user.avatar.path') . $this->user->avatar);
+        if ($user->avatar) {
+            if (!$user->isExternalAvatar) {
+                Storage::disk('s3')->delete(config('custom.aws.user.avatar.path') . $user->avatar);
             }
 
-            if (Storage::disk('local')->has(config('custom.aws.user.avatar.path') . $this->user->avatar)) {
-                Storage::disk('local')->delete(config('custom.aws.user.avatar.path') . $this->user->avatar);
+            if (Storage::disk('local')->has(config('custom.aws.user.avatar.path') . $user->avatar)) {
+                Storage::disk('local')->delete(config('custom.aws.user.avatar.path') . $user->avatar);
             }
         }
 
-        $this->user->avatar = $fileName;
-        $this->user->save();
+        $user->avatar = $fileName;
+        $user->save();
         $img->destroy();
 
         return response()->json('/' . basename(config('filesystems.disks.local.root')) . '/' . config('custom.aws.user.avatar.path') . $fileName);

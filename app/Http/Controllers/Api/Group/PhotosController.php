@@ -9,14 +9,12 @@ use Validator;
 
 class PhotosController extends Controller {
 
-    protected $group;
-
-    public function __construct(Group $group) {
-        $this->group = $group;
-    }
-
-    public function index($groupId) {
-        return response()->json($this->group->photos->map(function($photo) {
+    /**
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Group $group) {
+        return response()->json($group->photos->map(function($photo) {
             return [
                 'id' => $photo->id,
                 'w' => $photo->large_width,
@@ -26,8 +24,12 @@ class PhotosController extends Controller {
         }));
     }
 
-    public function destroy($groupId, $photoId) {
-        $photo = GroupPhoto::find($photoId);
+    /**
+     * @param  \App\Group  $group
+     * @param  \App\GroupPhoto  $photo
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Group $group, GroupPhoto $photo) {
         $ppath = config('custom.aws.class.photos_path');
 
         if (isset($photo->hash)) {
@@ -41,8 +43,6 @@ class PhotosController extends Controller {
                     Storage::disk('s3')->delete($fn);
                 }
             }
-
-            $group = $this->group;
 
             if ($group->cover_photo_id == $photo->id) {
                 $group->cover_photo_id = null;
@@ -61,10 +61,11 @@ class PhotosController extends Controller {
         ]], 404);
     }
 
-
-    public function cover($groupId) {
-        $group = $this->group;
-
+    /**
+     * @param  \App\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function cover(Group $group) {
         $validation = Validator::make(Request::all(), [
             'photo_id' => 'integer|exists:group_photos,id',
             'offset' => 'integer|max:0'

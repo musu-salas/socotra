@@ -1,34 +1,19 @@
 <?php namespace App\Http\Controllers\Api\Group;
 
 use App\Group;
+use App\GroupSchedule;
 use App\Http\Controllers\Controller;
 
 class ScheduleController extends Controller {
 
-    protected $group;
-
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @param  \App\Group  $group
+     * @param  \App\GroupSchedule  $schedule
+     * @return \Illuminate\Http\Response
      */
-    public function __construct(Group $group) {
-        $this->group = $group;
-    }
-
-
-    public function destroy($groupId, $scheduleId) {
-        $schedule = $this->group->schedule->find($scheduleId);
-
-        if (!$schedule) {
-            return response()->json([
-                'errors' => [
-                    'Schedule session does not exist.'
-                ]
-            ], 404);
-        }
-
+    public function destroy(Group $group, GroupSchedule $schedule) {
         $schedule->delete();
+
         return response()->json($schedule);
     }
 }

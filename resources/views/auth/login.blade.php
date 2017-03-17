@@ -7,14 +7,14 @@
     <div class="ui centered page stackable doubling grid">
         <div class="ui six wide centered column">
             <br />
-            <h1 class="ui center aligned header">{{ config('custom.code') }}</h1>
+            <h1 class="ui center aligned header">{{ config('app.name') }}</h1>
         </div>
         <div class="ui eight wide column">
             <div class="ui segment">
                 <div class="ui basic segment center aligned">
                     <h2 class="ui header">
                         Welcome back &nbsp; ;)
-                        <div class="sub header">Please log in to your {{ config('custom.code') }} account.</div>
+                        <div class="sub header">Please log in to your {{ config('app.name') }} account.</div>
                     </h2>
 
                     @if (Input::has('error'))

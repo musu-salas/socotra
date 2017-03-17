@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App;
 use App\Group;
 use Closure;
 use Illuminate\Support\Facades\Auth;
@@ -19,13 +18,12 @@ class MyGroupMiddleware
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $group = Auth::user()->myGroups->find($request->route('group'));
+        $group = $request->route('group');
 
-        if ($group) {
-            App::instance(Group::class, $group);
-            return $next($request);
+        if ($group->user_id !== Auth::id()) {
+            return redirect()->to('/home/classes');
         }
 
-        return redirect()->to('/home/classes');
+        return $next($request);
     }
 }
