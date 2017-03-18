@@ -29,7 +29,7 @@
 <div class="container-fluid pos-xs-rel pt-xs-1 landing--main-container landing--primary-background">
     <header class="raw clearfix">
         <div class="col-xs-6">
-            <a href="{{ url('/') }}" title="" class="btn btn-link text-capitalize">{{ config('app.name') }}</a>
+            <a href="{{ url('/') }}" title="" class="btn btn-link">{{ config('app.name') }}</a>
         </div>
         <div class="col-xs-6 text-xs-right">
             <a href="{{ url('/login') }}" title="" class="btn btn-outline-secondary text-muted">Login</a>
@@ -127,7 +127,7 @@
                 </li>
             @endif
         </ul>
-        <p>Our mission at <span class="text-capitalize">{{ config('app.name') }}</span> is to help coaches, instructors and teachers organise and run private classes.</p>
+        <p>Our mission at <span>{{ config('app.name') }}</span> is to help coaches, instructors and teachers organise and run private classes.</p>
         <p><a href="{{ url('/register?ref=landing-footer') }}" title="">Join us in this mission</a> &#11088;</p>
     </div>
 </footer>

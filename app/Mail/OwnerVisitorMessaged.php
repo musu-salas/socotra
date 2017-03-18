@@ -72,7 +72,7 @@ class OwnerVisitorSentMessege extends Mailable
         }
 
         return $this
-            ->subject("Message from your {config('app.name')} page visitor")
+            ->subject(sprintf('Message from your %s page visitor', config('app.name')))
             ->markdown('emails.owner.visitorSentMessege');
     }
 }

@@ -57,7 +57,7 @@ return [
 
 	'from' => [
 	    'address' => env('MAIL_FROM_ADDRESS', 'mail@socotra.local'),
-        'name' => env('MAIL_FROM_NAME', title_case(config('app.name')))
+        'name' => env('MAIL_FROM_NAME', config('app.name'))
     ],
 
     /*
