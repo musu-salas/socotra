@@ -94,7 +94,7 @@ class FacebookController extends Controller {
         $services = Config::get('services');
 
         // Get the provider instance
-        $provider = Socialize::with('facebook')
+        $provider = Socialize::driver('facebook')
             ->scopes($services['facebook']['scopes'])->asPopup();
 
         if (Input::has('error')) {
