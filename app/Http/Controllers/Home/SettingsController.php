@@ -58,13 +58,8 @@ class SettingsController extends Controller {
         $user->last_name = $params['last_name'];
         $user->email = $params['email'];
         $user->location = $params['location'];
-
-        $user->newsletter = isset($params['newsletter']) ?
-            filter_var($params['newsletter'], FILTER_VALIDATE_BOOLEAN) :
-            false;
-
+        $user->newsletter = filter_var($params['newsletter'] ?? 0, FILTER_VALIDATE_BOOLEAN);
         $isNewUser = ($user->created_at === $user->updated_at) ? true : false;
-
         $user->save();
 
         if ($isNewUser && !count($user->myGroups)) {

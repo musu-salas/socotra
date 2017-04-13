@@ -63,16 +63,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $newsletter = $data['newsletter'];
-        $hasNewsletter = isset($newsletter) ? filter_var($newsletter, FILTER_VALIDATE_BOOLEAN) : false;
-
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'location' => $data['location'],
-            'newsletter' => $hasNewsletter
+            'newsletter' => filter_var($data['newsletter'] ?? 0, FILTER_VALIDATE_BOOLEAN)
         ]);
     }
 }

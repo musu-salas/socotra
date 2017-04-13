@@ -19,7 +19,7 @@
 @yield('content')
 
 @include('facebookPixel', [
-    'user' => isset($user) ? $user : null
+    'user' => $user ?? null
 ])
 
 {!! HTML::script( '//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js' ) !!}

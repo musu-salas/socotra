@@ -83,7 +83,7 @@
                             <td class="collapsing">
                                 <div class="ui labeled input">
                                     <div class="ui label"> <var class="currency-symbol">{{ $location->currency->symbol }}</var> </div>
-                                    <input id="price_{{ $i }}" name="prices[{{ $i }}][price]"  value="{{ isset($pricesByLocation[$location->id]) ? $pricesByLocation[$location->id] : '' }}" type="text" style="width: 7rem; padding-right: 1rem !important;">
+                                    <input id="price_{{ $i }}" name="prices[{{ $i }}][price]"  value="{{ $pricesByLocation[$location->id] ?? '' }}" type="text" style="width: 7rem; padding-right: 1rem !important;">
                                 </div>
                             </td>
                         </tr>

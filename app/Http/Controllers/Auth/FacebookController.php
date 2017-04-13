@@ -152,7 +152,7 @@ class FacebookController extends Controller {
             $user = User::create([
                 'first_name' => $this->extractFirstName($FB->user['name']),
                 'last_name' => $this->extractLastName($FB->user['name']),
-                'email' => isset($FB->user['email']) ? $FB->user['email'] : $services['facebook']['empty_email'],
+                'email' => $FB->user['email'] ?? $services['facebook']['empty_email'],
                 'newsletter' => 1,
                 'facebook_id' => $FB->user['id'],
                 'location' => $location

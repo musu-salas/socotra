@@ -100,7 +100,7 @@ class PricingController extends Controller {
         $prices = [];
         foreach($xssCleanReq['prices'] as $price) {
             $price['location'] = isset($price['location']) ? intval($price['location']) : null;
-            $price['checked'] = isset($price['checked']) ? $price['checked'] : false;
+            $price['checked'] = filter_var($price['checked'] ?? false, FILTER_VALIDATE_BOOLEAN);
             $price['price'] = isset($price['price']) ? floatval(str_replace(',', '.', $price['price'])) : null;
 
             if ($price['location'] && $price['checked'] && $price['price']) {
