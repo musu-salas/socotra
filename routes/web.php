@@ -12,72 +12,82 @@
 */
 
 Auth::routes();
-Route::get( 'logout', 'Auth\LoginController@logout');
 
-// Static pages routes.
-Route::get( '/', 'LandingController@index');
-Route::get( 'privacy-policy', 'LandingController@privacy');
+$subdomainScheme = '{country}.' . config('app.domain');
 
-// Facebook popup authentication route.
-Route::get( 'socialize/facebook', 'Auth\FacebookController@socialize');
-
-// Group public routes.
-Route::get( 'classes/{group}', 'GroupController@index');
-Route::get( 'classes/{group}/{locationId}', 'GroupController@show');
-Route::post('classes/{group}/{locationId}', 'GroupController@show');
-
-// Authentication protected routes
-// with `/home` url prefix.
 Route::group([
-    'middleware' => ['auth', 'auth.custom'],
-    'prefix' => 'home',
-    'namespace' => 'Home'
+    'domain' => $subdomainScheme,
+    'middleware' => ['handle.country']
+], function () {
 
-], function() {
-    Route::get( '/', 'IndexController@index');
+    Route::get( 'logout', 'Auth\LoginController@logout');
 
-    Route::get( 'settings', 'SettingsController@index');
-    Route::post('settings', 'SettingsController@store');
+    // Static pages routes.
+    Route::get( '/', 'LandingController@index');
+    Route::get( 'privacy-policy', 'LandingController@privacy');
 
-    Route::get( 'classes', 'GroupController@index');
-    Route::get( 'classes/new', 'GroupController@create');
-    Route::post('classes/new', 'GroupController@store');
+    // Facebook popup authentication route.
+    Route::get( 'socialize/facebook', 'Auth\FacebookController@socialize');
 
-    // Authenticated user groups routes
-    // with `/home/classes/{group}` url prefix.
+    // Group public routes.
+    Route::get( 'classes/{group}', 'GroupController@index');
+    Route::get( 'classes/{group}/{locationId}', 'GroupController@show');
+    Route::post('classes/{group}/{locationId}', 'GroupController@show');
+
+    // Authentication protected routes
+    // with `/home` url prefix.
     Route::group([
-        'middleware' => 'group.my',
-        'prefix' => 'classes/{group}',
-        'namespace' => 'Group'
+        'middleware' => ['auth', 'auth.custom'],
+        'prefix' => 'home',
+        'namespace' => 'Home'
 
     ], function() {
         Route::get( '/', 'IndexController@index');
 
-        Route::get( 'pricing', 'PricingController@index');
-        Route::get( 'pricing/{price}', 'PricingController@show');
-        Route::post('pricing/{price}', 'PricingController@store');
+        Route::get( 'settings', 'SettingsController@index');
+        Route::post('settings', 'SettingsController@store');
 
-        Route::get( 'location', 'LocationController@index');
-        Route::get( 'location/{locationId}', 'LocationController@show');
-        Route::post('location/{locationId}', 'LocationController@store');
-        Route::get( 'location/{locationId}/map', 'LocationController@map');
-        Route::post('location/{locationId}/map', 'LocationController@map');
+        Route::get( 'classes', 'GroupController@index');
+        Route::get( 'classes/new', 'GroupController@create');
+        Route::post('classes/new', 'GroupController@store');
 
-        Route::get( 'schedule/{locationId?}', 'ScheduleController@index');
-        Route::get( 'schedule/{locationId}/{scheduleId}', 'ScheduleController@show');
-        Route::post('schedule/{locationId}/{scheduleId}', 'ScheduleController@store');
+        // Authenticated user groups routes
+        // with `/home/classes/{group}` url prefix.
+        Route::group([
+            'middleware' => 'group.my',
+            'prefix' => 'classes/{group}',
+            'namespace' => 'Group'
 
-        Route::get( 'overview', 'OverviewController@index');
-        Route::post('overview', 'OverviewController@store');
+        ], function() {
+            Route::get( '/', 'IndexController@index');
 
-        Route::get( 'contact', 'ContactController@index');
-        Route::post('contact', 'ContactController@store');
+            Route::get( 'pricing', 'PricingController@index');
+            Route::get( 'pricing/{price}', 'PricingController@show');
+            Route::post('pricing/{price}', 'PricingController@store');
 
-        Route::get( 'photos', 'PhotosController@index');
-        Route::post('photos', 'PhotosController@store');
+            Route::get( 'location', 'LocationController@index');
+            Route::get( 'location/{locationId}', 'LocationController@show');
+            Route::post('location/{locationId}', 'LocationController@store');
+            Route::get( 'location/{locationId}/map', 'LocationController@map');
+            Route::post('location/{locationId}/map', 'LocationController@map');
 
+            Route::get( 'schedule/{locationId?}', 'ScheduleController@index');
+            Route::get( 'schedule/{locationId}/{scheduleId}', 'ScheduleController@show');
+            Route::post('schedule/{locationId}/{scheduleId}', 'ScheduleController@store');
+
+            Route::get( 'overview', 'OverviewController@index');
+            Route::post('overview', 'OverviewController@store');
+
+            Route::get( 'contact', 'ContactController@index');
+            Route::post('contact', 'ContactController@store');
+
+            Route::get( 'photos', 'PhotosController@index');
+            Route::post('photos', 'PhotosController@store');
+
+        });
     });
 });
+
 
 // API routes using session authentication (not yet a separate API oAuth2 Laravel offers)
 // with `/api/v1` url prefix.

@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'group.my' => \App\Http\Middleware\MyGroupMiddleware::class,
         'api.owner' => \App\Http\Middleware\ApiOwnerMiddleware::class,
         'api.user' => \App\Http\Middleware\ApiUserMiddleware::class,
+        'handle.country' => \App\Http\Middleware\HandleCountryMiddleware::class,
 	];
 }
