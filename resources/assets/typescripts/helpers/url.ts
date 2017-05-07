@@ -1,7 +1,7 @@
-import * as MapInts from '../interfaces/Maps';
+import * as MapI from '../interfaces/Maps';
 
-export function queryStringToMap(queryString: string = window.location.search): MapInts.ImmutableStringsMap {
-  let query = queryString.substring(1);
+export function urlQueryToMap(queryString: string = window.location.search): MapI.ImmutableStringsMap {
+  let query = (queryString.charAt(0) === '?') ? queryString.substring(1) : queryString;
 
   if (!query) {
     return {};
@@ -10,12 +10,12 @@ export function queryStringToMap(queryString: string = window.location.search): 
   return JSON.parse(`{"${decodeURI(query).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"')}"}`);
 };
 
-export function mapToQueryString(map: MapInts.ImmutableStringsMap, separator: string = '&'): string {
+export function mapToUrlQuery(map: MapI.ImmutableStringsMap, separator: string = '&'): string {
   return Object.keys(map).map((key) => `${key}=${map[key]}`).join(separator);
 };
 
-export function windowFromUrl(url: string, title: string, features: MapInts.StringNumbersMap = {}): Window {
-  const featuresWithDefault = _.assign({
+export function windowFromUrl(url: string, title: string, features: MapI.StringNumbersMap = {}): Window {
+  const featuresWithDefault = {
     copyhistory: 'no',
     directories: 'no',
     location: 'yes',
@@ -23,9 +23,9 @@ export function windowFromUrl(url: string, title: string, features: MapInts.Stri
     resizable: 'no',
     scrollbars: 'yes',
     status: 'no',
-    toolbar: 'no'
+    toolbar: 'no',
+    ...features
+  };
 
-  }, features);
-
-  return window.open(url, title, mapToQueryString(featuresWithDefault, ','));
+  return window.open(url, title, mapToUrlQuery(featuresWithDefault, ','));
 };

@@ -3,7 +3,7 @@
 return [
     'class' => [
         'max_photos' => 12,
-        'max_photosize' => 10 * 1024 * 1024, // in bytes
+        'max_photosize' => 20/*Mb*/ * 1024,
     ],
 
     'aws' => [
@@ -34,6 +34,7 @@ return [
             |-------------------------------------------------------------------
             | Supported: Paths start at root / and do not need starting slash.
             */
+            'original_photos_path' => 'class_original_photos/',
             'photos_path' => 'class_public_photos/',
 
             /*
@@ -46,16 +47,6 @@ return [
             */
 
             'photos' => [
-
-                // The keys 'original', 'large' & 'thumnail' must match the
-                // table columns or else you crashed.
-
-                'original' => [
-                    'key' => '_o',
-                    'maxw' => 5760,
-                    'maxh' => 3840
-                ],
-
                 'large' => [
                     'key' => '_l',
                     'maxw' => 1440,

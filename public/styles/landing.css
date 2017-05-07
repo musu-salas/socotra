@@ -26,7 +26,7 @@ h3 {
     display: block;
     width: 11px;
     height: 20px;
-    border: solid #55595c;
+    border: solid #464a4c;
     border-width: 0 3px 3px 0;
     -ms-transform: rotate(45deg);
     transform: rotate(45deg); }
@@ -63,7 +63,7 @@ h3 {
     left: 20%;
     width: 60%;
     height: 1px;
-    background-image: linear-gradient(to right, #818a91 10%, rgba(255, 255, 255, 0) 0%);
+    background-image: linear-gradient(to right, #636c72 10%, rgba(255, 255, 255, 0) 0%);
     background-position: top;
     background-size: 10px 1px;
     background-repeat: repeat-x; }
@@ -71,7 +71,7 @@ h3 {
     background: #fff; }
 
 .landing--feature cite {
-  color: #818a91;
+  color: #636c72;
   font-size: 0.75rem; }
   .landing--feature cite:before {
     content: "* ";
@@ -79,8 +79,7 @@ h3 {
 
 .landing--feature img {
   width: 100%;
-  max-width: 25rem;
-}
+  max-width: 25rem; }
 
 .landing--feature p {
   font-size: 1.1rem; }
@@ -91,7 +90,7 @@ h3 {
 .landing--footer {
   font-size: 0.875rem;
   background-color: #eceeef;
-  border-top: solid 1px rgba(85, 89, 92, 0.1); }
+  border-top: solid 1px rgba(70, 74, 76, 0.1); }
   .landing--footer p {
     margin: 0; }
   .landing--footer ul {
@@ -99,7 +98,7 @@ h3 {
     padding: 0;
     margin: 0 0 0.5rem; }
     .landing--footer ul a {
-      color: #373a3c;
+      color: #292b2c;
       font-weight: 500;
       text-decoration: initial; }
   .landing--footer a {
@@ -122,11 +121,11 @@ h3 {
     position: relative;
     top: 14.5rem;
     -ms-transform: translateY(-50%);
-    transform: translateY(-50%); }
+        transform: translateY(-50%); }
     .landing--value-proposition.sticky {
       position: fixed;
       -ms-transform: none;
-      transform: none; }
+          transform: none; }
   .landing--product-image {
     width: 102%; }
   .landing--feature {
@@ -136,12 +135,11 @@ h3 {
       right: 0; }
     .landing--feature img {
       width: auto;
-      max-width: auto;
       height: 12rem; }
     .landing--feature-text {
       top: 6rem;
       -ms-transform: translate(0, -50%);
-      transform: translate(0, -50%); } }
+          transform: translate(0, -50%); } }
 
 @media (min-width: 992px) {
   .landing--main {
@@ -162,3 +160,5 @@ h3 {
     top: 23.5rem; }
   .landing--product-image {
     width: 102%; } }
+
+/*# sourceMappingURL=landing.css.map*/

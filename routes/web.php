@@ -74,8 +74,6 @@ Route::group([
         Route::post('contact', 'ContactController@store');
 
         Route::get( 'photos', 'PhotosController@index');
-        Route::post('photos', 'PhotosController@store');
-
     });
 });
 
@@ -124,6 +122,7 @@ Route::group([
             Route::delete('pricing/{pricing}', 'PricingController@destroy');
             Route::put(   'cover_photo', 'PhotosController@cover');
             Route::delete('photos/{photo}', 'PhotosController@destroy');
+            Route::post(  'photos', 'PhotosController@store');
         });
     });
 });

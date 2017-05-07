@@ -5,12 +5,15 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    'scripts/landing.js': './typescripts/landing',
     'styles/bootstrap.css': './scss/custom-bootstrap/bootstrap',
+
     'styles/landing.css': './scss/landing',
+    'scripts/landing.js': './typescripts/landing',
+
+    'scripts/group-edit.js': './typescripts/pages/group-edit'
   },
   output: {
-    path: '../../public',
+    path: path.join(__dirname, '../../public'),
     publicPath: '/',
     filename: '[name]'
   },
@@ -23,24 +26,22 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: [
+          fallback: 'style-loader',
+          use: [
             {
               loader: 'css-loader',
               options: {
-                sourceMap: true,
-                modules: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                includePaths: [path.resolve(__dirname, './scss')],
-                indentedSyntax: 'sass'
+                sourceMap: true
               }
             },
             {
               loader: 'postcss-loader'
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: [path.resolve(__dirname, './scss')]
+              }
             }
           ]
         })
@@ -53,6 +54,9 @@ module.exports = {
   },
   plugins: [
     new webpack.ProgressPlugin(),
+    new webpack.ProvidePlugin({
+      'Promise': 'imports-loader?this=>global!exports-loader?global.Promise!es6-promise'
+    }),
     new ExtractTextPlugin('[name]'),
     new webpack.LoaderOptionsPlugin({
       options: {

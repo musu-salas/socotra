@@ -1,0 +1,16 @@
+'use strict';
+
+import * as UrlHelper from '../../helpers/url';
+import * as MapI from '../../interfaces/Maps';
+import { login } from './login';
+import { password } from './password';
+
+export default class Authenticate {
+  static login(params: MapI.StringsMap, query: string) {
+    login(params, UrlHelper.urlQueryToMap(query));
+  }
+
+  static password(params: MapI.StringsMap, query: string) {
+    password(params, UrlHelper.urlQueryToMap(query));
+  }
+}
