@@ -3,12 +3,11 @@
 use App\Http\Controllers\Controller;
 use App\Country;
 use App\Website;
-use Socialize;
+use Socialite;
 use Input;
 use Auth;
 use Hash;
 use App\User;
-use Config;
 
 class FacebookController extends Controller {
 
@@ -91,11 +90,10 @@ class FacebookController extends Controller {
 
 
     public function socialize() {
-        $services = Config::get('services');
-
         // Get the provider instance
-        $provider = Socialize::driver('facebook')
-            ->scopes($services['facebook']['scopes'])->asPopup();
+        $provider = Socialite::driver('facebook')
+            ->scopes(config('services.facebook.scopes'))
+            ->asPopup();
 
         if (Input::has('error')) {
             return view('home.socialized');
@@ -152,7 +150,7 @@ class FacebookController extends Controller {
             $user = User::create([
                 'first_name' => $this->extractFirstName($FB->user['name']),
                 'last_name' => $this->extractLastName($FB->user['name']),
-                'email' => $FB->user['email'] ?? $services['facebook']['empty_email'],
+                'email' => $FB->user['email'] ?? config('services.facebook.empty_email'),
                 'newsletter' => 1,
                 'facebook_id' => $FB->user['id'],
                 'location' => $location

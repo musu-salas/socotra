@@ -23,7 +23,7 @@ return [
 	'facebook' => [
 		'client_id' => env('FACEBOOK_CLIENT'),
 		'client_secret' => env('FACEBOOK_SECRET'),
-		'redirect' => env('FACEBOOK_REDIRECT'),
+		'redirect' => url('socialize/facebook'),
         'scopes' => ['public_profile', 'email', 'user_friends', 'user_hometown', 'user_website'],
         'empty_email' => 'EMPTY_FACEBOOK_EMAIL',
         'pixel_id' => '1671706382855886'

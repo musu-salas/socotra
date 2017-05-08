@@ -255,7 +255,7 @@ return [
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
-		'Socialize' => Laravel\Socialite\Facades\Socialite::class,
+		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 		'Image' => Intervention\Image\Facades\Image::class
 	],
 
