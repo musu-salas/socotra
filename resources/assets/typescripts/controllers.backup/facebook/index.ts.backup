@@ -1,0 +1,11 @@
+'use strict';
+
+import * as UrlHelper from '../../helpers/url';
+import * as MapI from '../../interfaces/Maps';
+import { socialize } from './socialize';
+
+export default class Facebook {
+  static socialize(params: MapI.StringsMap, query: string) {
+    socialize(params, UrlHelper.urlQueryToMap(query));
+  }
+}

@@ -1,18 +1,17 @@
-@import 
-  // Bootstrap default variables.
-  '../../node_modules/bootstrap/scss/variables',
+// Bootstrap default variables.
+@import '../../node_modules/bootstrap/scss/variables';
 
-  // Overwriding default Bootstrap variables.
-  'variables',
+// Overwriding default Bootstrap variables.
+@import 'variables';
 
-  // Official Bootstrap dependencies.
-  '../../node_modules/bootstrap/scss/mixins',
-  '../../node_modules/bootstrap/scss/normalize',
-  '../../node_modules/bootstrap/scss/reboot',
-  '../../node_modules/bootstrap/scss/bootstrap-grid',
-  '../../node_modules/bootstrap/scss/utilities',
-  '../../node_modules/bootstrap/scss/buttons',
-  '../../node_modules/bootstrap/scss/images',
+// Official Bootstrap dependencies.
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/normalize';
+@import '../../node_modules/bootstrap/scss/reboot';
+@import '../../node_modules/bootstrap/scss/bootstrap-grid';
+@import '../../node_modules/bootstrap/scss/utilities';
+@import '../../node_modules/bootstrap/scss/buttons';
+@import '../../node_modules/bootstrap/scss/images';
 
-  // Custom Bootstrap utilities.
-  'utilities';
+// Custom Bootstrap utilities.
+@import 'utilities';

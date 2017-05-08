@@ -1,12 +1,11 @@
-@import
-  // Bootstrap default variables.
-  '../node_modules/bootstrap/scss/variables',
+// Bootstrap default variables.
+@import '../node_modules/bootstrap/scss/variables';
 
-  // Overwriding default Bootstrap variables.
-  'custom-bootstrap/variables',
+// Overwriding default Bootstrap variables.
+@import 'custom-bootstrap/variables';
 
-  // Official Bootstrap dependencies.
-  '../node_modules/bootstrap/scss/mixins';
+// Official Bootstrap dependencies.
+@import '../node_modules/bootstrap/scss/mixins';
 
 $gren: #a2dad9;
 $green-dark: #6ba4a3;
@@ -123,6 +122,7 @@ h3 {
 
     img {
       width: 100%;
+      max-width: 25rem;
     }
 
     p {
@@ -215,6 +215,7 @@ h3 {
       }
 
       img {
+        width: auto;
         height: $height;
       }
 

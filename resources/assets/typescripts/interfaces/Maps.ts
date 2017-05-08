@@ -9,3 +9,7 @@ export interface StringsMap {
 export interface StringNumbersMap {
   [property: string]: string | number;
 }
+
+export interface FilesMap {
+  [property: string]: File;
+}

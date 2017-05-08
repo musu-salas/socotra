@@ -1,28 +1,35 @@
 {
-  "rulesDirectory": "node_modules/tslint-eslint-rules/dist/rules",
+  "rulesDirectory": ["node_modules/tslint-eslint-rules/dist/rules"],
   "rules": {
     "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
     "indent": [true, "spaces"],
     "array-bracket-spacing": [true, "never"],
     "brace-style": [true, "1tbs"],
-    "variable-name": [true, "ban-keywords", "check-format"],
-    "max-line-length": [true, 120],
     "no-console": [true, "log", "error", "info", "debug"],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
+    "ter-max-len": [
+      true,
+      120,
+      2,
+      {
+        "tabWidth": 2,
+        "ignoreUrls": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
     "no-debugger": true,
     "no-empty": true,
     "no-irregular-whitespace": true,
     "no-multi-spaces": [true],
-    "no-consecutive-blank-lines": true,
+    "no-consecutive-blank-lines": [true],
     "no-trailing-whitespace": true,
-    "no-unused-variable": [true],
     "object-curly-spacing": [true, "always"],
     "quotemark": [true, "single", "avoid-escape"],
     "radix": true,
-    "semicolon": true,
+    "semicolon": [true],
     "no-var-keyword": true,
     "adjacent-overload-signatures": true,
     "no-any": true,
-    "no-namespace": true,
     "no-internal-module": true,
     "no-reference": true,
     "no-var-requires": true,
@@ -38,14 +45,12 @@
     "eofline": true,
     "linebreak-style": [true, "LF"],
     "no-require-imports": true,
-    "object-literal-sort-keys": true,
     "arrow-parens": true,
     "class-name": true,
     "comment-format": [true, "check-space"],
     "object-literal-shorthand": true,
     "one-line": [true, "check-catch", "check-else", "check-whitespace"],
-    "one-variable-per-declaration": true,
-    "ordered-imports": true,
+    "one-variable-per-declaration": [true],
     "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-module", "check-separator", "check-type", "check-typecast"]
   }
 }

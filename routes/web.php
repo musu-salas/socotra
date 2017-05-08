@@ -82,12 +82,9 @@ Route::group([
             Route::post('contact', 'ContactController@store');
 
             Route::get( 'photos', 'PhotosController@index');
-            Route::post('photos', 'PhotosController@store');
-
         });
     });
 });
-
 
 // API routes using session authentication (not yet a separate API oAuth2 Laravel offers)
 // with `/api/v1` url prefix.
@@ -134,6 +131,7 @@ Route::group([
             Route::delete('pricing/{pricing}', 'PricingController@destroy');
             Route::put(   'cover_photo', 'PhotosController@cover');
             Route::delete('photos/{photo}', 'PhotosController@destroy');
+            Route::post(  'photos', 'PhotosController@store');
         });
     });
 });

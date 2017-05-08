@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
+    "lib": ["es2017", "dom"],
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "watch": true,
     "noImplicitAny": true,
     "rootDir": "typescripts",
     "outDir": "bin",
-    "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": false,
-    "strictNullChecks": true
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "formatCodeOptions": {
     "indentSize": 2,
@@ -27,11 +27,9 @@
     "placeOpenBraceOnNewLineForControlBlocks": false
   },
   "include": [
-    "typescripts/**/*.ts",
-    "typings/index.d.ts"
+    "typescripts/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "typings/custom/**/*.js"
+    "node_modules"
   ]
 }
