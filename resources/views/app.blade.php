@@ -18,6 +18,7 @@
 <body>
 @yield('content')
 
+@include('googleAnalytics');
 @include('facebookPixel', [
     'user' => $user ?? null
 ])

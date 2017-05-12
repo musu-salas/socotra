@@ -137,6 +137,7 @@
     'crossorigin' => 'anonymous'
 )) }}
 
+@include('googleAnalytics');
 @include('facebookPixel', [ 'user' => null ])
 
 <script>window.jQuery || document.write('<script src="{{ asset('scripts/vendor/jquery-3.1.1.slim.min.js') }}"><\/script>')</script>
