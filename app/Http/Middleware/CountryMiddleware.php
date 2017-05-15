@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Debugbar;
 
-class HandleCountryMiddleware
+class CountryMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,12 @@ class HandleCountryMiddleware
      */
     public function handle($request, Closure $next)
     {
-        config(['app.country' => $request->route('country')]);
+        $country = $request->route('country');
+
+        config(['app.country' => $country]);
         $request->route()->forgetParameter('country');
         Debugbar::addMessage(config('app.country'), 'app.country');
+
         return $next($request);
     }
 }
