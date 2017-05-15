@@ -90,9 +90,11 @@ class FacebookController extends Controller {
 
 
     public function socialize() {
+        $config = array_add(config('services.facebook'), 'redirect', url('socialize/facebook'));
+
         // Get the provider instance
-        $provider = Socialite::driver('facebook')
-            ->scopes(config('services.facebook.scopes'))
+        $provider = Socialite::buildProvider(\Laravel\Socialite\Two\FacebookProvider::class, $config)
+            ->scopes($config['scopes'])
             ->asPopup();
 
         if (Input::has('error')) {
@@ -104,7 +106,7 @@ class FacebookController extends Controller {
         if (Input::has('code')) {
             $FB = $provider->user();
 
-            if(!$FB->user) {
+            if (!$FB->user) {
                 Log::error('Facebook user object is missing.', $FB);
                 return redirect('socialize/facebook?' . http_build_query([
                     'error' => 'missing_user_data'
@@ -113,7 +115,9 @@ class FacebookController extends Controller {
 
             if (Auth::check()) {
                 $user = Auth::user();
-                $userWithThisFacebook = User::where('facebook_id', '=', $FB->user['id'])->where('id', '!=', $user->id)->first();
+                $userWithThisFacebook = User::where('facebook_id', '=', $FB->user['id'])
+                    ->where('id', '!=', $user->id)
+                    ->first();
 
                 if ($userWithThisFacebook) {
                     return redirect('socialize/facebook?' . http_build_query([
@@ -122,6 +126,7 @@ class FacebookController extends Controller {
                 }
 
                 $this->extendUser($user, $FB->user);
+
                 return view('home.socialized');
             }
 
@@ -150,7 +155,7 @@ class FacebookController extends Controller {
             $user = User::create([
                 'first_name' => $this->extractFirstName($FB->user['name']),
                 'last_name' => $this->extractLastName($FB->user['name']),
-                'email' => $FB->user['email'] ?? config('services.facebook.empty_email'),
+                'email' => $FB->user['email'] ?? $config['empty_email'],
                 'newsletter' => 1,
                 'facebook_id' => $FB->user['id'],
                 'location' => $location
