@@ -1,3 +1,13 @@
+<If "req('Host') =~ /\.net$/">
+    AuthUserFile /app/public/.htpasswd
+    AuthType Basic
+    AuthName "Private website for testing purpose."
+    Require valid-user
+</If>
+<Else>
+    Require all granted
+</Else>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews
