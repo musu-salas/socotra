@@ -41,6 +41,19 @@ h3 {
 .landing--btn-action {
   font-weight: 500; }
 
+.landing--logo {
+  text-decoration: none; }
+  .landing--logo:after {
+    position: relative;
+    content: "Beta";
+    color: #636c72;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    top: -1px;
+    left: 8px;
+    padding: 3px 5px;
+    background: rgba(0, 0, 0, 0.05); }
+
 .landing--main {
   padding-top: 3rem; }
   .landing--main-shadow {

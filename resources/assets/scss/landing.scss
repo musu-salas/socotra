@@ -65,6 +65,22 @@ h3 {
     font-weight: 500;
   }
 
+  &-logo {
+    text-decoration: none;
+
+    &:after {
+      position: relative;
+      content: "Beta";
+      color: $gray-light;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      top: -1px;
+      left: 8px;
+      padding: 3px 5px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
   &-main {
     padding-top: 3rem;
 

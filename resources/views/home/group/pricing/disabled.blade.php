@@ -3,18 +3,11 @@
 @section('title', trans('group/pricing.page_titles.list'))
 
 @section('content')
-<div class="ui fixed borderless menu" style="box-shadow: 0 0 1px rgba(39, 41, 43, 0.15);">
-    <div class="ui page stackable doubling grid" style="margin: 0;">
-        <a class="item" href="{{ url('/') }}" title="{{ config('app.name') }}">
-            <strong>{{ config('app.name') }}</strong>
-        </a>
 
-        @include('home.navigation', [
-            'user' => $user,
-            'active' => 'classes'
-        ])
-    </div>
-</div>
+@include('topbar', [
+    'user' => $user,
+    'activePage' => 'classes'
+])
 
 @include('home.group.statusbar', [
     'group' => $group,

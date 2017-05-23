@@ -9,6 +9,17 @@ $violet2: rgba(201, 58, 102, 0.8);
   transition:         $var;
 }
 
+.topbar-logo:after {
+  position: relative;
+  content: "Beta";
+  color: #636c72;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  top: -1px;
+  left: 5px;
+  padding: 3px 5px;
+  background: rgba(0, 0, 0, 0.05);
+}
 
 .currency-symbol {
   font-style: normal;

@@ -5,22 +5,22 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 
-	<title></title>
+	<title>Your class page online · {{ config('app.name') }}</title>
     {!! HTML::style( asset('styles/bootstrap.css') ) !!}
     {!! HTML::style( asset('styles/landing.css') ) !!}
 
-    <meta name="description" content=""/>
-    <meta name="keywords" content="private classes, courses, instructors, coaches, teachers, private courses, classes"/>
+    <meta name="description" content="Information that matters in front of your customers. Clear and simple."/>
+    <meta name="keywords" content="private classes, class website, instructor page, coache class page"/>
     <meta property="og:image" content="{{ asset('images/avatar.jpg') }}"/>
-    <meta property="og:title" content=""/>
-    <meta property="og:description" content=""/>
+    <meta property="og:title" content="Your class page online"/>
+    <meta property="og:description" content="Information that matters in front of your customers. Clear and simple."/>
     <meta property="og:url" content="{{ url('/') }}"/>
-    <meta property="og:site_name" content=""/>
+    <meta property="og:site_name" content="{{ config('app.name') }}"/>
     <meta property="og:type" content="website"/>
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:url" content="{{ url('/') }}"/>
-    <meta name="twitter:title" content=""/>
-    <meta name="twitter:description" content=""/>
+    <meta name="twitter:title" content="Your class page online"/>
+    <meta name="twitter:description" content="Information that matters in front of your customers. Clear and simple."/>
     <meta name="twitter:image" content="{{ asset('images/avatar.jpg') }}"/>
     <link rel="shortcut icon" href="{{ url('favicon.ico') }}"/>
     <link rel="shortcut icon" href="{{ url('favicon.ico') }}"/>
@@ -29,10 +29,10 @@
 <div class="container-fluid pos-xs-rel pt-xs-1 landing--main-container landing--primary-background">
     <header class="raw clearfix">
         <div class="col-xs-6">
-            <a href="{{ url('/') }}" title="" class="btn btn-link">{{ config('app.name') }}</a>
+            <a href="{{ url('/') }}" title="{{ config('app.name') }}" class="btn btn-link landing--logo">{{ config('app.name') }}</a>
         </div>
         <div class="col-xs-6 text-xs-right">
-            <a href="{{ url('/login') }}" title="" class="btn btn-outline-secondary text-muted">Login</a>
+            <a href="{{ url('/login') }}" title="Login to {{ config('app.name') }}" class="btn btn-outline-secondary text-muted">Login</a>
         </div>
     </header>
     <main class="row mx-lg-auto landing--main">
@@ -41,13 +41,13 @@
                 <h1>Your class page online</h1>
                 <h2 class="font-weight-normal mb-xs-2">Information that matters in front of your customers. Clear and simple.</h2>
                 <div class="d-block">
-                    <a href="{{ url('/register?ref=landing-top') }}" title="" class="btn btn-primary landing--btn-action">Create your class page</a>
+                    <a href="{{ url('/register?ref=landing-top') }}" title="Create your class page" class="btn btn-primary landing--btn-action">Create your class page</a>
                 </div>
             </div>
         </div>
         <div class="col-md-8 px-xs-0">
-            <img src="{{ asset('images/landing/photography-class-desktop-page_210120172159.png') }}" alt="" class="hidden-sm-down landing--product-image" />
-            <img src="{{ asset('images/landing/photography-class-mobile-page_220120172153.png') }}" alt="" class="hidden-md-up mt-xs-2 w-100 landing--product-image" />
+            <img src="{{ asset('images/landing/photography-class-desktop-page_210120172159.png') }}" alt="{{ config('app.name') }} page preview" class="hidden-sm-down landing--product-image" />
+            <img src="{{ asset('images/landing/photography-class-mobile-page_220120172153.png') }}" alt="{{ config('app.name') }} page preview" class="hidden-md-up mt-xs-2 w-100 landing--product-image" />
         </div>
     </main>
     <div class="pos-xs-abs landing--main-shadow"></div>
@@ -73,7 +73,7 @@
                 <div class="pos-xs-rel landing--feature-text">
                     <h3>Mobile or computer, your class page is accessible from anywhere</h3>
                     <p>People spend more time on desktop and mobile combined<sup>*</sup>. Your class page is always reachable. Customers can get in touch with you from any device, any time.</p>
-                    <cite class="d-block pos-md-abs text-xs-right">eMarketer, April 2016, US</cite>
+                    <cite class="d-block pos-md-abs text-xs-right">eMarketer, April 2017, US</cite>
                 </div>
             </div>
             <div class="text-xs-center col-md-5 pull-md-7">
@@ -111,24 +111,24 @@
 <div class="container-fluid py-xs-3 landing--primary-background">
     <div class="container text-xs-center py-xs-3">
         <h4 class="mb-2">Excellent way to showcase your class online</h4>
-        <a href="{{ url('/register?ref=landing-bottom') }}" title="" class="btn btn-primary landing--btn-action">Create your class page</a>
+        <a href="{{ url('/register?ref=landing-bottom') }}" title="Create your class page" class="btn btn-primary landing--btn-action">Create your class page</a>
     </div>
 </div>
 <footer class="container-fluid py-xs-2 landing--footer">
     <div class="container py-md-2">
         <ul>
             <li class="d-inline-block">
-                <a href="{{ url('/privacy-policy') }}" title="">Privacy Policy</a>
+                <a href="{{ url('/privacy-policy') }}" title="Privacy Policy">Privacy Policy</a>
             </li>
 
             @if (env('BLOG_URL'))
                 <li class="d-inline-block ml-2">
-                    <a href="{{ env('BLOG_URL') }}" title="">Blog</a>
+                    <a href="{{ env('BLOG_URL') }}" title="Read {{ config('app.name') }} blog">Blog</a>
                 </li>
             @endif
         </ul>
         <p>Our mission at <span>{{ config('app.name') }}</span> is to help coaches, instructors and teachers organise and run private classes.</p>
-        <p><a href="{{ url('/register?ref=landing-footer') }}" title="">Join us in this mission</a> &#11088;</p>
+        <p><a href="{{ url('/register?ref=landing-footer') }}" title="Join us now">Join us in this mission</a> &#11088;</p>
     </div>
 </footer>
 
