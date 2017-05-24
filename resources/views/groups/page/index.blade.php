@@ -11,12 +11,13 @@
 
 @include('topbar', [
     'user' => $user ?? null,
-    'activePage' => null
+    'activePage' => null,
+    'isStatic' => true
 ])
 
 <div>
     @if($user && $user->id == $group->user_id || !$group->is_public)
-        <div class="ui visible {{ $group->is_public ? 'success' : 'warning'  }} message" style="position: relative; border-radius: 0; margin: 0;">
+        <div class="ui visible {{ $group->is_public ? 'success' : 'warning'  }} message" style="position: relative; border-radius: 0; margin: 0; padding: 0.75em 0.5em; border-bottom: solid 1px rgba(39, 41, 43, 0.15); box-shadow: none;">
             <p style="text-align: center; color: rgba(0, 0, 0, 0.8);">
                 @if($group->is_public)
                     <i class="icon check circle"></i>{{ trans('group/profile.your_class_is_public') }}<em>!</em>
