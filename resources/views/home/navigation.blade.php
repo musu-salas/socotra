@@ -1,5 +1,5 @@
 @if($user->created_at != $user->updated_at || count($user->myGroups))
-    <div class="right menu">
+    <div class="right menu" style="padding: 0;">
         @if(count($user->myGroups))
             <a class="{{ $active == 'classes' ? 'active ': '' }}item" href="{{ url('/home/classes') }}" title="">{{ trans('main_navigation.my_classes') }}</a>
 
