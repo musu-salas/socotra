@@ -39,8 +39,9 @@
                                         <div class="item">
                                             <div class="right floated">
                                                 @if($group->is_public)
-                                                    <a href="{{ url('/classes', [$group->id]) }}">
-                                                        <i class="icon check green"></i> {{ trans('buttons.preview') }}
+                                                    <a href="{{ url('/classes', [$group->id]) }}" class="ui basic button">
+                                                        <i class="eye icon"></i>
+                                                        {{ trans('buttons.preview') }}
                                                     </a>
 
                                                 @else

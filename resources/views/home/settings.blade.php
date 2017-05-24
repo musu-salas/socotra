@@ -6,7 +6,7 @@
 
 @include('topbar', [
     'user' => $user,
-    'activePage' => 'classes'
+    'activePage' => 'settings'
 ])
 
 <br /><br /><br />
