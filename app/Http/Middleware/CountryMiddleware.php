@@ -17,10 +17,20 @@ class CountryMiddleware
     public function handle(\Illuminate\Http\Request $request, Closure $next)
     {
         $country = $request->route('country');
+        $countries = config('countries');
+        
+        if(isset($countries[$country])) {
+            config(['app.country' => $country]);
 
-        config(['app.country' => $country]);
-        $request->route()->forgetParameter('country');
-        Debugbar::addMessage(config('app.country'), 'app.country');
+            $request->route()->forgetParameter('country');
+            Debugbar::addMessage(config('app.country'), 'app.country');
+        } else {
+            // Redirect to www with 301 status
+            return redirect(
+                str_replace('//'.$country.'.', '//www.', $request->fullUrl()),
+                301
+            );
+        }
 
         return $next($request);
     }
