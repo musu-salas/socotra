@@ -55,7 +55,7 @@ class FacebookController extends Controller {
         }
 
         if (!$user->avatar) {
-            $user->avatar = 'http://graph.facebook.com/' . $fb_user['id'] . '/picture?width=160&height=160';
+            $user->avatar = 'https://graph.facebook.com/' . $fb_user['id'] . '/picture?width=160&height=160';
             $requires_save = true;
         }
 

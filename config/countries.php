@@ -10,7 +10,7 @@ return [
 	'de' => [
 		'languages' => [],
 	],
-	'ru' => [
+	'lv' => [
 		'languages' => [],
 	]
 ];
