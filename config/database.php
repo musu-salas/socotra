@@ -1,6 +1,22 @@
 <?php
 
-$db_url = parse_url(env('DATABASE_URL'));
+if (env('DATABASE_URL')) {
+    $db = parse_url(env('DATABASE_URL'));
+
+    putenv('DB_HOST='.$db['host']);
+    putenv('DB_PORT='.$db['port']);
+    putenv('DB_DATABASE='.substr($db['path'], 1));
+    putenv('DB_USERNAME='.$db['user']);
+    putenv('DB_PASSWORD='.$db['pass']);
+}
+
+if (env('REDIS_URL')) {
+    $redis = parse_url(env('REDIS_URL'));
+
+    putenv('REDIS_HOST='.$redis['host']);
+    putenv('REDIS_PORT='.$redis['port']);
+    putenv('REDIS_PASSWORD='.$redis['pass']);
+}
 
 return [
 
@@ -37,11 +53,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => $db_url['host'],
-            'port' => $db_url['port'],
-            'database' => substr($db_url['path'], 1),
-            'username' => $db_url['user'],
-            'password' => $db_url['pass'],
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'homestead'),
+            'username' => env('DB_USERNAME', 'homestead'),
+            'password' => env('DB_PASSWORD', 'secret'),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',

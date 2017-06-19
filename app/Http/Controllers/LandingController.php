@@ -26,10 +26,10 @@ class LandingController extends Controller {
 	 * @return Response
 	 */
 	public function index() {
-			return view('landing');
+		return view('landing');
 	}
 
 	public function privacy() {
-			return view('privacy');
+		return view('privacy');
 	}
 }
