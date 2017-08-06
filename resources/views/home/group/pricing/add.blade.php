@@ -1,6 +1,11 @@
 @extends('app')
 
-@section('title', trans('group/pricing.page_titles.' . ($price ? 'edit' : 'add')))
+@if($price)
+    @section('title', __('Edit class pricing') . ' · ' . config('app.name'))
+
+@else
+    @section('title', __('Add class pricing') . ' · ' . config('app.name'))
+@endif
 
 @section('content')
 
@@ -23,7 +28,13 @@
         ])
     </div>
     <div class="eight wide column" style="padding-top: 1.7rem !important;">
-        <h3 class="ui header">{{ trans('group/pricing.' . ($price ? 'edit' : 'add') . '_pricing') }}</h3>
+        <h3 class="ui header">
+            @if($price)
+                {{ __('Edit Pricing') }}
+            @else
+                {{ __('Add Pricing') }}
+            @endif
+        </h3>
 
         <form class="ui form" action="" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -42,24 +53,24 @@
 
             <div class="required field">
                 <label for="title">
-                    {{ trans('form.title') }}
-                    <em style="float: right; white-space: nowrap; color: #aaa; font-weight: 400; padding-right: 0.5rem;">{{ trans('form.max_chars', ['chars' => 50]) }}</em>
+                    {{ __('Title') }}
+                    <em style="float: right; white-space: nowrap; color: #aaa; font-weight: 400; padding-right: 0.5rem;">{{ __('Max :chars chars', ['chars' => 50]) }}</em>
                 </label>
                 <div class="ui input">
-                    <input id="title" value="{{ old('title') ? old('title') : ($price ? $price->title : '') }}" name="title" type="text" placeholder="{{ trans('group/pricing.title_samples') }}" maxlength="50">
+                    <input id="title" value="{{ old('title') ? old('title') : ($price ? $price->title : '') }}" name="title" type="text" placeholder="{{ __('e.g. Single attendance, Monthly flex, Annual pass...') }}" maxlength="50">
                 </div>
             </div>
             <div class="field">
                 <label for="description">
-                    {{ trans('form.short_description') }}
-                    <em style="float: right; white-space: nowrap; color: #aaa; font-weight: 400; padding-right: 0.5rem;">{{ trans('form.max_chars', ['chars' => 255]) }}</em>
+                    {{ __('Short description') }}
+                    <em style="float: right; white-space: nowrap; color: #aaa; font-weight: 400; padding-right: 0.5rem;">{{ __('Max :chars chars', ['chars' => 255]) }}</em>
                 </label>
                 <textarea id="description" name="description" style="height: 60px; min-height: 60px;" maxlength="255">{{ old('description') ? old('description') : ($price ? $price->description : '') }}</textarea>
             </div>
 
             <div class="required field">
-                <label>{{ trans('group/pricing.price_location') }}</label>
-                <p>{{ trans('group/pricing.select_location') }}</p>
+                <label>{{ __('Price by location') }}</label>
+                <p>{{ __('Select a location below to assign a price.') }}</p>
 
                 <table class="ui compact table" style="margin: 0;">
                     <tbody>
@@ -87,18 +98,25 @@
 
             <div class="ui stackable doubling grid">
                 <div class="eight wide column">
-                    <button class="ui button red" type="submit">{{ trans('buttons.' . ($price ? 'update' : 'save')) }}</button>
+                    <button class="ui button red" type="submit">
+                        @if($price)
+                            {{ __('Update') }}
+                        @else
+                            {{ __('Save') }}
+
+                        @endif
+                    </button>
                 </div>
                 <div class="eight wide column right aligned">
                     @if ($price)
                     <p style="padding-top: 0.78571em;">
                         <a
                             id="delete"
-                            href="{{ url('/api/v1/classes', [$group->id, 'pricing', $price->id]) }}"
+                            href="{{ url('api/v1/classes', [$group->id, 'pricing', $price->id]) }}"
                             title=""
-                            data-deleting-label="{{ trans('group/pricing.deleting') }}"
-                            data-error-label="{{ trans('group/pricing.problem_deleting') }}"
-                        >{{ trans('group/pricing.delete') }}</a>
+                            data-deleting-label="{{ __('Deleting...') }}"
+                            data-error-label="{{ __('There was a problem deleting this pricing.') }}"
+                        >{{ __('Delete this pricing?') }}</a>
                     </p>
                     @endif
                 </div>
@@ -110,22 +128,22 @@
         <div class="ui icon message" style="background: none; box-shadow: none;">
             <i class="asterisk icon yellow" style="display: inline-block; margin-right: 0;"></i>
             <div class="content">
-                <div class="header">{{ trans('group/pricing.helpers.manage_pricing') }}</div>
-                <p>{!! trans('group/pricing.helpers.manage_pricing_description') !!}</p>
+                <div class="header">{{ __('Manage pricing') }}</div>
+                <p>{!! __('List all available pricing options for your class. These could be single class fee, weekly access, monthly subscription or any other variations you offer. <br /><br />If you have multiple class locations, it is also possible to define different prices per location.') !!}</p>
             </div>
         </div>
     </div>
 </div>
 
 <div id="delete-modal" class="ui small modal">
-    <div class="header">{{ trans('group/pricing.really_delete') }}</div>
+    <div class="header">{{ __('Do you really wish to delete this pricing?') }}</div>
     <div class="content">
-        <p>{{ trans('group/pricing.really_delete_info') }}</p>
+        <p>{{ __('Pricing will be removed from all locations.') }}</p>
     </div>
     <div class="actions">
-        <div class="ui basic cancel button">{{ trans('buttons.cancel') }}</div>
+        <div class="ui basic cancel button">{{ __('Cancel') }}</div>
         <div class="ui red right labeled icon ok button">
-            {{ trans('buttons.delete') }}
+            {{ __('Delete') }}
             <i class="checkmark icon"></i>
         </div>
     </div>

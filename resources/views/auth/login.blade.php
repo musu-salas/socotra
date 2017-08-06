@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Log in')
+@section('title', __('Log in') . ' · ' . config('app.name'))
 
 @section('content')
 <div>
@@ -13,8 +13,8 @@
             <div class="ui segment">
                 <div class="ui basic segment center aligned">
                     <h2 class="ui header">
-                        Welcome back &nbsp; ;)
-                        <div class="sub header">Please log in to your {{ config('app.name') }} account.</div>
+                        {{ __('Welcome back') }} &nbsp; ;)
+                        <div class="sub header">{{ __('Please log in to your :name account.', [ 'name' => config('app.name') ]) }}</div>
                     </h2>
 
                     @if (Input::has('error'))
@@ -23,13 +23,13 @@
                                 <ul class="list">
                                     <li>
                                         @if(Input::get('error') == 'access_denied')
-                                            {{ trans('socialize.access_denied') }}
+                                            {{ __('Facebook cancelled connection. Please try again.') }}
 
                                         @elseif(Input::get('error') == 'missing_user_data')
-                                            {{ trans('socialize.missing_user_data') }}
+                                            {{ __('Facebook was not able to provide necessary data. Please try again.') }}
 
                                         @else
-                                            {{ trans('socialize.problem') }}
+                                            {{ __('There was a problem connecting to your Facebook. Please try again.') }}
                                         @endif
                                     </li>
                                 </ul>
@@ -38,13 +38,13 @@
                     @endif
 
                     <div class="ui basic segment" style="margin-top: 0;">
-                        <a href="{{ url('/socialize/facebook') }}" class="ui large facebook button">
+                        <a href="{{ url('socialize/facebook') }}" class="ui large facebook button">
                             <i class="facebook icon"></i>
-                            Log in with Facebook
+                            {{ __('Log in with Facebook') }}
                         </a>
                     </div>
 
-                    <form class="ui form" role="form" method="POST" action="{{ url('/login') }}">
+                    <form class="ui form" role="form" method="POST" action="{{ url('login') }}">
                         {!! csrf_field() !!}
 
                         <div class="ui centered grid">
@@ -66,13 +66,13 @@
 
                                     <div class="field">
                                         <div class="ui icon input">
-                                            <input type="email" placeholder="Email Address" name="email" value="{{ old('email') }}">
+                                            <input type="email" placeholder="{{ __('Email Address') }}" name="email" value="{{ old('email') }}">
                                             <i class="at icon"></i>
                                         </div>
                                     </div>
                                     <div class="field">
                                         <div class="ui icon input">
-                                            <input type="password" placeholder="Password" name="password">
+                                            <input type="password" placeholder="{{ __('Password') }}" name="password">
                                             <i class="lock icon"></i>
                                         </div>
                                     </div>
@@ -83,18 +83,18 @@
                                                 <div class="field">
                                                     <div class="ui checkbox">
                                                         <input type="checkbox" name="remember" checked>
-                                                        <label>Remember me</label>
+                                                        <label>{{ __('Remember me') }}</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="column right aligned">
-                                                <a href="{{ url('/password/reset') }}" title="Forgot password?">Forgot password?</a>
+                                                <a href="{{ url('password/reset') }}" title="{{ __('Forgot password?') }}'">{{ __('Forgot password?') }}</a>
                                             </div>
                                         </div>
                                     </div>
 
                                     <br />
-                                    <div class="fluid ui submit red button">Log In</div>
+                                    <div class="fluid ui submit red button">{{ __('Log In') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
         </div>
         <div class="ui basic segment center aligned">
             <div class="ui header">
-                <p class="sub header">Don't have an account? <a class="inline-link" href="{{ url('/register') }}" title="Register">Sign up here</a>.</p>
+                <p class="sub header">{!! __('Don\'t have an account? :link.', [ 'link' => '<a class="inline-link" href="' . url('register') . '" title="' . __('Register') . '">' . __('Sign up here') . '</a>' ]) !!}</p>
             </div>
         </div>
     </div>

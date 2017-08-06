@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'group.my' => \App\Http\Middleware\MyGroupMiddleware::class,
         'api.owner' => \App\Http\Middleware\ApiOwnerMiddleware::class,
         'api.user' => \App\Http\Middleware\ApiUserMiddleware::class,
-        'handle.country' => \App\Http\Middleware\CountryMiddleware::class,
+        'url.country' => \App\Http\Middleware\CountryMiddleware::class,
+        'url.locale' => \App\Http\Middleware\LocaleMiddleware::class,
 	];
 }

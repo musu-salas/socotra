@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('group/schedule.page_titles.list'))
+@section('title', __('Manage class schedule') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -27,7 +27,7 @@
             <tbody>
                 <tr>
                     <td class="collapsing" style="padding: 0;">
-                        <h3 class="ui header" style="position: relative; top: -0.6rem; padding-right: 3rem;">{{ trans('group/schedule.classes_schedule') }}</h3>
+                        <h3 class="ui header" style="position: relative; top: -0.6rem; padding-right: 3rem;">{{ __('Classes Schedule') }}</h3>
                     </td>
                     <td style="padding: 0;">
                         <div class="ui selection icon fluid dropdown" data-scoped="location" style="position: relative; top: -0.7rem; white-space: nowrap; background: none;">
@@ -50,7 +50,7 @@
 
         <div id="schedule-tables">
             <table class="ui compact unstackable table">
-                <thead><tr><th colspan="3">{{ trans_choice('date.monday', 2) }}</th></tr></thead>
+                <thead><tr><th colspan="3">{{ __('Mondays') }}</th></tr></thead>
                 <tbody>
                     @foreach ($group->schedule()->where('location_id', $location->id)->orderBy('starts')->get() as $item)
                         @if ($item->week_day == 0)
@@ -58,7 +58,7 @@
                                 <td>{{ $item->title }}</td>
                                 <td class="right aligned collapsing"><time>{{ $item->starts }}</time> &mdash; <time>{{ $item->ends }}</time></td>
                                 <td class="right aligned collapsing">
-                                    <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
+                                    <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
                                         <i class="icon write"></i>
                                     </a>
                                 </td>
@@ -68,8 +68,8 @@
 
                     <tr>
                         <td colspan="3">
-                            <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=0' }}" title="">
-                                <i class="icon plus"></i> {{ trans('group/schedule.add_event') }}
+                            <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=0' }}" title="">
+                                <i class="icon plus"></i> {{ __('Add schedule event') }}
                             </a>
                         </td>
                     </tr>
@@ -79,7 +79,7 @@
             <div class="ui horizontal divider"></div>
 
             <table class="ui compact unstackable table">
-                <thead><tr><th colspan="3">{{ trans_choice('date.tuesday', 2) }}</th></tr></thead>
+                <thead><tr><th colspan="3">{{ __('Tuesdays') }}</th></tr></thead>
                 <tbody>
                     @foreach ($group->schedule()->where('location_id', $location->id)->orderBy('starts')->get() as $item)
                         @if ($item->week_day == 1)
@@ -87,7 +87,7 @@
                                 <td>{{ $item->title }}</td>
                                 <td class="right aligned collapsing"><time>{{ $item->starts }}</time> &mdash; <time>{{ $item->ends }}</time></td>
                                 <td class="right aligned collapsing">
-                                    <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
+                                    <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
                                         <i class="icon write"></i>
                                     </a>
                                 </td>
@@ -97,8 +97,8 @@
 
                     <tr>
                         <td colspan="3">
-                            <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=1' }}" title="">
-                                <i class="icon plus"></i> {{ trans('group/schedule.add_event') }}
+                            <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=1' }}" title="">
+                                <i class="icon plus"></i> {{ __('Add schedule event') }}
                             </a>
                         </td>
                     </tr>
@@ -108,7 +108,7 @@
             <div class="ui horizontal divider"></div>
 
             <table class="ui compact unstackable table">
-                <thead><tr><th colspan="3">{{ trans_choice('date.wednesday', 2) }}</th></tr></thead>
+                <thead><tr><th colspan="3">{{ __('Wednesdays') }}</th></tr></thead>
                 <tbody>
                     @foreach ($group->schedule()->where('location_id', $location->id)->orderBy('starts')->get() as $item)
                         @if ($item->week_day == 2)
@@ -116,7 +116,7 @@
                                 <td>{{ $item->title }}</td>
                                 <td class="right aligned collapsing"><time>{{ $item->starts }}</time> &mdash; <time>{{ $item->ends }}</time></td>
                                 <td class="right aligned collapsing">
-                                    <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
+                                    <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
                                         <i class="icon write"></i>
                                     </a>
                                 </td>
@@ -126,8 +126,8 @@
 
                     <tr>
                         <td colspan="3">
-                            <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=2' }}" title="">
-                                <i class="icon plus"></i> {{ trans('group/schedule.add_event') }}
+                            <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=2' }}" title="">
+                                <i class="icon plus"></i> {{ __('Add schedule event') }}
                             </a>
                         </td>
                     </tr>
@@ -137,7 +137,7 @@
             <div class="ui horizontal divider"></div>
 
             <table class="ui compact unstackable table">
-                <thead><tr><th colspan="3">{{ trans_choice('date.thursday', 2) }}</th></tr></thead>
+                <thead><tr><th colspan="3">{{ __('Thursdays') }}</th></tr></thead>
                 <tbody>
                     @foreach ($group->schedule()->where('location_id', $location->id)->orderBy('starts')->get() as $item)
                         @if ($item->week_day == 3)
@@ -145,7 +145,7 @@
                                 <td>{{ $item->title }}</td>
                                 <td class="right aligned collapsing"><time>{{ $item->starts }}</time> &mdash; <time>{{ $item->ends }}</time></td>
                                 <td class="right aligned collapsing">
-                                    <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
+                                    <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
                                         <i class="icon write"></i>
                                     </a>
                                 </td>
@@ -155,8 +155,8 @@
 
                     <tr>
                         <td colspan="3">
-                            <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=3' }}" title="">
-                                <i class="icon plus"></i> {{ trans('group/schedule.add_event') }}
+                            <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=3' }}" title="">
+                                <i class="icon plus"></i> {{ __('Add schedule event') }}
                             </a>
                         </td>
                     </tr>
@@ -166,7 +166,7 @@
             <div class="ui horizontal divider"></div>
 
             <table class="ui compact unstackable table">
-                <thead><tr><th colspan="3">{{ trans_choice('date.friday', 2) }}</th></tr></thead>
+                <thead><tr><th colspan="3">{{ __('Fridays') }}</th></tr></thead>
                 <tbody>
                     @foreach ($group->schedule()->where('location_id', $location->id)->orderBy('starts')->get() as $item)
                         @if ($item->week_day == 4)
@@ -174,7 +174,7 @@
                                 <td>{{ $item->title }}</td>
                                 <td class="right aligned collapsing"><time>{{ $item->starts }}</time> &mdash; <time>{{ $item->ends }}</time></td>
                                 <td class="right aligned collapsing">
-                                    <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
+                                    <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
                                         <i class="icon write"></i>
                                     </a>
                                 </td>
@@ -184,8 +184,8 @@
 
                     <tr>
                         <td colspan="3">
-                            <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=4' }}" title="">
-                                <i class="icon plus"></i> {{ trans('group/schedule.add_event') }}
+                            <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=4' }}" title="">
+                                <i class="icon plus"></i> {{ __('Add schedule event') }}
                             </a>
                         </td>
                     </tr>
@@ -195,7 +195,7 @@
             <div class="ui horizontal divider"></div>
 
             <table class="ui compact unstackable table">
-                <thead><tr><th colspan="3">{{ trans_choice('date.saturday', 2) }}</th></tr></thead>
+                <thead><tr><th colspan="3">{{ __('Saturday') }}</th></tr></thead>
                 <tbody>
                     @foreach ($group->schedule()->where('location_id', $location->id)->orderBy('starts')->get() as $item)
                         @if ($item->week_day == 5)
@@ -203,7 +203,7 @@
                                 <td>{{ $item->title }}</td>
                                 <td class="right aligned collapsing"><time>{{ $item->starts }}</time> &mdash; <time>{{ $item->ends }}</time></td>
                                 <td class="right aligned collapsing">
-                                    <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
+                                    <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
                                         <i class="icon write"></i>
                                     </a>
                                 </td>
@@ -213,8 +213,8 @@
 
                     <tr>
                         <td colspan="3">
-                            <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=5' }}" title="">
-                                <i class="icon plus"></i> {{ trans('group/schedule.add_event') }}
+                            <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=5' }}" title="">
+                                <i class="icon plus"></i> {{ __('Add schedule event') }}
                             </a>
                         </td>
                     </tr>
@@ -224,7 +224,7 @@
             <div class="ui horizontal divider"></div>
 
             <table class="ui compact unstackable table">
-                <thead><tr><th colspan="3">{{ trans_choice('date.sunday', 2) }}</th></tr></thead>
+                <thead><tr><th colspan="3">{{ __('Sundays') }}</th></tr></thead>
                 <tbody>
                     @foreach ($group->schedule()->where('location_id', $location->id)->orderBy('starts')->get() as $item)
                         @if ($item->week_day == 6)
@@ -232,7 +232,7 @@
                                 <td>{{ $item->title }}</td>
                                 <td class="right aligned collapsing"><time>{{ $item->starts }}</time> &mdash; <time>{{ $item->ends }}</time></td>
                                 <td class="right aligned collapsing">
-                                    <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
+                                    <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, $item->id]) }}" title="">
                                         <i class="icon write"></i>
                                     </a>
                                 </td>
@@ -242,8 +242,8 @@
 
                     <tr>
                         <td colspan="3">
-                            <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=6' }}" title="">
-                                <i class="icon plus"></i> {{ trans('group/schedule.add_event') }}
+                            <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id, 'new']) . '?week_day=6' }}" title="">
+                                <i class="icon plus"></i> {{ __('Add schedule event') }}
                             </a>
                         </td>
                     </tr>
@@ -255,8 +255,8 @@
         <div class="ui icon message" style="background: none; box-shadow: none;">
             <i class="asterisk icon yellow" style="display: inline-block; margin-right: 0;"></i>
             <div class="content">
-                <div class="header">{{ trans('group/schedule.helpers.manage_schedule') }}</div>
-                <p>{!! trans('group/schedule.helpers.manage_schedule_description') !!}</p>
+                <div class="header">{{ __('Manage schedule') }}</div>
+                <p>{!! __('Add weekly recurring events/classes to your class. <br /><br />If you have multiple locations, you can add different schedule for each location &mdash; click onto the name of the location to switch.') !!}</p>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('group/location.page_titles.map'))
+@section('title', __('Map class location') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -23,7 +23,7 @@
         ])
     </div>
     <div class="eight wide column" style="padding-top: 1.7rem !important;">
-        <h3 class="ui header">{{ trans('group/location.review') }}</h3>
+        <h3 class="ui header">{{ __('Review your location on the map') }}</h3>
         <p><i class="icon marker"></i> {{ $location->full_address }}, {{ $location->country->name }}</p>
 
         <form class="ui form" action="" method="post">
@@ -40,7 +40,7 @@
 
             <div id="map" data-location="{{ json_encode($location) }}"></div><br />
 
-            <button class="ui red button" type="submit">{{ trans('buttons.save') }}</button>
+            <button class="ui red button" type="submit">{{ __('Save') }}</button>
         </form>
     </div>
 
@@ -48,8 +48,9 @@
         <div class="ui icon message" style="background: none; box-shadow: none;">
             <i class="asterisk icon yellow" style="display: inline-block; margin-right: 0;"></i>
             <div class="content">
-                <div class="header">{{ trans('group/location.helpers.map_location') }}</div>
-                <p>{!! trans('group/location.helpers.map_location_description') !!}</p>
+                <div class="header">{{ __('Map location') }}</div>
+                <p>{{ __('Drag red marker to the exact location of your class.') }}</p>
+                <p>{{ __('You can also switch to "Satellite" view and/or zoom in to see roofs for better identification of your building.') }}</p>
             </div>
         </div>
     </div>

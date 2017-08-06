@@ -9,6 +9,13 @@ use Storage;
 
 class AvatarController extends Controller {
 
+    private function formatBytes($bytes, $precision = 2) {
+        $base = log($bytes, 1024);
+        $suffixes = ['bytes', 'kilobytes', 'megabytes', 'gigabytes', 'terabytes'];
+
+        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
+    }
+
     /**
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
@@ -72,7 +79,7 @@ class AvatarController extends Controller {
      */
     public function store(User $user) {
         $validation = Validator::make(Request::all(), [
-            'avatar' => 'required|image|mimes:jpeg'
+            'avatar' => 'required|image|mimes:jpeg|max:' . config('custom.class.max_photosize')
         ]);
 
         if ($validation->fails()) {
@@ -82,14 +89,6 @@ class AvatarController extends Controller {
         }
 
         $file = Request::file('avatar');
-
-        if ($file->getSize() > config('custom.class.max_photosize')) {
-            $megabytes = $this->formatBytes(config('custom.class.max_photosize'));
-            return response()->json([
-                'errors' => [sprintf('Avatar must be under %s.', $megabytes)]
-            ]);
-        }
-
         $fit = function($constraint) {
             $constraint->aspectRatio();
             $constraint->upsize();

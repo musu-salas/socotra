@@ -20,17 +20,17 @@ class LocationController extends Controller {
         $locations = $group->locations;
 
         if (!count($locations)) {
-            return redirect()->to("/home/classes/{$group->id}/location/new");
+            return redirect(url("home/classes/{$group->id}/location/new"));
         }
 
         if (count($locations) === 1) {
 
             // Redirects to the only location edition page, since it is not completed.
             if (!$locations[0]->is_full) {
-                return redirect()->to("/home/classes/{$group->id}/location/{$locations[0]->id}");
+                return redirect(url("home/classes/{$group->id}/location/{$locations[0]->id}"));
 
             } elseif (!$locations[0]->latlng) {
-                return redirect()->to("/home/classes/{$group->id}/location/{$locations[0]->id}/map");
+                return redirect(url("home/classes/{$group->id}/location/{$locations[0]->id}/map"));
             }
         }
 
@@ -124,7 +124,7 @@ class LocationController extends Controller {
             $location->update($location_attr);
         }
 
-        return redirect("home/classes/{$group->id}/location/{$location->id}/map");
+        return redirect(url("home/classes/{$group->id}/location/{$location->id}/map"));
     }
 
     /**
@@ -137,7 +137,7 @@ class LocationController extends Controller {
         $location = $group->locations()->find($locationId);
 
         if (!$location) {
-            return redirect()->to("/home/classes/{$group->id}/location");
+            return redirect(url("home/classes/{$group->id}/location"));
         }
 
         if (Request::isMethod('get')) {
@@ -152,6 +152,6 @@ class LocationController extends Controller {
         $location->latlng = trim(strip_tags(Request::input('latlng')));
         $location->save();
 
-        return redirect()->to("home/classes/{$group->id}/location");
+        return redirect(url("home/classes/{$group->id}/location"));
     }
 }

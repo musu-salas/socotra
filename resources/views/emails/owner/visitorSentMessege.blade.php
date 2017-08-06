@@ -1,6 +1,6 @@
 @component('mail::message')
-Hi {{ $receiver->first_name }},<br>
-You have received a message from {{ $sender->name }}, [your {{ config('app.name') }} page]({{ $page_url }}) visitor.
+{{ __('Hi :name,', [ 'name' => $receiver->first_name ]) }},<br>
+{{ __('You have received a message from :sender, [your :app page](:url) visitor.', [ 'sender' => $sender->name, 'app' => config('app.name'), 'url' => $page_url ]) }}
 
 @component('mail::panel')
 {{ $text }}
@@ -12,11 +12,11 @@ You have received a message from {{ $sender->name }}, [your {{ config('app.name'
 @endcomponent
 
 @if($sender->email)
-Feel free to reach {{ $sender->name }} via an email by hitting a "Reply" button.
+{{ __('Feel free to reach :sender via an email by hitting a "Reply" button.', [ 'name' => $sender->name ]) }}
 @else
-Feel free to reach {{ $sender->name }} by phone.<br>
+{{ __('Feel free to reach :sender by phone.', [ 'sender' => $sender->name ]) }}<br>
 @endif
 
 <br><br>
-Your [{{ config('app.name') }}]({{ $page_url }}) with &hearts;
+{!! __('Your [:app](:url) with &hearts;', [ 'app' => config('app.name'), 'url' => $page_url ]) !!}
 @endcomponent

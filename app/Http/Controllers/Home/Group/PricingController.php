@@ -51,7 +51,7 @@ class PricingController extends Controller {
             $price = $group->pricing->find($priceId);
 
             if (!$price) {
-                return redirect()->to("/home/classes/{$group->id}/pricing");
+                return redirect(url("home/classes/{$group->id}/pricing"));
             }
         }
 
@@ -133,6 +133,6 @@ class PricingController extends Controller {
 
         $price->locations()->sync($prices);
 
-        return redirect()->to("home/classes/{$group->id}/pricing");
+        return redirect(url("home/classes/{$group->id}/pricing"));
     }
 }

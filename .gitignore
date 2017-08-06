@@ -2,6 +2,7 @@
 /public/storage
 /public/hot
 /resources/assets/vendor
+/resources/lang/**/*.php
 /storage/*.key
 /vendor
 /.idea

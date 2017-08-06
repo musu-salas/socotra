@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Request a new Password')
+@section('title', __('Request a new Password') . ' · ' . config('app.name'))
 
 @section('content')
 <div>
@@ -13,8 +13,8 @@
             <div class="ui segment">
                 <div class="ui basic segment center aligned">
                     <h2 class="ui header">
-                        Request Password Reset
-                        <div class="sub header">Enter the email address associated with your account, and we'll email you with a link to reset your password.</div>
+                        {{ __('Request Password Reset') }}
+                        <div class="sub header">{{ __('Enter the email address associated with your account, and we\'ll email you with a link to reset your password.') }}</div>
                     </h2>
 
                     @if(session('status'))
@@ -23,7 +23,7 @@
                         </div>
                     @endif
 
-                    <form class="ui form" role="form" method="POST" action="{{ url('/password/email') }}">
+                    <form class="ui form" role="form" method="POST" action="{{ url('password/email') }}">
                         {!! csrf_field() !!}
 
                         <div class="ui centered grid">
@@ -44,12 +44,12 @@
 
                                     <div class="field">
                                         <div class="ui icon input">
-                                            <input type="email" placeholder="Email Address" name="email" value="{{ old('email') }}">
+                                            <input type="email" placeholder="{{ __('Email Address') }}" name="email" value="{{ old('email') }}">
                                             <i class="at icon"></i>
                                         </div>
                                     </div>
 
-                                    <div class="ui submit red button">Send Reset Link</div>
+                                    <div class="ui submit red button">{{ __('Send Reset Link') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
         </div>
         <div class="ui basic segment center aligned">
             <div class="ui header">
-                <p class="sub header">Or, if you still remember it, <a class="inline-link" href="{{ url('/login') }}" title="">Log in here</a>.</p>
+                <p class="sub header">{!! __('Or, if you still remember it, :link.', [ 'link' => '<a class="inline-link" href="' . url('login') . '" title="' . __('Login') . '">' . __('Log in here') . '</a>' ]) !!}</p>
             </div>
         </div>
     </div>

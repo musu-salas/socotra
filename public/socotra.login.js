@@ -13,7 +13,7 @@
   function popup(url, title, width, height) {
     return window.open(url, title, mapToStr({
       toolbar: 'no',
-      location: 'yes',
+      location: 'no',
       directories: 'no',
       status: 'no',
       menubar: 'no',
@@ -28,13 +28,15 @@
   }
 
 
-  !window.isMobile && $('a[href*="/socialize/facebook"]').on('click', function(e) {
-    var button = $(this);
-    window.popup = popup(button.attr('href'), button.attr('title'), 530, 500);
+  if (!window.isMobile) {
+    $('a[href*="/socialize/facebook"]').on('click', function(e) {
+      var button = $(this);
+      window.popup = popup(button.attr('href'), button.attr('title'), 530, 500);
 
-    e.preventDefault();
-    return false;
-  });
+      e.preventDefault();
+      return false;
+    });
+  }
 
 
   $('form').form({

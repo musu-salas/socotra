@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Create class — ' . config('app.name'))
+@section('title', __('Create class') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -19,8 +19,8 @@
                         <h2 class="ui header">
                             <i class="marker icon"></i>
                             <div class="content">
-                                {{ trans('group/new.create_class_page') }}
-                                <div class="sub header">{{ trans('group/new.expand_publicity') }}</div>
+                                {{ __('Create Class Page') }}
+                                <div class="sub header">{{ __('Expand the publicity of your class, reaching more people living nearby.') }}</div>
                             </div>
                         </h2>
                         <div class="ui divider"></div>
@@ -46,30 +46,30 @@
 
                     <div class="two fields">
                         <div class="required field">
-                            <label>{{ trans('group/new.general_discipline') }}</label>
+                            <label>{{ __('General discipline') }}</label>
                             <div class="ui input">
-                                <input name="creative_field1" type="text" placeholder="{{ trans('group/new.general_discipline_examples') }}">
+                                <input name="creative_field1" type="text" placeholder="{{ __('e.g. dancing, piano, fitness, math, design...') }}">
                             </div>
                         </div>
                         <div class="field">
-                            <label>{{ trans('group/new.subdiscipline') }} <em style="font-weight: normal;">({{ trans('form.optional') }})</em></label>
+                            <label>{{ __('Subdiscipline') }} <em style="font-weight: normal;">({{ __('optional') }})</em></label>
                             <div class="ui input">
-                                <input name="creative_field2" type="text" placeholder="{{ trans('group/new.subdiscipline_examples') }}">
+                                <input name="creative_field2" type="text" placeholder="{{ __('Salsa for dancing, interior design for design...') }}">
                             </div>
                         </div>
                     </div>
 
                     <div class="required field">
-                        <label>{{ trans('form.city') }}</label>
+                        <label>{{ __('City') }}</label>
                         <div class="ui input">
                             <input type="hidden" name="location" value="{{ $user->location }}" />
-                            <input type="text" name="location_text" placeholder="{{ trans('group/new.city_examples') }}" name="location" data-types="(cities)" value="{{ $user->location_text }}">
+                            <input type="text" name="location_text" placeholder="{{ __('e.g. New York, Vienna, Tokyo') }}" name="location" data-types="(cities)" value="{{ $user->location_text }}">
                         </div>
                     </div>
 
                     <div class="two fields">
                         <div class="field">
-                            <label>{{ trans('group/new.attendance_fee') }} <em style="font-weight: normal;">({{ trans('form.optional') }})</em> <i class="help circle icon link" data-content="{{ trans('group/new.attendance_fee_description') }}" data-variation="large"></i></label>
+                            <label>{{ __('Single attendance fee') }} <em style="font-weight: normal;">({{ __('optional') }})</em> <i class="help circle icon link" data-content="{{ __('How much do you charge for a single class attendance?') }}" data-variation="large"></i></label>
                             <div class="ui labeled input">
                                 <div class="ui compact floating selection dropdown" data-scoped style="background: #E8E8E8; color: rgba(0, 0, 0, 0.6);">
                                     <input type="hidden" name="currency_id" value="{{ $currencies[0]->id }}">
@@ -86,7 +86,7 @@
                         </div>
                     </div><br /><br />
 
-                    <div class="ui submit red button">{{ trans('group/new.create_class') }}<i>!</i></div>
+                    <div class="ui submit red button">{{ __('Create Your Class') }}<i>!</i></div>
                 </form>
 
             </div>

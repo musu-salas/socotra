@@ -1,6 +1,6 @@
 @component('mail::message')
-Hi {{ $receiver->first_name }},<br>
-**{{ $sender->name }}**, [your {{ config('app.name') }} page]({{ $page_url }}) visitor, **has a willing to join the class_!_**
+{{ __('Hi :name,', [ 'name' => $receiver->first_name ]) }}<br>
+{!! __('**:sender**, [your :app page](:url) visitor, **has a willing to join the class_!_**', [ 'sender' => $sender->name, 'app' => config('app.name'), 'url' => $page_url ]) !!}
 
 @component('mail::panel')
 Contact information provided:
@@ -11,13 +11,13 @@ Contact information provided:
 @endcomponent
 
 @if($sender->email)
-Feel free to reach {{ $sender->name }} via an email by hitting a "Reply" button.
+{{ __('Feel free to reach :sender via an email by hitting a "Reply" button.', [ 'sender' => $sender->name ]) }}
 
-_Please include more details regarding how to begin attending your class._
+{{ __('_Please include more details regarding how to begin attending your class._') }}
 @else
-Feel free to reach {{ $sender->name }} by phone.
+{{ __('Feel free to reach :sender by phone.', [ 'sender' => $sender->name ]) }}
 @endif
 
 <br><br>
-Your [{{ config('app.name') }}]({{ $page_url }}) with &hearts;
+{!! __('Your [:app](:url) with &hearts;', [ 'app' => config('app.name'), 'url' => $page_url ]) !!}
 @endcomponent

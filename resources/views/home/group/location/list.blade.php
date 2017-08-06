@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('group/location.page_titles.list'))
+@section('title', __('Manage class locations') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -23,7 +23,7 @@
         ])
     </div>
     <div class="thirteen wide column" style="padding-top: 1.7rem !important;">
-        <h3 class="ui header">{{ trans('group/location.locations') }}</h3>
+        <h3 class="ui header">{{ __('Locations') }}</h3>
 
         <table class="ui striped compact table">
             <tbody>
@@ -34,12 +34,12 @@
                     <td class="collapsing">{{ $location->zip }}</td>
                     <td class="collapsing">{{ $location->city }}</td>
                     <td class="right aligned collapsing">
-                        <a href="{{ url('/home/classes/' . $group->id . '/location/' . $location->id . '/map') }}" title="" @if(!$location->latlng)data-content="{{ trans('group/location.map_notset_info') }}" data-position="top right"@endif>
+                        <a href="{{ url('home/classes/' . $group->id . '/location/' . $location->id . '/map') }}" title="" @if(!$location->latlng)data-content="{{ __('Location position on the map is not set.') }}" data-position="top right"@endif>
                             <i class="icon {{ $location->latlng ? 'black' : 'red' }} marker"></i>
                         </a>
                     </td>
                     <td class="right aligned collapsing">
-                        <a href="{{ url('/home/classes', [$group->id, 'location', $location->id]) }}" title="">
+                        <a href="{{ url('home/classes', [$group->id, 'location', $location->id]) }}" title="">
                             <i class="icon write"></i>
                         </a>
                     </td>
@@ -49,7 +49,7 @@
             </tbody>
         </table>
 
-        <a href="{{ url('/home/classes', [$group->id, 'location', 'new']) }}" class="ui button red">{{ trans('group/location.add_address') }}</a>
+        <a href="{{ url('home/classes', [$group->id, 'location', 'new']) }}" class="ui button red">{{ __('Add Address') }}</a>
     </div>
 </div>
 @endsection

@@ -13,6 +13,6 @@ class IndexController extends Controller {
      */
     public function index(Group $group)
     {
-        return redirect()->to("/home/classes/{$group->id}/location");
+        return redirect(url("home/classes/{$group->id}/location"));
     }
 }

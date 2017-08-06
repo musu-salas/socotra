@@ -26,7 +26,7 @@ class CustomAuthenticateMiddleware
                 'followTo' => $urlPath
             ]);
 
-            return redirect("home/settings?{$urlQuery}");
+            return redirect(url('home/settings', [ 'followTo' => $urlPath ]));
         }
 
         return $next($request);

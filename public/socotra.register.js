@@ -13,7 +13,7 @@
   function popup(url, title, width, height) {
     return window.open(url, title, mapToStr({
       toolbar: 'no',
-      location: 'yes',
+      location: 'no',
       directories: 'no',
       status: 'no',
       menubar: 'no',

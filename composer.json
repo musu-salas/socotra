@@ -10,6 +10,7 @@
         "aws/aws-sdk-php": "^3.24",
         "barryvdh/laravel-debugbar": "^2.3",
         "doctrine/dbal": "^2.5",
+        "funkjedi/composer-include-files": "^1.0",
         "geoip/geoip": "^1.17",
         "guzzlehttp/guzzle": "^6.2",
         "intervention/image": "^2.3",
@@ -29,6 +30,7 @@
         "symfony/dom-crawler": "^3.2"
     },
     "autoload": {
+        "files": [],
         "classmap": [
             "database"
         ],
@@ -60,5 +62,10 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
+    },
+    "extra": {
+        "include_files": [
+            "app/Foundation/helpers.php"
+        ]
     }
 }

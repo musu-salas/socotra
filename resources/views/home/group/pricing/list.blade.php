@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('group/pricing.page_titles.list'))
+@section('title', __('Manage class pricing') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -23,7 +23,7 @@
         ])
     </div>
     <div class="eight wide column" style="padding-top: 1.7rem !important;">
-        <h3 class="ui header">{{ trans('group/pricing.pricing') }}</h3>
+        <h3 class="ui header">{{ __('Pricing') }}</h3>
 
         @foreach ($locations as $location)
         <table class="ui striped compact table">
@@ -40,7 +40,7 @@
                     <td>{{ $variation->title }}</td>
                     <td class="collapsing"><var class="currency-symbol">{{ $location->currency->symbol }}</var> <span>{{ $variation->pivot->price }}</span></td>
                     <td class="right aligned collapsing">
-                        <a href="{{ url('/home/classes', [$group->id, 'pricing', $variation->id]) }}" title="">
+                        <a href="{{ url('home/classes', [$group->id, 'pricing', $variation->id]) }}" title="">
                             <i class="icon write"></i>
                         </a>
                     </td>
@@ -49,8 +49,8 @@
 
                 <tr>
                     <td colspan="3">
-                        <a href="{{ url('/home/classes', [$group->id, 'pricing', 'new']) }}" title="">
-                            <i class="icon plus"></i> {{ trans('group/pricing.add_pricing') }}
+                        <a href="{{ url('home/classes', [$group->id, 'pricing', 'new']) }}" title="">
+                            <i class="icon plus"></i> {{ __('Add Pricing') }}
                         </a>
                     </td>
                 </tr>
@@ -65,8 +65,9 @@
         <div class="ui icon message" style="background: none; box-shadow: none;">
             <i class="asterisk icon yellow" style="display: inline-block; margin-right: 0;"></i>
             <div class="content">
-                <div class="header">{{ trans('group/pricing.helpers.manage_pricing') }}</div>
-                <p>{!! trans('group/pricing.helpers.manage_pricing_description') !!}</p>
+                <div class="header">{{ __('Manage pricing') }}</div>
+                <p>{{ __('List all available pricing options for your class. These could be single class fee, weekly access, monthly subscription or any other variations you offer.') }}</p>
+                <p>{{ __('If you have multiple class locations, it is also possible to define different prices per location.') }}</p>
             </div>
         </div>
     </div>

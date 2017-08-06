@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('group/schedule.page_titles.list'))
+@section('title', __('Manage class schedule') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -23,17 +23,17 @@
         ])
     </div>
     <div class="eight wide column" style="padding-top: 1.7rem !important;">
-        <h3 class="ui header">{{ trans('group/schedule.classes_schedule') }}</h3>
+        <h3 class="ui header">{{ __('Classes Schedule') }}</h3>
 
         <div class="ui icon message">
             <i class="warning circle icon"></i>
             <div class="content">
-                <p>{{ trans('group/schedule.schedule_disabled') }}</p>
+                <p>{{ __('Class schedule is always tied to the location of the class. Different locations might have various schedule. Please add the location for your class to unlock editing of your schedule.') }}</p>
             </div>
         </div>
 
         <p>
-            <a href="{{ url('/home/classes', [$group->id, 'location']) }}" class="ui button red">{{ trans('group/pricing.add_location') }}</a>
+            <a href="{{ url('home/classes', [$group->id, 'location']) }}" class="ui button red">{{ __('Add location') }}</a>
         </p>
     </div>
 </div>

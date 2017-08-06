@@ -21,7 +21,7 @@ class MyGroupMiddleware
         $group = $request->route('group');
 
         if ($group->user_id !== Auth::id()) {
-            return redirect()->to('/home/classes');
+            return redirect(url('home/classes'));
         }
 
         return $next($request);

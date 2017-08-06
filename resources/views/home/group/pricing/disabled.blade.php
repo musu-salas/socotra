@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('group/pricing.page_titles.list'))
+@section('title', __('Manage class pricing') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -23,17 +23,17 @@
         ])
     </div>
     <div class="eight wide column" style="padding-top: 1.7rem !important;">
-        <h3 class="ui header">{{ trans('group/pricing.pricing') }}</h3>
+        <h3 class="ui header">{{ __('Pricing') }}</h3>
 
         <div class="ui icon message">
             <i class="warning circle icon"></i>
             <div class="content">
-                <p>{{ trans('group/pricing.pricing_disabled') }}</p>
+                <p>{{ __('In our practice pricing is normally tied to the location of the class. Please add the location for your class to unlock editing of your pricing.') }}</p>
             </div>
         </div>
 
         <p>
-            <a href="{{ url('/home/classes', [$group->id, 'location']) }}" class="ui button red">{{ trans('group/pricing.add_location') }}</a>
+            <a href="{{ url('home/classes', [$group->id, 'location']) }}" class="ui button red">{{ __('Add Location') }}</a>
         </p>
     </div>
 </div>

@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('group/photos.page_title'))
+@section('title', __('Manage class photos') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -34,7 +34,7 @@
                 style="position: relative;"
             >
                 <i class="cloud upload icon"></i>
-                <span>{{ trans('group/photos.add_photo') }}</span>
+                <span>{{ __('Add Photo') }}</span>
 
                 <input id="photos-file-input" type="file" name="photos[]" multiple style="position: absolute; top: 0; right: 0; width: 100%; height: 100%; outline: none; background: none; border: 0; opacity: 0;">
             </form>
@@ -42,16 +42,16 @@
                 <span>{{ count($group->photos) }}</span> / {{ config('custom.class.max_photos') }}
             </div>
         </div>
-        <p style="margin: 1rem 0; color: #aaa; font-style: italic; font-weight: 400;">{!! trans('group/photos.add_photo_description') !!}</p>
+        <p style="margin: 1rem 0; color: #aaa; font-style: italic; font-weight: 400;">{!! __('* We recommend uploading <code>jpg</code>/<code>jpeg</code> photos, where you clearly demonstrate activity of your class.') !!}</p>
         <div id="generic-alert" class="ui error message hidden"></div>
         <div id="uploaded-alert" class="ui positive message hidden"></div>
         <div id="failed-alert" class="ui error message hidden">
-            <div class="header">{{ trans('group/photos.failed_photos') }}</div>
+            <div class="header">{{ __('These files failed to upload:') }}</div>
             <ul class="list"></ul>
         </div>
         <div
             id="photos"
-            data-translations='{ "group/photos.is_cover_photo": "{{ trans('group/photos.is_cover_photo') }}", "group/photos.set_cover_photo": "{{ trans('group/photos.set_cover_photo') }}" }'
+            data-translations='{ "group/photos.is_cover_photo": "{{ __('This is your page cover photo') }}", "group/photos.set_cover_photo": "{{ __('Set as your page cover photo') }}" }'
         >
             @foreach($group->photos as $photo)
             <div
@@ -63,7 +63,7 @@
                 <div style="overflow: hidden; width: 14rem; height: 9rem;">
                     <img class="ui fluid image" src="{{ $photo->thumbnail_src ?? $photo->original_src }}" style="width: 100%; width: 100%; -webkit-transform: translateY(-50%); transform: translateY(-50%); top: 50%;">
                     <div class="ui icon button"><i class="trash icon"></i></div>
-                    <div class="ui icon button {{ ($photo->is_cover) ? 'yellow' : '' }}" data-content="{{ ($photo->is_cover) ? trans('group/photos.is_cover_photo') : trans('group/photos.set_cover_photo') }}" data-position="top center">
+                    <div class="ui icon button {{ ($photo->is_cover) ? 'yellow' : '' }}" data-content="{{ ($photo->is_cover) ? __('This is your page cover photo') : __('Set as your page cover photo') }}" data-position="top center">
                         <i class="star icon purple"></i>
                     </div>
                 </div>

@@ -31,13 +31,13 @@ class ScheduleController extends Controller {
                 ]);
             }
 
-            return redirect()->to("/home/classes/{$group->id}/schedule/{$location->id}");
+            return redirect(url("home/classes/{$group->id}/schedule/{$location->id}"));
         }
 
         $location = $locations->find($locationId);
 
         if (!$location || !$location->is_full) {
-            return redirect()->to("/home/classes/{$group->id}/schedule");
+            return redirect(url("home/classes/{$group->id}/schedule"));
         }
 
         return view('home.group.schedule.list', [
@@ -62,21 +62,21 @@ class ScheduleController extends Controller {
         $location = $group->locations->find($locationId);
 
         if (!$location) {
-            return redirect()->to("/home/classes/{$group->id}/schedule");
+            return redirect(url("home/classes/{$group->id}/schedule"));
         }
 
         if ($scheduleId !== 'new') {
             $schedule = $group->schedule()->where('id', $scheduleId)->where('location_id', $location->id)->first();
 
             if (!$schedule) {
-                return redirect()->to("/home/classes/{$group->id}/schedule/{$location->id}");
+                return redirect(url("home/classes/{$group->id}/schedule/{$location->id}"));
             }
         }
 
         $weekDay = $schedule ? $schedule->week_day : Request::input('week_day');
 
         if (!isset($weekDay) || !in_array(intval($weekDay), [0, 1, 2, 3, 4, 5, 6])) {
-            return redirect()->to(Request::path() . '?week_day=0');
+            return redirect(url(Request::path(), [ 'week_day' => 0 ]));
         }
 
         return view('home.group.schedule.add', [
@@ -140,6 +140,6 @@ class ScheduleController extends Controller {
             $group->schedule()->findOrFail($scheduleId)->update($schedule_attr);
         }
 
-        return redirect()->to("home/classes/{$group->id}/schedule/{$location->id}");
+        return redirect(url("home/classes/{$group->id}/schedule/{$location->id}"));
     }
 }

@@ -13,8 +13,6 @@ class IndexController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $urlPath = Request::path();
-
-        return redirect()->to("{$urlPath}/classes");
+        return redirect(url('home/classes'));
     }
 }

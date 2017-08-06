@@ -108,7 +108,8 @@ class FacebookController extends Controller {
 
             if (!$FB->user) {
                 Log::error('Facebook user object is missing.', $FB);
-                return redirect('socialize/facebook?' . http_build_query([
+
+                return redirect(url('socialize/facebook', [
                     'error' => 'missing_user_data'
                 ]));
             }
@@ -120,7 +121,7 @@ class FacebookController extends Controller {
                     ->first();
 
                 if ($userWithThisFacebook) {
-                    return redirect('socialize/facebook?' . http_build_query([
+                    return redirect(url('socialize/facebook', [
                         'error' => 'already_user'
                     ]));
                 }
@@ -134,6 +135,7 @@ class FacebookController extends Controller {
                 $user = User::where('facebook_id', '=', $FB->user['id'])
                     ->orWhere('email', '=', $FB->user['email'])
                     ->first();
+
             } else {
                 $user = User::where('facebook_id', '=', $FB->user['id'])->first();
             }

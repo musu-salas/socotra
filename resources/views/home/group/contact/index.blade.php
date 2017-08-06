@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('group/contact.page_title'))
+@section('title', __('Class contact information') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -23,10 +23,10 @@
         ])
     </div>
     <div id="prices-column" class="eight wide column" style="padding-top: 1.7rem !important;">
-        <h3 class="ui header">{{ trans('group/contact.contact_information') }}</h3>
+        <h3 class="ui header">{{ __('Contact information') }}</h3>
 
         @if (!$group->phone)
-            <p>{{ trans('group/contact.phone_info') }}</p>
+            <p>{{ __('Please add your phone number, so people interested in joining the class are able to reach you out.') }}</p>
         @endif
 
         @if (Session::has('success-message'))
@@ -39,14 +39,14 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="field">
-                <label>{{ trans('form.phone_number') }}</label>
+                <label>{{ __('Phone number') }}</label>
                 <div class="ui input">
-                    <input name="phone" type="text" placeholder="{{ trans('form.phone_number_sample') }}" value="{{ $group->phone }}">
+                    <input name="phone" type="text" placeholder="{{ __('Phone number with a country code (e.g. +1 123-456-7890)') }}" value="{{ $group->phone }}">
                 </div>
             </div>
 
             <div class="field">
-                <label>{{ trans('form.email_address') }} <a href="{{ url(sprintf('home/settings?followTo=/home/classes/%d/contact&focus=email', $group->id)) }}" style="margin-left: 1rem;"><i class="write icon"></i>{{ trans('buttons.edit') }}</a></label>
+                <label>{{ __('Email address') }} <a href="{{ url(sprintf('home/settings?followTo=/home/classes/%d/contact&focus=email', $group->id)) }}" style="margin-left: 1rem;"><i class="write icon"></i>{{ __('Edit') }}</a></label>
                 <div class="ui input">
                     <input readonly="readonly" disabled="disabled" type="text" value="{{ $group->owner->email }}">
                 </div>

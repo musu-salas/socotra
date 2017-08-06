@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', trans('user/settings.page_title'))
+@section('title', __('Account Settings') . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -19,8 +19,8 @@
                         <h2 class="ui header">
                             <i class="settings icon"></i>
                             <div class="content">
-                                {{ trans('user/settings.account_settings') }}
-                                <div class="sub header">{{ trans('user/settings.manage_preferences') }}</div>
+                                {{ __('Account Settings') }}
+                                <div class="sub header">{{ __('Manage your preferences') }}</div>
                             </div>
                         </h2>
                         <div class="ui divider"></div>
@@ -34,9 +34,9 @@
                     <div class="five wide column">
                         <div class="ui basic segment">
                             <div class="ui top attached large label">
-                                {{ trans('user/settings.profile_photo') }}
-                                <a id="avatar-change-link" href="#" style="float: right; font-weight: normal; color: #009fda;">
-                                    <i class="icon upload"></i>{{ trans('buttons.change') }}
+                                {{ __('Profile Photo') }}
+                                <a id="avatar-change-link" href="{{ __('Change') }}" style="float: right; font-weight: normal; color: #009fda;">
+                                    <i class="icon upload"></i>{{ __('Change') }}
                                 </a>
                             </div>
                             <div style="text-align: center;">
@@ -48,23 +48,23 @@
                         </div>
 
                         <div class="ui basic segment">
-                            <div class="ui top attached large label">{{ trans('user/settings.trust_verification') }}</div>
+                            <div class="ui top attached large label">{{ __('Trust and Verification') }}</div>
                             <div>
 
                                 @if($user->facebook_id)
                                     <div class="field">
-                                        <label><i class="checkmark icon"></i> {{ trans('user/settings.account_verified') }}<i>!</i><br /></label>
+                                        <label><i class="checkmark icon"></i> {{ __('Your account is verified') }}<i>!</i><br /></label>
                                     </div>
 
-                                    <span data-content="{{ trans('user/settings.account_securely_connected') }}">
+                                    <span data-content="{{ __('Your account is securely connected with Facebook. Thanks for making :app safe and trusty place.', [ 'app' => config('app.name') ]) }}">
                                         <span class="ui basic facebook button">
                                             <i class="icon facebook"></i>
-                                            {{ trans('user/settings.facebook_connected') }}
+                                            {{ __('Facebook connected') }}
                                         </span>
                                     </span>
                                 @else
                                     <div class="field">
-                                        <label style="">{{ trans('user/settings.verify_account') }}<br /></label>
+                                        <label style="">{{ __('Please verify your account by connecting to Facebook. We respect privacy and trust, and never spam or post on your behalf.') }}<br /></label>
                                     </div>
 
                                     @if (Input::has('error'))
@@ -73,16 +73,16 @@
                                                 <ul class="list">
                                                     <li>
                                                         @if(Input::get('error') == 'access_denied')
-                                                            {{ trans('socialize.access_denied') }}
+                                                            {{ __('Facebook cancelled connection. Please try again.') }}
 
                                                         @elseif(Input::get('error') == 'missing_user_data')
-                                                            {{ trans('socialize.missing_user_data') }}
+                                                            {{ __('Facebook was not able to provide necessary data. Please try again.') }}
 
                                                         @elseif(Input::get('error') == 'already_user')
-                                                            {{ trans('socialize.already_user') }}
+                                                            {{ __('It seems you have another account with us. Try to logout and login using Facebook to access it.') }}
 
                                                         @else
-                                                            {{ trans('socialize.problem') }}
+                                                            {{ __('There was a problem connecting to your Facebook. Please try again.') }}
                                                         @endif
                                                     </li>
                                                 </ul>
@@ -90,13 +90,13 @@
                                         </div>
                                     @endif
 
-                                    <a class="ui facebook button" href="{{ url('/socialize/facebook') }}" data-content="{{ trans('user/settings.trusty_community') }}">
+                                    <a class="ui facebook button" href="{{ url('socialize/facebook') }}" data-content="{{ __('We wish to make our community trusty and safe for everyone. By connecting with Facebook we verify your account.') }}">
                                         <i class="icon facebook"></i>
-                                        {{ trans('user/settings.facebook_connect') }}
+                                        {{ __('Connect Facebook') }}
                                     </a>
                                 @endif
 
-                                <p><br />{{ trans('user/settings.getting_verified_account') }}</p>
+                                <p><br />{{ __('Getting a verified account is a great way to help build trust in our community.') }}</p>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                         @endif
 
                         <div class="ui segment">
-                            <div class="ui top attached large label">{{ trans('user/settings.main_info') }}</div>
+                            <div class="ui top attached large label">{{ __('Main information') }}</div>
                             <div>
 
                                 <div class="ui error message {{ $errors->count() ? 'visible' : '' }}">
@@ -126,38 +126,38 @@
                                 </div>
 
                                 <div class="required field">
-                                    <label>{{ trans('form.first_name') }}</label>
+                                    <label>{{ __('First name') }}</label>
                                     <div class="ui icon input">
                                         <input type="text" name="first_name" value="{{ $user->first_name }}">
                                         <i class="user icon"></i>
                                     </div>
                                 </div>
                                 <div class="required field">
-                                    <label>{{ trans('form.last_name') }}</label>
+                                    <label>{{ __('Last name') }}</label>
                                     <div class="ui icon input">
                                         <input type="text" name="last_name" value="{{ $user->last_name }}">
                                         <i class="user icon"></i>
                                     </div>
                                 </div>
                                 <div class="required field {{ $user->email == config('services.facebook.empty_email') ? 'error' : '' }}">
-                                    <label>{{ trans('form.email_address') }}</label>
+                                    <label>{{ __('Email address') }}</label>
                                     <div class="ui icon input">
                                         <input type="email" name="email" value="{{ $user->email == config('services.facebook.empty_email') ? '' : $user->email }}">
                                         <i class="at icon"></i>
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label>{{ trans('user/settings.city_you_live') }} <i class="help circle icon link" data-content="{{ trans('user/settings.geographical_location') }}" data-variation="large"></i></label>
+                                    <label>{{ __('In which city do you live?') }} <i class="help circle icon link" data-content="{{ __('General geographical location that matches your interest for classes.') }}" data-variation="large"></i></label>
                                     <div class="ui input">
                                         <input type="hidden" name="location" value="{{ $user->location }}" />
-                                        <input type="text" name="location_text" placeholder="{{ trans('user/settings.city_examples') }}" data-types="(cities)" value="{{ $user->location_text }}">
+                                        <input type="text" name="location_text" placeholder="{{ __('e.g. New York, NY / London, UK / Bali, Indonesia') }}" data-types="(cities)" value="{{ $user->location_text }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="ui segment">
-                            <div class="ui top attached large label">{{ trans('user/settings.newsletter') }}</div>
+                            <div class="ui top attached large label">{{ __('Newsletter') }}</div>
                             <div>
                                 <div class="field">
                                     <div class="ui checkbox">
@@ -166,7 +166,7 @@
                                         @else
                                             <input type="checkbox" name="newsletter">
                                         @endif
-                                        <label>{{ trans('user/settings.keep_updated_progress') }}</label>
+                                        <label>{{ __('Keep me updated with community progress') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -177,27 +177,27 @@
                                 <div class="ui accordion">
                                     <div class="ui top attached label large title">
                                         <i class="icon dropdown"></i>
-                                        {{ trans('user/settings.update_password') }}
+                                        {{ __('Update account password') }}
                                     </div>
                                     <div class="content">
                                         <div class="required field">
-                                            <label>{{ trans('form.current_password') }}</label>
+                                            <label>{{ __('Current Password') }}</label>
                                             <div class="ui icon input">
-                                                <input type="password" placeholder="{{ trans('form.password') }}" name="password">
+                                                <input type="password" placeholder="{{ __('Password') }}" name="password">
                                                 <i class="lock icon"></i>
                                             </div>
                                         </div>
                                         <div class="required field">
-                                            <label>{{ trans('form.new_password') }}</label>
+                                            <label>{{ __('New Password') }}</label>
                                             <div class="ui icon input">
-                                                <input type="password" placeholder="{{ trans('form.password') }}" name="new_password">
+                                                <input type="password" placeholder="{{ __('Password') }}" name="new_password">
                                                 <i class="lock icon"></i>
                                             </div>
                                         </div>
                                         <div class="required field">
-                                            <label>{{ trans('form.confirm_new_password') }}</label>
+                                            <label>{{ __('Confirm New Password') }}</label>
                                             <div class="ui icon input">
-                                                <input type="password" placeholder="{{ trans('form.password') }}" name="new_password_confirmation">
+                                                <input type="password" placeholder="{{ __('Password') }}" name="new_password_confirmation">
                                                 <i class="lock icon"></i>
                                             </div>
                                         </div>
@@ -207,10 +207,10 @@
                         @endif
 
                         @if($user->created_at == $user->updated_at && !count($user->myGroups))
-                            <div class="ui submit red button">{{ trans('user/settings.save_create_class') }}</div>
+                            <div class="ui submit red button">{!! __('Save &amp; Create your class') !!}</div>
 
                         @else
-                            <div class="ui submit red button">{{ trans('buttons.save') }}</div>
+                            <div class="ui submit red button">{{ __('Save') }}</div>
                         @endif
                     </div>
                 </form>
@@ -220,19 +220,19 @@
 </div>
 
 <div id="avatar-modal" class="ui modal">
-    <div class="header">{{ trans('user/settings.crop_photo') }}</div>
+    <div class="header">{{ __('Crop Your Photo') }}</div>
     <div class="content" style="padding: 0;">
         <div class="cropper">
             <div id="avatar-modal-cropper" class="cropper-container"></div>
         </div>
     </div>
     <div class="actions">
-        <div class="ui approve button">{{ trans('buttons.save') }}</div>
-        <div class="ui cancel button">{{ trans('buttons.cancel') }}</div>
+        <div class="ui approve button">{{ __('Save') }}</div>
+        <div class="ui cancel button">{{ __('Cancel') }}</div>
     </div>
 </div>
 
-<form id="avatar-form" method="post" enctype="multipart/form-data" action="" data-label-error="{{ trans('user/settings.problem_uploading_photo') }}" style="visibility: hidden;">
+<form id="avatar-form" method="post" enctype="multipart/form-data" action="" data-label-error="{{ __('There was a problem uploading profile photo.') }}" style="visibility: hidden;">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="file" name="avatar">
 </form>

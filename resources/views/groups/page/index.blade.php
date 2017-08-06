@@ -1,11 +1,12 @@
 @extends('app')
 
-@section('title', trans('group/profile.page_title', [
+@section('title', __(':title · :discipline in :Location', [
     'title' => $group->title,
-    'creative_field' => ($group->creative_field2) ? $group->creative_field2 : $group->creative_field1,
-    'city' => $location->city,
-    'country' => $location->country->name
-]))
+    'discipline' => ($group->creative_field2) ? $group->creative_field2 : $group->creative_field1,
+    'location' => ($location->district ? $location->district . ', ' : '') . $location->city,
+    'district' => $location->country->name
+    
+]) . ' · ' . config('app.name'))
 
 @section('content')
 
@@ -20,14 +21,14 @@
         <div class="ui visible {{ $group->is_public ? 'success' : 'warning'  }} message" style="position: relative; border-radius: 0; margin: 0; padding: 0.75em 0.5em; border-bottom: solid 1px rgba(39, 41, 43, 0.15); box-shadow: none;">
             <p style="text-align: center; color: rgba(0, 0, 0, 0.8);">
                 @if($group->is_public)
-                    <i class="icon check circle"></i>{{ trans('group/profile.your_class_is_public') }}<em>!</em>
-                    {!! trans('group/profile.your_class_sharable_link', [ 'link' => '<span style="color: #3c763d;">' . url('/classes', [$group->id, $location->id]) . '</span>' ]) !!}
+                    <i class="icon check circle"></i>{{ __('Your class is public') }}<em>!</em>
+                    {!! __('Here is the link `:link` to share on your social networks', [ 'link' => '<span style="color: #3c763d;">' . url('classes', [$group->id, $location->id]) . '</span>' ]) !!}
 
                 @elseif($user && $user->id == $group->user_id)
-                    <i class="icon hide"></i>{{ trans('group/profile.your_class_is_not_public') }} &mdash; <a href="{{ url('/home/classes', [$group->id]) }}" title="">{{ trans('group/profile.add_missing_information') }}</a>
+                    <i class="icon hide"></i>{!! __('Your class is not public &mdash; :link', [ 'link' => '<a href="' . url('home/classes', [$group->id]) . '" title="' . ucfirst(__('add missing information')) . '">' . __('add missing information') . '</a>' ]) !!}
 
                 @else
-                    <i class="icon hide"></i>{{ trans('group/profile.page_is_not_public') }} &mdash; {{ trans('group/profile.information_is_not_complete') }}
+                    <i class="icon hide"></i>{{ __('Page is not public yet &mdash; information on this page is not complete') }}
                 @endif
             </p>
         </div>
@@ -55,29 +56,29 @@
 
                         <div id="cover-controls" class="no-edit"><!--
                         -->@if($user && $user->id == $group->user_id)
-                                <a class="default" id="reposition-cover" href="#" title="">
+                                <a class="default" id="reposition-cover" href="#" title="{{ __('Reposition') }}">
                                     <i class="move icon"></i>
-                                    {{ trans('group/profile.reposition_cover_photo') }}
+                                    {{ __('Reposition cover photo') }}
                                 </a><!--
 
-                                --><a class="position save" id="save-cover"  href="#" title="">
+                                --><a class="position save" id="save-cover" href="#" title="{{ __('Save') }}">
                                     <i class="checkmark icon"></i>
-                                    {{ trans('buttons.save') }}
+                                    {{ __('Save') }}
                                 </a><!--
-                                --><a class="position" id="cancel-cover" href="#" title="">{{ trans('buttons.cancel') }}</a><!--
+                                --><a class="position" id="cancel-cover" href="#" title="{{ __('Cancel') }}">{{ __('Cancel') }}</a><!--
                             --><br /><!--
                         -->@endif<!--
 
                         -->@if($user && $user->id == $group->user_id)
-                                <a class="default" href="{{ url('/home/classes', [$group->id, 'photos']) }}" title="">
+                                <a class="default" href="{{ url('home/classes', [$group->id, 'photos']) }}" title="{{ __('Manage photos') }}">
                                     <i class="write icon"></i>
-                                    {{ trans('group/profile.manage_photos') }}
+                                    {{ __('Manage photos') }}
                                 </a>
 
                             @else
-                                <a class="default" href="#" title="See all pictures" data-gallery>
+                                <a class="default" href="#" title="{{ _n('[1,4] See all photos|[5,*] See all :photos photos', $photos_count, ['photos' => $photos_count]) }}" data-gallery>
                                     <i class="photo icon"></i>
-                                    {{ trans_choice('group/profile.see_all_photos', $photos_count, ['photos' => $photos_count]) }}
+                                    {{ _n('[1,4] See all photos|[5,*] See all :photos photos', $photos_count, ['photos' => $photos_count]) }}
                                 </a>
                             @endif
                         </div>
@@ -86,16 +87,16 @@
 
                     @else
                         <div style="display: table-cell; vertical-align: middle;">
-                            <i class="icon photo huge {{ ($user && $user->id == $group->user_id) ? 'link' : '' }}" onclick="{{ ($user && $user->id == $group->user_id) ? 'window.location = \'' . url('/home/classes', [$group->id, 'photos']) . '\';' : '' }}"></i>
+                            <i class="icon photo huge {{ ($user && $user->id == $group->user_id) ? 'link' : '' }}" onclick="{{ ($user && $user->id == $group->user_id) ? 'window.location = \'' . url('home/classes', [$group->id, 'photos']) . '\';' : '' }}"></i>
 
 
                             <p style="padding-top: 1rem;">
 
                                 @if($user && $user->id == $group->user_id)
-                                    <a href="{{ url('/home/classes', [$group->id, 'photos']) }}" title=""><strong>{{ trans('group/profile.upload_photos') }}</strong></a>
+                                    <a href="{{ url('home/classes', [$group->id, 'photos']) }}" title="{{ __('Upload photos') }}"><strong>{{ __('Upload photos') }}</strong></a>
 
                                 @else
-                                    {{ trans('group/profile.no_pictures_available') }}
+                                    {{ __('No photos available yet') }}
                                 @endif
                             </p>
                         </div>
@@ -114,8 +115,8 @@
 
                                     @if($user && $user->id == $group->user_id)
                                         <sup>
-                                            <a href="{{ url('home/classes', [$group->id, 'overview']) }}" title="" style="margin-left: 0.5rem; font-size: 0.9285rem; font-weight: 400;">
-                                                <i class="write icon"></i><span>{{ trans('buttons.edit') }}</span>
+                                            <a href="{{ url('home/classes', [$group->id, 'overview']) }}" title="{{ __('Edit') }}" style="margin-left: 0.5rem; font-size: 0.9285rem; font-weight: 400;">
+                                                <i class="write icon"></i><span>{{ __('Edit') }}</span>
                                             </a>
                                         </sup>
                                     @endif
@@ -123,8 +124,8 @@
 
                             @elseif($user && $user->id == $group->user_id)
                                 <p>
-                                    <a href="{{ url('/home/classes', [$group->id, 'overview']) }}" title="">
-                                        <i class="write icon"></i><span>{{ trans('group/profile.add_class_title') }}</span>
+                                    <a href="{{ url('home/classes', [$group->id, 'overview']) }}" title="{{ __('Add your class title') }}">
+                                        <i class="write icon"></i><span>{{ __('Add your class title') }}</span>
                                     </a>
                                 </p>
                             @endif
@@ -135,8 +136,8 @@
 
                             @elseif($user && $user->id == $group->user_id)
                                 <h2 class="sub header" style="margin-top: 0.5rem;">
-                                    <a href="{{ url('/home/classes', [$group->id, 'overview']) }}" title="">
-                                        <i class="write icon"></i><span>{{ trans('group/profile.add_uvp') }}</span>
+                                    <a href="{{ url('home/classes', [$group->id, 'overview']) }}" title="{{ __('Add unique value preposition to your class') }}">
+                                        <i class="write icon"></i><span>{{ __('Add unique value preposition to your class') }}</span>
                                     </a>
                                 </h2>
                             @endif
@@ -153,11 +154,11 @@
                         @if ($group->description)
                             <div class="field">
                                 <label>
-                                    {{ trans('group/profile.about_class') }}
+                                    {{ __('About the class') }}
 
                                     @if($user && $user->id == $group->user_id)
-                                        <a href="{{ url('/home/classes', [$group->id, 'overview']) }}" title="" style="margin-left: 1rem; font-weight: 400;">
-                                            <i class="write icon"></i><span>{{ trans('buttons.edit') }}</span>
+                                        <a href="{{ url('home/classes', [$group->id, 'overview']) }}" title="{{ __('Edit') }}" style="margin-left: 1rem; font-weight: 400;">
+                                            <i class="write icon"></i><span>{{ __('Edit') }}</span>
                                         </a>
                                     @endif
                                 </label>
@@ -169,19 +170,19 @@
 
                         @elseif($user && $user->id == $group->user_id)
                             <div>
-                                <a href="{{ url('/home/classes', [$group->id, 'overview']) }}" title="">
-                                    <i class="write icon"></i><span>{{ trans('group/profile.add_class_description') }}</span>
+                                <a href="{{ url('home/classes', [$group->id, 'overview']) }}" title="{{ __('Add your class description') }}">
+                                    <i class="write icon"></i><span>{{ __('Add your class description') }}</span>
                                 </a>
                             </div><br /><br />
                         @endif
 
                         <div class="field">
                             <label>
-                                Class Location
+                                {{ __('Class location') }}
 
                                 @if($user && $user->id == $group->user_id)
-                                    <a href="{{ url('/home/classes', [$group->id, 'location', $location->id]) }}" title="" style="margin-left: 1rem; font-weight: 400;">
-                                        <i class="write icon"></i><span>{{ trans('buttons.edit') }}</span>
+                                    <a href="{{ url('home/classes', [$group->id, 'location', $location->id]) }}" title="{{ __('Edit') }}" style="margin-left: 1rem; font-weight: 400;">
+                                        <i class="write icon"></i><span>{{ __('Edit') }}</span>
                                     </a>
                                 @endif
                             </label>
@@ -203,7 +204,7 @@
 
                             @elseif($user && $user->id === $group->user_id)
                                 <p>
-                                    {{ trans('group/profile.location_not_complete') }}, <a href="{{ url('/home/classes', [$group->id, 'location', $location->id]) }}" title="" style="margin-left: 0.5rem;"><i class="write icon"></i>{{ trans('group/profile.fix_address') }}</a>.
+                                    {{ __('Location is not complete, :link.', [ 'link' => '<a href="' . url('home/classes', [$group->id, 'location', $location->id]) . '" title="' . ucfirst(__('fix the address')) . '" style="margin-left: 0.5rem;"><i class="write icon"></i>' . __('fix the address') . '</a>' ]) }}
                                 </p>
                             @endif
 
@@ -212,7 +213,7 @@
                                     <div id="map-image" style="min-height: 10rem;"></div>
 
                                     @if($location->is_full)
-                                        <div style="text-align: right; padding-right: 0.5rem;"><em>{{ trans('group/profile.click_map_zoom') }}</em></div>
+                                        <div style="text-align: right; padding-right: 0.5rem;"><em>{{ __('Click the map to expand/zoom') }}</em></div>
                                     @endif
 
                                     @if($location->how_to_find)
@@ -222,7 +223,7 @@
 
                             @elseif($user && $user->id === $group->user_id && $location->is_full)
                                 <p style="padding-top: 1rem;">
-                                    <a href="{{ url('/home/classes', [$group->id, 'location', $location->id, 'map']) }}" title=""><i class="write icon"></i>{{ trans('group/profile.review_location_map') }}</a>
+                                    <a href="{{ url('home/classes', [$group->id, 'location', $location->id, 'map']) }}" title="{{ __('Review your location on the map') }}"><i class="write icon"></i>{{ __('Review your location on the map') }}</a>
                                 </p>
                             @endif
                         </div>
@@ -230,11 +231,11 @@
                     <div class="five wide column">
                         <div class="field">
                             <label>
-                                {{ trans('group/profile.attendance_fees') }}
+                                {{ __('Attendance fees') }}
 
                                 @if($user && $user->id == $group->user_id && count($pricing))
-                                    <a href="{{ url('/home/classes', [$group->id, 'pricing']) }}" title="" style="margin-left: 1rem; font-weight: 400;">
-                                        <i class="write icon"></i><span>{{ trans('buttons.edit') }}</span>
+                                    <a href="{{ url('home/classes', [$group->id, 'pricing']) }}" title="{{ __('Edit') }}" style="margin-left: 1rem; font-weight: 400;">
+                                        <i class="write icon"></i><span>{{ __('Edit') }}</span>
                                     </a>
                                 @endif
                             </label>
@@ -249,25 +250,18 @@
                                             <td>{{ $price->title }}</td>
                                         </tr>
                                     @endforeach
-
-                                    {{-- TODO: Use to highlight any option.
-                                    <tr class="disabled">
-                                        <td class="right aligned">Free</td>
-                                        <td>First time try</td>
-                                    </tr>
-                                    --}}
                                 </tbody>
                             </table>
 
                         @else
                             @if($user && $user->id == $group->user_id)
                                 <p>
-                                    <a href="{{ url('/home/classes', [$group->id, 'pricing']) }}" title="">
-                                        <i class="write icon"></i>{{ trans('group/profile.add_class_fees') }}
+                                    <a href="{{ url('home/classes', [$group->id, 'pricing']) }}" title="{{ __('Add fees') }}">
+                                        <i class="write icon"></i>{{ __('Add fees') }}
                                     </a>
                                 </p>
                             @else
-                                <p>{{ trans('group/profile.no_fees_available') }}</p>
+                                <p>{{ __('There are no fees yet available.') }}</p>
                             @endif
                         @endif
 
@@ -276,11 +270,11 @@
                                 <div class="ui divider"></div>
                                 <div class="field">
                                     <label style="display: block;">
-                                        {{ trans('group/profile.coach') }}
+                                        {{ __('The Coach') }}
 
                                         @if($user && $user->id === $group->user_id)
-                                            <a href="{{ url('home/settings') }}" title="" style="float: right; margin-right: 0.5rem; font-weight: 400;">
-                                                <i class="write icon"></i>{{ trans('buttons.edit') }}
+                                            <a href="{{ url('home/settings') }}" title="{{ __('Edit') }}" style="float: right; margin-right: 0.5rem; font-weight: 400;">
+                                                <i class="write icon"></i>{{ __('Edit') }}
                                             </a>
                                         @endif
                                     </label>
@@ -288,10 +282,10 @@
                                 <div style="margin-top: 1rem; text-align: center;">
                                     <img class="ui image centered circular tiny" src="{{ $group->owner->avatar_src }}" />
                                     <p style="margin-top: 0.5rem;">{{ $group->owner->fullname }}</p>
-                                    <p><strong>{{ trans('group/profile.ready_to_start') }}</strong> <br />{{ trans('group/profile.lets_get_in_touch') }}</p>
+                                    <p><strong>{{ __('Ready to get started?') }}</strong> <br />{{ __('Let\'s get in touch.') }}</p>
                                     <button class="ui labeled icon button red" data-toggle="contact-modal">
                                         <i class="comment icon"></i>
-                                        {{ trans('group/profile.contact_coach') }}
+                                        {{ __('Contact the Coach') }}
                                     </button>
                                 </div>
                             </div>
@@ -306,11 +300,11 @@
         <div class="wide column ui form">
             <div class="field">
                 <label>
-                    {{ trans('group/profile.schedule') }}
+                    {{ __('Classes Schedule') }}
 
                     @if($user && $user->id == $group->user_id && count($weekly_schedule))
-                        <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id]) }}" title="" style="margin-left: 1rem; font-weight: 400;">
-                            <i class="write icon"></i><span>{{ trans('buttons.edit') }}</span>
+                        <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id]) }}" title="{{ __('Edit') }}" style="margin-left: 1rem; font-weight: 400;">
+                            <i class="write icon"></i><span>{{ __('Edit') }}</span>
                         </a>
                     @endif
                 </label>
@@ -318,19 +312,19 @@
 
             <p>
                 @if($user && $user->id == $group->user_id && !count($weekly_schedule))
-                    <a href="{{ url('/home/classes', [$group->id, 'schedule', $location->id]) }}" title="">
-                        <i class="write icon"></i>{{ trans('group/profile.add_class_schedule') }}
+                    <a href="{{ url('home/classes', [$group->id, 'schedule', $location->id]) }}" title="{{ __('Add your class schedule') }}">
+                        <i class="write icon"></i>{{ __('Add your class schedule') }}
                     </a>
 
                 @elseif(!count($weekly_schedule))
-                    {{ trans('group/profile.schedule_not_available') }}
+                    {{ __('Schedule is not yet available.') }}
 
                 @endif
             </p>
 
             <div class="ui grid" style="{{ count($weekly_schedule) ? '' : 'opacity: 0.3;' }}">
 
-                <?php $x = 0; $nextRow = 1; $dayNames = [trans_choice('date.monday', 2), trans_choice('date.tuesday', 2), trans_choice('date.wednesday', 2), trans_choice('date.thursday', 2), trans_choice('date.friday', 2), trans_choice('date.saturday', 2), trans_choice('date.sunday', 2)] ?>
+                <?php $x = 0; $nextRow = 1; $dayNames = [_n('Monday|Mondays', 2), _n('Tuesday|Tuesdays', 2), _n('Wednesday|Wednesdays', 2), _n('Thursday|Thursdays', 2), _n('Friday|Fridays', 2), _n('Saturday|Saturdays', 2), _n('Sunday|Sundays', 2)] ?>
                 <div class="doubling two column row">
 
                     @foreach($weekly_schedule as $day => $schedule)
@@ -377,15 +371,15 @@
         <div class="wide column ui form">
             <div class="field">
                 <label>
-                    {{ trans('group/profile.photos') }}
+                    {{ __('Photos') }}
 
                     @if($user && $user->id == $group->user_id && $photos_count)
-                        <a href="{{ url('/home/classes', [$group->id, 'photos']) }}" title="" style="margin-left: 1rem; font-weight: 400;">
-                            <i class="write icon"></i><span>{{ trans('buttons.edit') }}</span>
+                        <a href="{{ url('home/classes', [$group->id, 'photos']) }}" title="{{ __('Edit') }}" style="margin-left: 1rem; font-weight: 400;">
+                            <i class="write icon"></i><span>{{ __('Edit') }}</span>
                         </a>
 
                     @elseif($photos_count > 4)
-                        &mdash; <a href="#" title="See all pictures" data-gallery>{{ trans_choice('group/profile.see_all_photos', 5, ['photos' => $photos_count]) }}</a>
+                        &mdash; <a href="#" title="" data-gallery>{{ _n('[1,4] See all photos|[5,*] See all :photos photos', 5, ['photos' => $photos_count]) }}</a>
                     @endif
                 </label>
             </div>
@@ -400,7 +394,7 @@
                             <img class="ui image" src="{{ $photo->thumbnail_src }}">
 
                             @if($photos_count > 4 && $key == count($photos) - 1)
-                                <div style="position: absolute; bottom: 14px; left: 30px; right: 30px; padding: 7px 0; border-top: solid 1px rgba(255, 255, 255, 0.5); text-align: center; color: rgba(255, 255, 255, 0.8);"><strong>{{ trans_choice('group/profile.see_all_photos', 5, ['photos' => $photos_count]) }}</strong></div>
+                                <div style="position: absolute; bottom: 14px; left: 30px; right: 30px; padding: 7px 0; border-top: solid 1px rgba(255, 255, 255, 0.5); text-align: center; color: rgba(255, 255, 255, 0.8);"><strong>{{ _n('[1,4] See all photos|[5,*] See all :photos photos', 5, ['photos' => $photos_count]) }}</strong></div>
                             @endif
                         </div>
                     @endforeach
@@ -414,43 +408,15 @@
 
             @elseif($user && $user->id == $group->user_id)
                 <p>
-                    <a href="{{ url('/home/classes', [$group->id, 'photos']) }}" title="">
-                        <i class="write icon"></i>{{ trans('group/profile.upload_photos') }}
+                    <a href="{{ url('home/classes', [$group->id, 'photos']) }}" title="">
+                        <i class="write icon"></i>{{ __('Upload photos') }}
                     </a>
                 </p>
 
             @else
-                {{ trans('group/profile.no_pictures_available') }}
+                {{ __('No photos available yet') }}
 
             @endif
-
-            <!--
-            @if(count($amenities) > 0)
-                <div class="field">
-                    <label>{{ trans('group/profile.amenities') }}</label>
-                </div>
-                <div class="ui grid">
-                    <div class="doubling four column row">
-                        <div class="column">
-
-                            <?php $i = 0; $nextCheck = 5; ?>
-                            @foreach($amenities as $amenity)
-                                <div class="item">
-                                    <i class="aligned right triangle icon"></i>{{ $amenity->name }}
-                                </div>
-
-                            <?php if($i === $nextCheck) { $nextCheck = $nextCheck + 6; ?>
-                            </div><div class="column">
-                            <?php } ?>
-
-                            <?php $i++; ?>
-                            @endforeach
-
-                        </div>
-                    </div>
-                </div>
-            @endif
-            -->
         </div>
     </div>
 
@@ -458,12 +424,12 @@
         <div class="wide column ui form">
             <div class="ui divider"></div>
             <div class="field">
-                <label>{{ trans('group/profile.interested') }}</label>
+                <label>{{ __('Interested?') }}</label>
             </div>
-            <p>{{ trans('group/profile.try_or_ask') }} <br />{{ trans('group/profile.contact_coach_details') }}</p>
+            <p>{{ __('Wish to give it a try? Or just to ask a question?') }} <br />{{ __('Feel free to contact the coach for any details.') }}</p>
             <button class="ui labeled icon button red" data-toggle="contact-modal">
                 <i class="comment icon"></i>
-                {{ trans('group/profile.contact_coach') }}
+                {{ __('Contact the Coach') }}
             </button>
         </div>
     </div>

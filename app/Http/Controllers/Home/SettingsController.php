@@ -63,11 +63,11 @@ class SettingsController extends Controller {
         $user->save();
 
         if ($isNewUser && !count($user->myGroups)) {
-            return redirect()->to('home/classes/new');
+            return redirect(url('home/classes/new'));
         }
 
         if (Request::get('followTo')) {
-            return redirect()->to(Request::get('followTo'));
+            return redirect(url(Request::get('followTo')));
         }
 
         return redirect()->back()->with('success-message', 'Your account data was updated!');

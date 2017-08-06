@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Group;
 use App\GroupLocation;
 use Auth;
-use Request;
+use \Illuminate\Http\Request;
 
 class GroupController extends Controller {
 
@@ -12,36 +12,42 @@ class GroupController extends Controller {
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function index(Group $group) {
-        $location = GroupLocation::where('group_id', $group->id)->first();
-
-        if (!$location) {
+    public function oldToNewForwarder(Group $group, GroupLocation $location) {
+        if (!$group) {
             return abort(404);
         }
 
-        return redirect()->to(Request::path() . '/' . $location->id);
+        $location = $location->exists ? $location : array_first($group->locations);
+        $title = str_slug($group->title);
+        $city = str_slug($location->city);
+        $discipline = str_slug($group->creative_field2 ? $group->creative_field2 : $group->creative_field1);
+        $parameters = [
+            'location' => $location->id,
+            'title' => $title,
+            'discipline' => $discipline,
+            'city' => $city
+        ];
+
+        if ($location->district) {
+            $district = str_slug($location->district);
+            $parameters = array_add($parameters, 'district', $district);
+
+            return redirect(route('classpage.long', $parameters));
+        }
+
+        return redirect(route('classpage.short', $parameters));
     }
 
 
     /**
-     * @param  \App\Group  $group
-     * @param  string  $locationId
+     * @param  Request  $request
+     * @param  GroupLocation  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(Group $group, $locationId) {
-        $locations = $group->locations;
-        $location = $locations->find($locationId);
-
-        if (!$location) {
-            $firstLocation = $locations->first();
-
-            if (!$firstLocation) {
-                return abort(404);
-            }
-
-            // TODO: Perhaps, notify visitor, that requested location doesn't exist
-            return redirect()->to("classes/{$group->id}/{$firstLocation->id}");
-        }
+    public function show(Request $request) {
+        $locationId = $request->route('location');
+        $location = GroupLocation::find($locationId);
+        $group = $location->group;
 
         // TODO: Move all this amateur art below into pro Eloquent model.
         // What it does:
@@ -77,7 +83,7 @@ class GroupController extends Controller {
             'user' => Auth::user(),
             'group' => $group,
             'photos_count' => $group->photos_count,
-            'locations' => $locations,
+            'locations' => $group->locations,
             'location' => $location,
             'pricing' => $location->pricings,
             'weekly_schedule' => $weeklySchedule,

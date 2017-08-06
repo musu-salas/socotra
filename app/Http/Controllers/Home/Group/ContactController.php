@@ -28,7 +28,7 @@ class ContactController extends Controller {
         $group->phone = strip_tags(Request::input('phone'));
         $group->save();
 
-        return redirect("home/classes/{$group->id}/contact")
+        return redirect(url("home/classes/{$group->id}/contact"))
             ->with('success-message', 'Contact information was updated!');
     }
 }

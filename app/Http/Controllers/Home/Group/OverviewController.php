@@ -52,7 +52,7 @@ class OverviewController extends Controller {
             'for_who' => $params['for_who']
         ]);
 
-        return redirect("home/classes/{$group->id}/overview")
+        return redirect(url("home/classes/{$group->id}/overview"))
             ->with('success-message', 'Overview was updated!');
     }
 }

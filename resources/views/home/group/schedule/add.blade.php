@@ -1,6 +1,11 @@
 @extends('app')
 
-@section('title', trans('group/schedule.page_titles.' . ($schedule ? 'edit' : 'add')))
+@if($schedule)
+    @section('title', __('Edit schedule event') . ' · ' . config('app.name'))
+
+@else
+    @section('title', __('Add schedule event') . ' · ' . config('app.name'))
+@endif
 
 @section('content')
 
@@ -23,7 +28,14 @@
         ])
     </div>
     <div class="eight wide column" style="padding-top: 1.7rem !important;">
-        <h3 class="ui header" style="margin-bottom: 0.2rem;">{{ trans('group/schedule.' . ($schedule ? 'edit' : 'add') . '_event') }}</h3>
+        <h3 class="ui header" style="margin-bottom: 0.2rem;">
+            @if($schedule)
+                {{ __('Edit schedule event') }}
+
+            @else
+                {{ __('Add schedule event') }}
+            @endif
+        </h3>
         <p style="margin: 0 0 1.5rem 1rem;">&rarr; {{ $location->full_address }}</p>
 
         <form class="ui form" action="" method="post">
@@ -44,8 +56,8 @@
 
             <div class="required field">
                 <label for="title">
-                    {{ trans('form.title') }}
-                    <em style="float: right; white-space: nowrap; color: #aaa; font-weight: 400; padding-right: 0.5rem;">{{ trans('form.max_chars', ['chars' => 50]) }}</em>
+                    {{ __('Title') }}
+                    <em style="float: right; white-space: nowrap; color: #aaa; font-weight: 400; padding-right: 0.5rem;">{{ __('Max :chars chars', ['chars' => 50]) }}</em>
                 </label>
                 <div class="ui input">
                     <input id="title" value="{{ $schedule ? $schedule->title : '' }}" name="title" type="text" maxlength="50">
@@ -53,7 +65,7 @@
             </div>
             <div class="fields">
                 <div class="required field">
-                    <label>{{ trans('group/schedule.starts_every', ['weekday' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][$week_day]]) }}</label>
+                    <label>{{ __('Starts every :weekday at', ['weekday' => [__('Monday'), __('Tuesday'), __('Wednesday'), __('Thursday'), __('Friday'), __('Saturday'), __('Sunday')][$week_day]]) }}</label>
                     <div class="ui icon input">
                         <div class="ui selection dropdown" data-scoped="time" style="position: absolute; top: 0; left: 0; min-width: 100%;">
                             <i class="dropdown icon"></i>
@@ -114,7 +126,7 @@
                     </div>
                 </div>
                 <div class="required field">
-                    <label>{{ trans('group/schedule.ends_at') }}</label>
+                    <label>{{ __('Ends at') }}</label>
                     <div class="ui icon input">
                         <div class="ui selection dropdown" data-scoped="time" style="position: absolute; top: 0; left: 0;min-width: 100%;">
                             <i class="dropdown icon"></i>
@@ -177,26 +189,33 @@
             </div>
             <div class="field">
                 <label for="description">
-                    {{ trans('form.short_description') }}
-                    <em style="float: right; white-space: nowrap; color: #aaa; font-weight: 400; padding-right: 0.5rem;">{{ trans('form.max_chars', ['chars' => 255]) }}</em>
+                    {{ __('Short description') }}
+                    <em style="float: right; white-space: nowrap; color: #aaa; font-weight: 400; padding-right: 0.5rem;">{{ __('Max :chars chars', ['chars' => 255]) }}</em>
                 </label>
                 <textarea id="description" name="description" style="height: 60px; min-height: 60px;" maxlength="255">{{ $schedule ? $schedule->description : '' }}</textarea>
             </div>
 
             <div class="ui stackable doubling grid">
                 <div class="eight wide column">
-                    <button class="ui button red" type="submit">{{ trans('buttons.' . ($schedule ? 'update' : 'save')) }}</button>
+                    <button class="ui button red" type="submit">
+                        @if($schedule)
+                            {{ __('Update') }}
+                        @else
+                            {{ __('Save') }}
+
+                        @endif
+                    </button>
                 </div>
                 <div class="eight wide column right aligned">
                     @if ($schedule)
                     <p style="padding-top: 0.78571em;">
                         <a
                             id="delete"
-                            href="{{ url('/api/v1/classes', [$group->id, 'schedule', $schedule->id]) }}"
+                            href="{{ url('api/v1/classes', [$group->id, 'schedule', $schedule->id]) }}"
                             title=""
-                            data-deleting-label="{{ trans('group/schedule.deleting') }}"
-                            data-error-label="{{ trans('group/schedule.problem_deleting') }}"
-                        >{{ trans('group/schedule.delete') }}</a>
+                            data-deleting-label="{{ __('Deleting...') }}"
+                            data-error-label="{{ __('There was a problem deleting this event.') }}"
+                        >{{ __('Delete this event?') }}</a>
                     </p>
                     @endif
                 </div>
@@ -208,22 +227,22 @@
         <div class="ui icon message" style="background: none; box-shadow: none;">
             <i class="asterisk icon yellow" style="display: inline-block; margin-right: 0;"></i>
             <div class="content">
-                <div class="header">{{ trans('group/schedule.helpers.edit_schedule') }}</div>
-                <p>{{ trans('group/schedule.helpers.edit_schedule_description') }}</p>
+                <div class="header">{{ __('Adding/editing event') }}</div>
+                <p>{{ __('Specify event title and short description, so people clearly understand type of the class to attend.') }}</p>
             </div>
         </div>
     </div>
 </div>
 
 <div id="delete-modal" class="ui small modal">
-    <div class="header">{{ trans('group/schedule.really_delete') }}</div>
+    <div class="header">{{ __('Do you really wish to delete this event?') }}</div>
     <div class="content">
-        <p>{{ trans('group/schedule.really_delete_info', ['weekday' => ($schedule ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][$week_day] : '')]) }}.</p>
+        <p>{{ __('Session will be removed from :weekday', ['weekday' => ($schedule ? [__('Monday'), __('Tuesday'), __('Wednesday'), __('Thursday'), __('Friday'), __('Saturday'), __('Sunday')][$week_day] : '')]) }}.</p>
     </div>
     <div class="actions">
-        <div class="ui basic cancel button">{{ trans('buttons.cancel') }}</div>
+        <div class="ui basic cancel button">{{ __('Cancel') }}</div>
         <div class="ui red right labeled icon ok button">
-            {{ trans('buttons.delete') }}
+            {{ __('Delete') }}
             <i class="checkmark icon"></i>
         </div>
     </div>

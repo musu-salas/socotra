@@ -23,7 +23,7 @@ class GroupController extends Controller {
         $groups = $user->myGroups;
 
         if (!count($groups)) {
-            return redirect()->to('home/classes/new');
+            return redirect(url('home/classes/new'));
         }
 
         return view('home.groups', [
@@ -124,6 +124,6 @@ class GroupController extends Controller {
             ]);
         }
 
-        return redirect()->to('home/classes/' . $group->id);
+        return redirect(url('home/classes/' . $group->id));
     }
 }

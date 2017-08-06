@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Sign up')
+@section('title', __('Sign up') . ' · ' . config('app.name'))
 
 @section('content')
 <div>
@@ -13,8 +13,8 @@
             <div class="ui segment">
                 <div class="ui basic segment center aligned">
                     <h2 class="ui header">
-                        Sign up to {{ config('app.name') }}<i>!</i>
-                        <div class="sub header">A trusted community marketplace for people to list, discover and enrol in classes around the city.</div>
+                        {!! __('Sign up to :name<em>!</em>', [ 'name' => config('app.name') ]) !!}
+                        <div class="sub header">{{ __('Create your class page online') }}</div>
                     </h2>
 
                     @if (Input::has('error'))
@@ -23,13 +23,13 @@
                                 <ul class="list">
                                     <li>
                                         @if(Input::get('error') == 'access_denied')
-                                            {{ trans('socialize.access_denied') }}
+                                            {{ __('Facebook cancelled connection. Please try again.') }}
 
                                         @elseif(Input::get('error') == 'missing_user_data')
-                                            {{ trans('socialize.missing_user_data') }}
+                                            {{ __('Facebook was not able to provide necessary data. Please try again.') }}
 
                                         @else
-                                            {{ trans('socialize.problem') }}
+                                            {{ __('There was a problem connecting to your Facebook. Please try again.') }}
                                         @endif
                                     </li>
                                 </ul>
@@ -38,28 +38,26 @@
                     @endif
 
                     <div class="ui basic segment" style="margin-top: 0;">
-                        <a href="{{ url('/socialize/facebook') }}" class="ui large facebook button">
+                        <a href="{{ url('socialize/facebook') }}" class="ui large facebook button">
                             <i class="facebook icon"></i>
-                            Sign up with Facebook
+                            {{ __('Sign up with Facebook') }}
                         </a>
                     </div>
 
-                    <form class="ui form" role="form" method="POST" action="{{ url('/register') }}" autocomplete="off">
+                    <form class="ui form" role="form" method="POST" action="{{ url('register') }}" autocomplete="off">
                         <input autocomplete="false" name="hidden" type="text" style="display: none;" />
                         {!! csrf_field() !!}
 
                         <div class="ui centered grid">
                             <div class="doubling column row">
                                 <div class="column">
-                                    <h4 class="ui horizontal header divider">
-                                        Or
-                                    </h4>
+                                    <h4 class="ui horizontal header divider">{{ __('Or') }}</h4>
 
                                     @if (!count($errors))
                                         <div class="ui basic segment center aligned">
-                                            <a class="ui basic large button" href="{{ url('/register') }}" onclick="$(this).parent().hide().next().show().prev().remove(); return false;">
+                                            <a class="ui basic large button" href="{{ url('register') }}" onclick="$(this).parent().hide().next().show().prev().remove(); return false;">
                                                 <i class="mail outline icon"></i>
-                                                Sign up with Email
+                                                {{ __('Sign up with Email') }}
                                             </a>
                                         </div>
                                     @endif
@@ -79,58 +77,58 @@
 
                                         <div class="field">
                                             <div class="ui icon input">
-                                                <input type="text" placeholder="First name" name="first_name" value="{{ old('first_name') }}">
+                                                <input type="text" placeholder="{{ __('First name') }}" name="first_name" value="{{ old('first_name') }}">
                                                 <i class="user icon"></i>
                                             </div>
                                         </div>
                                         <div class="field">
                                             <div class="ui icon input">
-                                                <input type="text" placeholder="Last name" name="last_name" value="{{ old('last_name') }}">
+                                                <input type="text" placeholder="{{ __('Last name') }}" name="last_name" value="{{ old('last_name') }}">
                                                 <i class="user icon"></i>
                                             </div>
                                         </div>
                                         <div class="field">
                                             <div class="ui icon input">
-                                                <input type="email" placeholder="Email Address" name="email" value="{{ old('email') }}">
+                                                <input type="email" placeholder="{{ __('Email Address') }}" name="email" value="{{ old('email') }}">
                                                 <i class="at icon"></i>
                                             </div>
                                         </div>
                                         <div class="field">
                                             <div class="ui icon input">
-                                                <input type="password" placeholder="Password" name="password">
+                                                <input type="password" placeholder="{{ __('Password') }}" name="password">
                                                 <i class="lock icon"></i>
                                             </div>
                                         </div>
                                         <div class="field">
                                             <div class="ui icon input">
-                                                <input type="password" placeholder="Confirm Password" name="password_confirmation">
+                                                <input type="password" placeholder="{{ __('Confirm Password') }}" name="password_confirmation">
                                                 <i class="lock icon"></i>
                                             </div>
                                         </div>
 
                                         <br />
                                         <div class="field">
-                                            <label>In which city do you live? <i class="help circle icon link" data-content="General geographical location that matches your interest for classes." data-variation="large"></i></label>
+                                            <label>{{ __('In which city do you live?') }} <i class="help circle icon link" data-content="General geographical location that matches your interest for classes." data-variation="large"></i></label>
                                             <div class="ui input">
                                                 <input type="hidden" name="location" value="{{ old('location') }}" />
-                                                <input type="text" name="location_text" placeholder="e.g. Manhattan, NY / Berlin, DE / Bali, Indonesia" data-types="(cities)" value="{{ old('location_text') }}">
+                                                <input type="text" name="location_text" placeholder="{{ __('e.g. Manhattan, NY / Berlin, DE / Bali, Indonesia') }}" data-types="(cities)" value="{{ old('location_text') }}">
                                             </div>
                                         </div>
 
                                         <div class="field">
                                             <div class="ui checkbox">
                                                 <input type="checkbox" name="newsletter" value="1" checked>
-                                                <label>Keep me updated with community progress</label>
+                                                <label>{{ __('Keep me updated with community progress') }}</label>
                                             </div>
                                         </div>
 
                                         <br />
-                                        <div class="fluid ui submit red button">Sign up</div>
+                                        <div class="fluid ui submit red button">{{ __('Sign up') }}</div>
                                     </div>
 
                                     <h5 class="ui header">
                                         <div class="sub header">
-                                            By signing up, I agree to <a href="{{ url('/privacy-policy') }}" target="blank" title="Privacy Policy">Privacy Policy</a>.
+                                            {!! __('By signing up, I agree to :link.', [ 'link' => '<a href="' . url('privacy-policy') . '" target="blank" title="' . __('Privacy Policy') . '">' . __('Privacy Policy') . '</a>' ]) !!}
                                         </div>
                                     </h5>
                                 </div>
@@ -142,7 +140,7 @@
         </div>
         <div class="ui basic segment center aligned">
             <div class="ui header">
-                <p class="sub header">Already a {{ config('app.name') }} member? <a class="inline-link" href="{{ url('/login') }}" title="Register">Log in here</a>.</p>
+                <p class="sub header">{!! __('Already a :name member? :link.', [ 'name' => config('app.name'), 'link' => '<a class="inline-link" href="' . url('login') . '" title="' . __('Login') . '">' . __('Log in here') . '</a>' ]) !!}</p>
             </div>
         </div>
     </div>
