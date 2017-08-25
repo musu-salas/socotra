@@ -2,5 +2,6 @@
 
 return [
 	'en',
-	'ru'
+	'ru',
+	'lv'
 ];
