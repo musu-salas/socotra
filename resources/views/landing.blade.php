@@ -130,6 +130,8 @@
         <p>{!! __('Our mission at <span>:name</span> is to help coaches, instructors and teachers organise and run private classes.', [ 'name' => config('app.name') ]) !!}</p>
         <p><a href="{{ url('register?ref=landing-footer') }}" title="{{ __('Join us now') }}">{{ __('Join us in this mission') }}</a> &#11088;</p>
     </div>
+    @include('footer')
+
 </footer>
 
 {{ HTML::script('https://code.jquery.com/jquery-3.1.1.slim.min.js', array(
@@ -142,5 +144,6 @@
 
 <script>window.jQuery || document.write('<script src="{{ asset('scripts/vendor/jquery-3.1.1.slim.min.js') }}"><\/script>')</script>
 {{ HTML::script( asset('scripts/landing.js') ) }}
+{{ HTML::script( asset('socotra.general.js') ) }}
 </body>
 </html>

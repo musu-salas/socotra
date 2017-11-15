@@ -17,6 +17,7 @@
 </head>
 <body>
 @yield('content')
+@include('footer')
 
 @include('googleAnalytics')
 @include('facebookPixel', [

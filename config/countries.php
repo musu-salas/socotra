@@ -2,15 +2,11 @@
 
 return [
 	'www' => [
-		'defaultLocale' => 'en'
-	],
-	'gr' => [
-		'defaultLocale' => 'el'
-	],
-	'de' => [
-		'defaultLocale' => 'de'
+		'defaultLocale' => 'en',
+		'label' => 'Worldwide'
 	],
 	'lv' => [
-		'defaultLocale' => 'lv'
+		'defaultLocale' => 'lv',
+		'label' => 'Latvija'
 	]
 ];
