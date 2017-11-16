@@ -50,7 +50,7 @@
                         <div class="ui centered grid">
                             <div class="doubling column row">
                                 <div class="column">
-                                    <p class="ui horizontal header divider">Or</p>
+                                    <p class="ui horizontal header divider">{{ __('Or') }}</p>
 
                                     <div class="ui error message {{ count($errors) ? 'visible' : '' }}">
                                         <div class="content">
