@@ -19,6 +19,7 @@
 @yield('content')
 @include('footer')
 
+<script>window.i18n = {!! App\Providers\TranslationServiceProvider::getTranslations() !!};</script>
 @include('googleAnalytics')
 @include('facebookPixel', [
     'user' => $user ?? null
