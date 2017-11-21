@@ -2,6 +2,25 @@
 
 use Illuminate\Contracts\Routing\UrlGenerator;
 
+if (! function_exists('trans')) {
+    /**
+     * Translate the given message.
+     *
+     * @param  string  $id
+     * @param  array   $replace
+     * @param  string  $locale
+     * @return \Illuminate\Contracts\Translation\Translator|string
+     */
+    function trans($id = null, $replace = [], $locale = null)
+    {
+        if (is_null($id)) {
+            return app('translator');
+        }
+
+        return app('translator')->getFromJson($id, $replace, $locale);
+    }
+}
+
 if (! function_exists('_n')) {
     /**
      * Translates the given message based on a count.
