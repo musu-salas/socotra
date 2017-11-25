@@ -91,6 +91,9 @@
   "Your message will be sent directly to the coach.": "Ваше сообщение будет отправлено прямо тренеру.",
   "Send the message": "Отправить",
   "Sending...": "Отправляем...",
+  "Thanks, :Name! Your message is sent directly to the coach.": ":Name, твоё сообщение отправлено прямо тренеру.",
+  "Your notification is sent. Thanks, :Name! You will be contacted by the coach shortly.": "Мы оповестили тренера!",
+  "Error sending a message to the coach. Please try again later.": "Произошла ошибка отправки сообщения тренеру. Попробуй снова чуть позже.",
   ":title · :discipline in :Location": ":title · :discipline в :Location",
   "Your class is public": "Ваша страница опубликована",
   "Here is the link `:link` to share on your social networks": "Поделитесь ссылкой `:link` на вашу страницу в социальных сетях",
@@ -301,6 +304,7 @@
   "List all available pricing options for your class. These could be single class fee, weekly access, monthly subscription or any other variations you offer.": "Добавьте все возможные цены на ваши курсы. Это могут быть одноразовые посещения, различные абонименты.",
   "If you have multiple class locations, it is also possible to define different prices per location.": "Если вы преподаете по разным адресам, можете добавить разные цены для каждого адреса.",
   "Change country/language": "Изменить страну/язык",
+  "Contact information was updated!": "Контактная информация успешно сохранена!",
 
   "auth.failed": "Произошла ошибка авторизации.",
   "auth.throttle": "Слишком много попыток авторизации. Пожалуйста, попробуй еще раз через :seconds секунд.",

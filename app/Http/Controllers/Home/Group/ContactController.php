@@ -29,6 +29,6 @@ class ContactController extends Controller {
         $group->save();
 
         return redirect(url("home/classes/{$group->id}/contact"))
-            ->with('success-message', 'Contact information was updated!');
+            ->with('success-message', __('Contact information was updated!'));
     }
 }

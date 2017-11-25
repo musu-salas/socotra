@@ -1,7 +1,6 @@
 (function($) {
   'use strict';
 
-
   /**
    * Checks whether current field value or at least one of additionally given fields values is not empty, neither blank string.
    * @param {string} value Current field value.
@@ -152,18 +151,18 @@
     }).done(function(r) {
 
       if (isMessage) {
-        alert(sprintf('Thanks, %s<em>!</em> Your message is sent directly to the coach.', formData.name));
+        alert(__('Thanks, :Name! Your message is sent directly to the coach.', { name: formData.name }));
         messageField.hide();
         buttons.filter('[data-action="close"]').show().next('.button').hide();
 
       } else {
-        alert(sprintf('<strong>Your notification is sent.</strong> Thanks, %s<em>!</em> You will be contacted by the coach shortly.', formData.name));
+        alert('Your notification is sent. Thanks, :Name! You will be contacted by the coach shortly.', { name: formData.name });
         buttons.filter('[data-action="close"]').first().show().next('.button').hide();
       }
 
     }).fail(function(jqXHR) {
       var data = jqXHR.responseJSON;
-      var errors = ['Error sending a message to the coach. Please try again later.'];
+      var errors = [__('Error sending a message to the coach. Please try again later.')];
 
       if (data && data.errors) {
         errors = [].concat($.map(Object.keys(data.errors), function(field) {
@@ -249,14 +248,14 @@
       identifier: 'name',
       rules: [{
         type: 'empty',
-        prompt: 'Name shan\'t be empty.'
+        prompt: __('validation.required', { attribute: 'name' })
       }]
     },
     phone: {
       identifier: 'phone',
       rules: [{
         type: 'allEmpty[email]',
-        prompt: 'Phone number or email address shan\'t be empty.'
+        prompt: __('validation.required', { attribute: 'phone number or email address' })
       }]
     },
     email: {
@@ -264,7 +263,7 @@
       optional: true,
       rules: [{
         type: 'email',
-        prompt: 'Please fix your email address.'
+        prompt: __('validation.email', { attribute: 'email address' })
       }]
     }
   }, {
