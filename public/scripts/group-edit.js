@@ -1304,14 +1304,23 @@ var UrlRouteParser = (function () {
         this.routes = [];
         this.params = {};
     }
+    UrlRouteParser.prototype.extractLocale = function (pathPartsToResolve) {
+        var locale = pathPartsToResolve[0];
+        if (locale === document.documentElement.lang) {
+            this.params['locale'] = locale;
+            return pathPartsToResolve.slice(1);
+        }
+        return pathPartsToResolve;
+    };
     UrlRouteParser.prototype.extractParams = function (routePathParts, pathPartsToResolve) {
         var routePathPartsLength = routePathParts.length;
-        if (routePathPartsLength < pathPartsToResolve.length) {
+        var pathPartsToResolveWithoutLocale = this.extractLocale(pathPartsToResolve);
+        if (routePathPartsLength < pathPartsToResolveWithoutLocale.length) {
             return true;
         }
         for (var i = 0; i < routePathPartsLength; i++) {
             var routePart = routePathParts[i];
-            var partToResolve = pathPartsToResolve[i];
+            var partToResolve = pathPartsToResolveWithoutLocale[i];
             if (partToResolve) {
                 if (routePart.charAt(0) === ':') {
                     this.params[routePart.substr(1)] = partToResolve;

@@ -32,16 +32,29 @@ export default class UrlRouteParser {
     this.params = {};
   }
 
+  private extractLocale(pathPartsToResolve: string[]): string[] {
+    const [ locale ] = pathPartsToResolve;
+
+    if (locale === document.documentElement.lang) {
+      this.params['locale'] = locale;
+
+      return pathPartsToResolve.slice(1);
+    }
+
+    return pathPartsToResolve;
+  }
+
   private extractParams(routePathParts: string[], pathPartsToResolve: string[]): boolean {
     const routePathPartsLength = routePathParts.length;
+    const pathPartsToResolveWithoutLocale = this.extractLocale(pathPartsToResolve);
 
-    if (routePathPartsLength < pathPartsToResolve.length) {
+    if (routePathPartsLength < pathPartsToResolveWithoutLocale.length) {
       return true;
     }
 
     for (let i = 0; i < routePathPartsLength; i++) {
       const routePart = routePathParts[i];
-      const partToResolve = pathPartsToResolve[i];
+      const partToResolve = pathPartsToResolveWithoutLocale[i];
 
       if (partToResolve) {
         if (routePart.charAt(0) === ':') {
