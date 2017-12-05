@@ -67,68 +67,68 @@
 
   $('form').form({
     country: {
-      identifier  : 'country_id',
+      identifier: 'country_id',
       rules: [{
         type: 'empty',
-        prompt: 'Country shan\'t be empty.'
+        prompt: __('validation.required', { attribute: 'country' })
       }]
     },
     currency_id: {
-      identifier  : 'currency_id',
+      identifier: 'currency_id',
       rules: [{
         type: 'empty',
-        prompt: 'Currency shan\'t be empty.'
+        prompt: __('validation.required', { attribute: 'currency' })
       }]
     },
     address_line_1: {
       identifier: 'address_line_1',
       rules: [{
         type: 'empty',
-        prompt: 'Address line 1 shan\'t be empty.'
+        prompt: __('validation.required', { attribute: 'address' })
       }, {
         type: 'maxLength[255]',
-        prompt: 'Address line 1 shan\'t exceed 255 characters.'
+        prompt: __('validation.max.string', { attribute: 'address line 1', max: 255 })
       }]
     },
     address_line_2: {
       identifier: 'address_line_2',
       rules: [{
         type: 'maxLength[255]',
-        prompt: 'Address line 2 shan\'t exceed 255 characters.'
+        prompt: __('validation.max.string', { attribute: 'address line 2', max: 255 })
       }]
     },
     city: {
       identifier: 'city',
       rules: [{
         type: 'empty',
-        prompt: 'City shan\'t be empty.'
+        prompt: __('validation.required', { attribute: 'city' })
       }, {
         type: 'maxLength[255]',
-        prompt: 'City shan\'t exceed 255 characters.'
+        prompt: __('validation.max.string', { attribute: 'city', max: 255 })
       }]
     },
     state: {
       identifier: 'state',
       rules: [{
         type: 'maxLength[255]',
-        prompt: 'State shan\'t exceed 255 characters.'
+        prompt: __('validation.max.string', { attribute: 'state', max: 255 })
       }]
     },
     zip: {
       identifier: 'zip',
       rules: [{
         type: 'empty',
-        prompt: 'Zip shan\'t be empty.'
+        prompt: __('validation.required', { attribute: 'zip' })
       }, {
         type: 'maxLength[15]',
-        prompt: 'Zip shan\'t exceed 15 characters.'
+        prompt: __('validation.max.string', { attribute: 'zip', max: 15 })
       }]
     },
     how_to_find: {
       identifier: 'how_to_find',
       rules: [{
         type: 'maxLength[255]',
-        prompt: 'Entrance description shan\'t exceed 255 characters.'
+        prompt: __('validation.max.string', { attribute: 'entrance description', max: 255 })
       }]
     }
   });
