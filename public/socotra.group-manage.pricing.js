@@ -19,17 +19,17 @@
       identifier: 'title',
       rules: [{
         type: 'empty',
-        prompt: 'Title shan\'t be empty.'
+        prompt: __('validation.required', { attribute: 'title' })
       }, {
         type: 'maxLength[50]',
-        prompt: 'Title shan\'t exceed 50 characters.'
+        prompt: __('validation.max.string', { attribute: 'title', max: 50 })
       }]
     },
     description: {
       identifier: 'description',
       rules: [{
         type: 'maxLength[255]',
-        prompt: 'Description shan\'t exceed 255 characters.'
+        prompt: __('validation.max.string', { attribute: 'description', max: 255 })
       }]
     }
   };
@@ -123,7 +123,7 @@
       optional: true,
       rules: [{
         type: 'isPrice',
-        prompt: 'Price shall be a number.'
+        prompt: __('validation.numeric', { attribute: 'price' })
       }]
     };
   });
