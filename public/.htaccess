@@ -15,11 +15,6 @@
 
     RewriteEngine On
 
-    # Force SSL
-    RewriteCond %{HTTP_HOST} !\.net$ [NC]
-    RewriteCond %{HTTP:X-Forwarded-Proto} !https
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [NE,L,R=301]
-
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]
